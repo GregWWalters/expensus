@@ -15,9 +15,12 @@ interface OwnState {
 
 export class Signup extends React.Component<{}, OwnState> {
   state = {
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
-    error: { email: '', password: '', result: '' },
+    confirmPassword: '',
+    error: { email: '', password: '', confirmPassword: '', result: '' },
   }
 
   handleChange = (e, { name, value }) => {
@@ -25,9 +28,16 @@ export class Signup extends React.Component<{}, OwnState> {
   }
 
   validateForm() {
+    const firstName = this.state.firstName
+    const lastName = this.state.lastName
     const emailValid = validateEmail(this.state.email)
     const passwordValid = Boolean(this.state.password.length > 7)
-    return emailValid && passwordValid
+    const confirmPassword = Boolean(
+      this.state.confirmPassword === this.state.password
+    )
+    return (
+      firstName && lastName && emailValid && passwordValid && confirmPassword
+    )
   }
 
   handleSubmit = () => {
@@ -50,24 +60,45 @@ export class Signup extends React.Component<{}, OwnState> {
           </Header>
           <Form onSubmit={this.handleSubmit}>
             <Form.Input
-              placeholder="email"
+              placeholder="First name"
+              name="firstName"
+              type="text"
+              value={this.state.firstName}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              placeholder="Last Name"
+              name="lastName"
+              type="text"
+              value={this.state.lastName}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              placeholder="Email"
               name="email"
               type="email"
               value={this.state.email}
               onChange={this.handleChange}
             />
             <Form.Input
-              placeholder="password"
+              placeholder="Password"
               name="password"
               type="password"
               value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              placeholder="Confirm password"
+              name="confirmPassword"
+              type="password"
+              value={this.state.confirmPassword}
               onChange={this.handleChange}
             />
             <Message error={true} visible={!!this.state.error.result}>
               {this.state.error.result}
             </Message>
             <Button primary={true} fluid={true} type="submit">
-              Login
+              Signup
             </Button>
             <Message>
               Already have an account? <Link to="/login">Login here</Link>
