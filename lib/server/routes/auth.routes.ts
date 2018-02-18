@@ -1,10 +1,10 @@
+import Koa from 'koa'
 import Router from 'koa-router'
-import { Login, Signup } from '../services/auth.service'
+import AuthController from '../controllers/auth.controller'
 
 const auth = new Router()
 
-auth.post('/login', Login)
-
-auth.post('/signup', Signup)
+auth.post('/login', AuthController.login)
+auth.post('/signup', AuthController.signup)
 
 export default auth

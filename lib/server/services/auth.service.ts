@@ -1,9 +1,8 @@
-import Koa from 'koa'
+import credential from 'credential'
 
-export const Login: Koa.Middleware = async (ctx, next) => {
-  ctx.body = "You've reached the login handler"
-}
+const pw = credential()
 
-export const Signup: Koa.Middleware = async (ctx, next) => {
-  ctx.body = "You've reached the signup handler"
-}
+export const hashPassword = async password => pw.hash(password)
+
+export const verifyPassword = async (hash, password) =>
+  pw.verify(hash, password)

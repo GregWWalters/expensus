@@ -8,7 +8,9 @@ export class User extends BaseEntity {
 
   @Column() lastName: string
 
-  @Column() email: string
+  @Column({ unique: true })
+  email: string
 
-  @Column() password: string
+  @Column({ type: 'json', nullable: true })
+  passwordHash: string
 }

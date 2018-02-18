@@ -1,5 +1,6 @@
 import { createAction } from 'redux-act'
 import { ThunkAction } from 'redux-thunk'
+import { LoginParams, SignupParams } from '../../types/api/auth.types'
 import State from '../../types/state'
 import req from '../api/req'
 import {
@@ -27,11 +28,6 @@ export const authenticateApi = (
   dispatch(setApiToken(token))
 }
 
-export interface LoginParams {
-  email: string
-  password: string
-}
-
 export const submitLogin = (
   params: LoginParams
 ): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {
@@ -42,13 +38,6 @@ export const submitLogin = (
   const resp = await req.post('/auth/login', params)
   console.log('Response: ', resp)
   dispatch(loginSuccess())
-}
-
-export interface SignupParams {
-  email: string
-  password: string
-  firstName: string
-  lastName: string
 }
 
 export const submitSignup = (

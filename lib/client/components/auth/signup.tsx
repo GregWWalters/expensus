@@ -2,8 +2,9 @@ import React from 'react'
 import { connect, Dispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
+import { SignupParams } from '../../../types/api/auth.types'
 import State from '../../../types/state'
-import { submitSignup, SignupParams } from '../../actions/AuthActions'
+import { submitSignup } from '../../actions/AuthActions'
 import {
   selectSignupError,
   selectSignupSubmitting,
