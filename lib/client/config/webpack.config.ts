@@ -1,3 +1,4 @@
+import 'dotenv/config' // TODO: make sure this doesnt override production envs
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
@@ -36,6 +37,11 @@ const config: webpack.Configuration = {
   plugins: [
     new HtmlWebpackPlugin({ template: 'index.template.html' }),
     new ExtractTextPlugin('styles.css'),
+    new webpack.DefinePlugin({
+      'process.env': {
+        API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
+      },
+    }),
   ],
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.scss'],
