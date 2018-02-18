@@ -1,7 +1,27 @@
 import React from 'react'
+import { connect, Dispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
+import State from '../../../types/state'
+import { submitSignup, SignupParams } from '../../actions/AuthActions'
+import {
+  selectSignupError,
+  selectSignupSubmitting,
+  selectSignupSuccess,
+} from '../../state/selectors/auth'
 import { validateEmail } from '../../utils/validate'
+
+interface StateProps {
+  signupSubmitting: boolean
+  signupSuccess: boolean
+  signupError: string | null
+}
+
+interface DispatchProps {
+  submitSignup: (params: SignupParams) => void
+}
+
+type Props = StateProps & DispatchProps
 
 interface OwnState {
   email: string
@@ -13,7 +33,7 @@ interface OwnState {
   }
 }
 
-export class Signup extends React.Component<{}, OwnState> {
+class Signup extends React.Component<Props, OwnState> {
   state = {
     firstName: '',
     lastName: '',
@@ -46,8 +66,17 @@ export class Signup extends React.Component<{}, OwnState> {
         email: this.state.email,
         password: this.state.password,
       })
+      console.log('Submitting!')
+      this.props.submitSignup({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        password: this.state.password,
+      })
     } else {
-      this.setState({ error: { ...this.state.error, result: 'Form invalid' } })
+      this.setState({
+        error: { ...this.state.error, result: 'Form invalid' },
+      })
     }
   }
 
@@ -97,6 +126,9 @@ export class Signup extends React.Component<{}, OwnState> {
             <Message error={true} visible={!!this.state.error.result}>
               {this.state.error.result}
             </Message>
+            <Message error={true} visible={!!this.props.signupError}>
+              {this.props.signupError}
+            </Message>
             <Button primary={true} fluid={true} type="submit">
               Signup
             </Button>
@@ -109,3 +141,16 @@ export class Signup extends React.Component<{}, OwnState> {
     )
   }
 }
+
+const connected = connect<StateProps, DispatchProps, {}, State>(
+  state => ({
+    signupError: selectSignupError(state),
+    signupSubmitting: selectSignupSubmitting(state),
+    signupSuccess: selectSignupSuccess(state),
+  }),
+  (dispatch: Dispatch<State>) => ({
+    submitSignup: params => dispatch(submitSignup(params)),
+  })
+)(Signup)
+
+export { connected as Signup }

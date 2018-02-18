@@ -46,6 +46,10 @@
     "@types/keygrip" "*"
     "@types/node" "*"
 
+"@types/credential@^0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@types/credential/-/credential-0.0.32.tgz#376c0074f7261d6d6dfb9780b0309a499e7c1583"
+
 "@types/dotenv@^4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-4.0.2.tgz#f2983f0afe9fd7f6eb8aef515a4d77f4cbaa0597"
@@ -1369,7 +1373,7 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@2.14.x, commander@^2.12.1, commander@^2.9.0, commander@~2.14.1:
+commander@2.14.x, commander@^2.12.1, commander@^2.8.1, commander@^2.9.0, commander@~2.14.1:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.14.1.tgz#2235123e37af8ca3c65df45b026dbd357b01b9aa"
 
@@ -1544,6 +1548,16 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+credential@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/credential/-/credential-2.0.0.tgz#0dc30012e1b3caf3a8c4fa088a0ac158fee3ee46"
+  dependencies:
+    commander "^2.8.1"
+    mout "1.0.0"
+    pify "^2.3.0"
+    pinkie-promise "^2.0.0"
+    pluck-keys "^0.0.4"
 
 cross-spawn@^3.0.0:
   version "3.0.1"
@@ -4680,6 +4694,10 @@ moment@^2.20.1:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
+mout@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mout/-/mout-1.0.0.tgz#9bdf1d4af57d66d47cb353a6335a3281098e1501"
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -5377,7 +5395,7 @@ pgpass@1.x:
   dependencies:
     split "^1.0.0"
 
-pify@^2.0.0:
+pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
 
@@ -5400,6 +5418,10 @@ pkg-dir@^2.0.0:
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-2.0.0.tgz#f6d5d1109e19d63edf428e0bd57e12777615334b"
   dependencies:
     find-up "^2.1.0"
+
+pluck-keys@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/pluck-keys/-/pluck-keys-0.0.4.tgz#0077a43cd127c826f1f54cd9c0959757adc0d519"
 
 pn@^1.1.0:
   version "1.1.0"

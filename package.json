@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "ts-node-dev --no-notify lib/server",
-    "webpack:watch":
-      "webpack --config lib/client/config/webpack.config.ts --watch --colors",
+    "webpack:watch": "webpack --config lib/client/config/webpack.config.ts --watch --colors",
     "test": "jest",
     "test:watch": "jest --watch",
     "typecheck:server": "tsc --noEmit --project tsconfig.json",
@@ -17,8 +16,18 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-    "setupFiles": ["./test/test-setup.ts", "jest-localstorage-mock"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "setupFiles": [
+      "./test/test-setup.ts",
+      "jest-localstorage-mock"
+    ],
     "testURL": "https://sdk.loyaltylion.dev"
   },
   "importSort": {
@@ -44,6 +53,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "classnames": "^2.2.5",
+    "credential": "^2.0.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-favicon": "^2.0.0",
@@ -68,6 +78,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
+    "@types/credential": "^0.0.32",
     "@types/dotenv": "^4.0.2",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.2",

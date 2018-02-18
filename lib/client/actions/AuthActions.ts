@@ -39,7 +39,7 @@ export const submitLogin = (
   if (selectLoginSubmitting(state)) return
 
   dispatch(loginSubmit())
-  const resp = await req.post('/login', params)
+  const resp = await req.post('/auth/login', params)
   console.log('Response: ', resp)
   dispatch(loginSuccess())
 }
@@ -58,7 +58,11 @@ export const submitSignup = (
   if (selectSignupSubmitting(state)) return
 
   dispatch(signupSubmit())
-  const resp = await req.post('/signup', params)
-  console.log('Response: ', resp)
-  dispatch(signupSuccess())
+  try {
+    const resp = await req.post('/auth/signup', params)
+    console.log('Response: ', resp)
+    dispatch(signupSuccess())
+  } catch (e) {
+    console.log('error: ', e)
+  }
 }
