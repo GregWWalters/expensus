@@ -10,8 +10,8 @@ import {
 import '../css/index.scss'
 import State from '../types/state'
 import UserState from '../types/state/user'
-import { Login } from './components/login/login'
-import { Signup } from './components/login/signup'
+import { Login } from './components/auth/login'
+import { Signup } from './components/auth/signup'
 import { selectMaybeUser } from './state/selectors/user'
 
 interface StateProps {
