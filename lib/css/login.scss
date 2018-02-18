@@ -1,0 +1,8 @@
+@import './base';
+
+.login {
+  &__header {
+    font-size: 1.5em;
+    color: $main-color;
+  }
+}

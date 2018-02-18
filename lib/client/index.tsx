@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import App from './app'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { App } from './app'
 import configureStore from './state/store'
 
 const store = configureStore()
@@ -12,7 +13,9 @@ window['dev'] = { store }
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById('app')
 )

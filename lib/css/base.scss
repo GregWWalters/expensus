@@ -1,0 +1,30 @@
+/* Colors: https://coolors.co/4c6085-39a0ed-36f1cd-13c4a3-32322c */
+$main-color: #39a0ed;
+$main-color-dark: darken($main-color, 4%);
+$main-color-darker: darken($main-color, 8%);
+$main-color-darkest: darken($main-color, 15%);
+
+$contrast-color: #36f1cd;
+$contrast-color-dark: darken($contrast-color, 4%);
+$contrast-color-darker: darken($contrast-color, 8%);
+$contrast-color-darkest: darken($contrast-color, 15%);
+
+$color3: #4c6085;
+$color4: #13c4a3;
+$color5: #32322c;
+$warning-red: rgb(217, 83, 79);
+$pending-grey: #ababab;
+
+$z-index-base: 1000;
+$z-index-screen: 100000;
+$z-index-modal: $z-index-screen + 1;
+$z-index-action: $z-index-screen + 2;
+$z-index-alert: $z-index-screen + 3;
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
