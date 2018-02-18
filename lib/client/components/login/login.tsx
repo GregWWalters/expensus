@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
 import { validateEmail } from '../../utils/validate'
 
@@ -12,7 +13,7 @@ interface OwnState {
   }
 }
 
-export default class Login extends React.Component<{}, OwnState> {
+export class Login extends React.Component<{}, OwnState> {
   state = {
     email: '',
     password: '',
@@ -68,6 +69,9 @@ export default class Login extends React.Component<{}, OwnState> {
             <Button primary={true} fluid={true} type="submit">
               Login
             </Button>
+            <Message>
+              Don't have an account? <Link to="/signup">Sign up here</Link>
+            </Message>
           </Form>
         </Grid.Column>
       </Grid>
