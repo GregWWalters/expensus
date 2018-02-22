@@ -50,7 +50,6 @@ interface SignupContext extends Koa.Context {
 AuthController.signup = async (ctx: SignupContext, next) => {
   const { email, password, firstName, lastName } = ctx.request.body
   const user = await User.findOne({ email })
-  console.log('user: ', user)
   if (user) {
     ctx.throw(422, 'Email address taken')
   } else {

@@ -23,20 +23,31 @@ type Props = StateProps & RouteComponentProps<{}>
 class App extends React.Component<Props> {
   render() {
     const { user } = this.props
-    return user ? <div>Authed</div> : this.renderLoginSignup()
+    if (user) {
+      return (
+        <Switch>
+          <Route
+            path="/home"
+            render={() => (
+              <div>
+                Welcome to Expensus!{' '}
+                {this.props.user && this.props.user.firstName}
+              </div>
+            )}
+          />
+          <Redirect to="/home" />
+        </Switch>
+      )
+    } else {
+      return (
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Redirect to="/login" />
+        </Switch>
+      )
+    }
   }
-
-  renderLoginSignup() {
-    return (
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Redirect to="/login" />
-      </Switch>
-    )
-  }
-
-  // renderAuthedApp() {}
 }
 
 const connected = withRouter(

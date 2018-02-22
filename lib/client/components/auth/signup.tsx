@@ -26,62 +26,20 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps
 
 interface OwnState {
+  confirmPassword: string
   email: string
-  password: string
   error: {
-    email: string
-    password: string
-    result: string
+    email: boolean
+    password: boolean
+    confirmPassword: boolean
+    message: string
   }
+  firstName: string
+  lastName: string
+  password: string
 }
 
 class Signup extends React.Component<Props, OwnState> {
-  state = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    error: { email: '', password: '', confirmPassword: '', result: '' },
-  }
-
-  handleChange = (e, { name, value }) => {
-    this.setState({ [name]: value })
-  }
-
-  validateForm() {
-    const firstName = this.state.firstName
-    const lastName = this.state.lastName
-    const emailValid = validateEmail(this.state.email)
-    const passwordValid = Boolean(this.state.password.length > 7)
-    const confirmPassword = Boolean(
-      this.state.confirmPassword === this.state.password
-    )
-    return (
-      firstName && lastName && emailValid && passwordValid && confirmPassword
-    )
-  }
-
-  handleSubmit = () => {
-    if (this.validateForm()) {
-      console.log('Form valid, data: ', {
-        email: this.state.email,
-        password: this.state.password,
-      })
-      console.log('Submitting!')
-      this.props.submitSignup({
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        password: this.state.password,
-      })
-    } else {
-      this.setState({
-        error: { ...this.state.error, result: 'Form invalid' },
-      })
-    }
-  }
-
   render() {
     return (
       <Grid textAlign="center" className="h100" verticalAlign="middle">
@@ -125,15 +83,23 @@ class Signup extends React.Component<Props, OwnState> {
               value={this.state.confirmPassword}
               onChange={this.handleChange}
             />
-            <Message error={true} visible={!!this.state.error.result}>
-              {this.state.error.result}
-            </Message>
-            <Message error={true} visible={!!this.props.signupError}>
-              {this.props.signupError}
-            </Message>
-            <Button primary={true} fluid={true} type="submit">
+            <Button
+              primary={true}
+              fluid={true}
+              loading={this.props.signupSubmitting}
+              type="submit"
+              disabled={!this.validateForm()}>
               Signup
             </Button>
+            <Message error={true} visible={this.passwordsDontMatch()}>
+              Passwords must match
+            </Message>
+            <Message error={true} visible={this.passwordLengthWarning()}>
+              Password must be at least 8 characters
+            </Message>
+            <Message error={true} visible={!!this.props.signupError}>
+              {this.handleSignupError()}
+            </Message>
             <Message>
               Already have an account? <Link to="/login">Login here</Link>
             </Message>
@@ -141,6 +107,76 @@ class Signup extends React.Component<Props, OwnState> {
         </Grid.Column>
       </Grid>
     )
+  }
+
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  state = {
+    confirmPassword: '',
+    email: '',
+    error: {
+      email: false,
+      password: false,
+      confirmPassword: false,
+      message: '',
+    },
+    firstName: '',
+    lastName: '',
+    password: '',
+  }
+
+  handleChange(e, { name, value }) {
+    this.setState({ [name]: value })
+  }
+
+  validateForm() {
+    const firstName = this.state.firstName
+    const lastName = this.state.lastName
+    const emailValid = validateEmail(this.state.email)
+    const passwordValid = Boolean(this.state.password.length > 7)
+    const confirmPassword = Boolean(
+      this.state.confirmPassword === this.state.password
+    )
+    return (
+      firstName && lastName && emailValid && passwordValid && confirmPassword
+    )
+  }
+
+  passwordsDontMatch() {
+    return (
+      this.state.password.length > 0 &&
+      this.state.confirmPassword.length > 0 &&
+      this.state.password !== this.state.confirmPassword
+    )
+  }
+
+  passwordLengthWarning() {
+    return this.state.password.length > 0 && this.state.password.length < 8
+  }
+
+  handleSubmit() {
+    if (this.validateForm()) {
+      this.props.submitSignup({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        password: this.state.password,
+      })
+    }
+  }
+
+  handleSignupError() {
+    const err = this.props.signupError
+    if (!err) return null
+    if (err.type === 'client_error' && err.message.includes('422')) {
+      return 'Email address taken, please try again'
+    } else {
+      return 'Sorry! Something went wrong, please try again.'
+    }
   }
 }
 

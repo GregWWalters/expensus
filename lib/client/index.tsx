@@ -10,7 +10,6 @@ const store = configureStore()
 // adding a dev object to window to support debugging
 // tslint:disable-next-line:no-string-literal
 window['dev'] = { store }
-console.log('process.env.API_BASE_URL: ', process.env.API_BASE_URL)
 
 ReactDOM.render(
   <Provider store={store}>

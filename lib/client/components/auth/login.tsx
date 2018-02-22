@@ -30,44 +30,13 @@ interface OwnState {
   email: string
   password: string
   error: {
-    email: string
-    password: string
-    result: string
+    email: boolean
+    password: boolean
+    message: string
   }
 }
 
 class Login extends React.Component<Props, OwnState> {
-  state = {
-    email: '',
-    password: '',
-    error: { email: '', password: '', result: '' },
-  }
-
-  handleChange = (e, { name, value }) => {
-    this.setState({ [name]: value })
-  }
-
-  validateForm() {
-    const emailValid = validateEmail(this.state.email)
-    const passwordValid = Boolean(this.state.password.length > 7)
-    return emailValid && passwordValid
-  }
-
-  handleSubmit = () => {
-    if (this.validateForm()) {
-      console.log('Form valid, data: ', {
-        email: this.state.email,
-        password: this.state.password,
-      })
-      this.props.submitLogin({
-        email: this.state.email,
-        password: this.state.password,
-      })
-    } else {
-      this.setState({ error: { ...this.state.error, result: 'Form invalid' } })
-    }
-  }
-
   render() {
     return (
       <Grid textAlign="center" className="h100" verticalAlign="middle">
@@ -90,10 +59,15 @@ class Login extends React.Component<Props, OwnState> {
               value={this.state.password}
               onChange={this.handleChange}
             />
-            <Message error={true} visible={!!this.state.error.result}>
-              {this.state.error.result}
+            <Message error={true} visible={!!this.props.loginError}>
+              {this.handleLoginError()}
             </Message>
-            <Button primary={true} fluid={true} type="submit">
+            <Button
+              primary={true}
+              fluid={true}
+              loading={this.props.loginSubmitting}
+              type="submit"
+              disabled={!this.validateForm()}>
               Login
             </Button>
             <Message>
@@ -103,6 +77,47 @@ class Login extends React.Component<Props, OwnState> {
         </Grid.Column>
       </Grid>
     )
+  }
+
+  constructor(props) {
+    super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  state = {
+    email: '',
+    password: '',
+    error: { email: false, password: false, message: '' },
+  }
+
+  handleChange(e, { name, value }) {
+    this.setState({ [name]: value })
+  }
+
+  validateForm() {
+    const emailValid = validateEmail(this.state.email)
+    const passwordValid = Boolean(this.state.password.length > 7)
+    return emailValid && passwordValid
+  }
+
+  handleSubmit() {
+    if (this.validateForm()) {
+      this.props.submitLogin({
+        email: this.state.email,
+        password: this.state.password,
+      })
+    }
+  }
+
+  handleLoginError() {
+    const err = this.props.loginError
+    if (!err) return null
+    if (err.type === 'unauthorized') {
+      return 'Email address or password incorrect, please try again.'
+    } else {
+      return 'Sorry! Something went wrong, please try again.'
+    }
   }
 }
 
