@@ -5,9 +5,7 @@ import createConnectionOptions from './db/createConnectionOptions'
 
 import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
-import favicon from 'koa-favicon'
 import logger from 'koa-logger'
-import path from 'path'
 import router from './routes'
 
 const app = new Koa()

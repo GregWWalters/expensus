@@ -1,22 +1,25 @@
 import { createAction } from 'redux-act'
 import { ThunkAction } from 'redux-thunk'
+import { ClientApiError } from '../../types/api'
 import { LoginParams, SignupParams } from '../../types/api/auth.types'
 import State from '../../types/state'
 import req from '../api/req'
+import AuthResource from '../api/resources/auth.resource'
 import {
   selectLoginSubmitting,
   selectSignupSubmitting,
 } from '../state/selectors/auth'
+import { setUser } from './UserActions'
 
 // BASIC ACTIONS
 export const setApiToken = createAction<string>('SET_API_TOKEN')
 export const loginSubmit = createAction('LOGIN_SUBMIT')
 export const loginSuccess = createAction('LOGIN_SUCCESS')
-export const loginError = createAction<string>('LOGIN_ERROR')
+export const loginError = createAction<ClientApiError>('LOGIN_ERROR')
 export const clearLoginState = createAction('CLEAR_LOGIN_STATE')
 export const signupSubmit = createAction('SIGNUP_SUBMIT')
 export const signupSuccess = createAction('SIGNUP_SUCCESS')
-export const signupError = createAction<string>('SIGNUP_ERROR')
+export const signupError = createAction<ClientApiError>('SIGNUP_ERROR')
 export const clearSignupState = createAction('CLEAR_SIGNUP_STATE')
 
 // THUNK ACTIONS
@@ -33,10 +36,17 @@ export const submitLogin = (
 ): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {
   const state = getState()
   if (selectLoginSubmitting(state)) return
-
   dispatch(loginSubmit())
-  const resp = await req.post('/auth/login', params)
-  console.log('Response: ', resp)
+  const authApi = new AuthResource(state, dispatch)
+  const resp = await authApi.login(params)
+
+  if ('err' in resp) {
+    dispatch(loginError(resp.err))
+    return
+  }
+
+  dispatch(setApiToken(resp.apiToken))
+  dispatch(setUser(resp.user))
   dispatch(loginSuccess())
 }
 
@@ -45,13 +55,16 @@ export const submitSignup = (
 ): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {
   const state = getState()
   if (selectSignupSubmitting(state)) return
-
   dispatch(signupSubmit())
-  try {
-    const resp = await req.post('/auth/signup', params)
-    console.log('Response: ', resp)
-    dispatch(signupSuccess())
-  } catch (e) {
-    console.log('error: ', e)
+  const authApi = new AuthResource(state, dispatch)
+  const resp = await authApi.signup(params)
+
+  if ('err' in resp) {
+    dispatch(signupError(resp.err))
+    return
   }
+
+  dispatch(setApiToken(resp.apiToken))
+  dispatch(setUser(resp.user))
+  dispatch(signupSuccess())
 }

@@ -1,7 +1,30 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Dispatch } from 'redux'
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
+import { ClientApiError } from '../../../types/api'
+import { LoginParams } from '../../../types/api/auth.types'
+import State from '../../../types/state'
+import { submitLogin } from '../../actions/AuthActions'
+import {
+  selectLoginError,
+  selectLoginSubmitting,
+  selectLoginSuccess,
+} from '../../state/selectors/auth'
 import { validateEmail } from '../../utils/validate'
+
+interface StateProps {
+  loginSubmitting: boolean
+  loginSuccess: boolean
+  loginError: ClientApiError | null
+}
+
+interface DispatchProps {
+  submitLogin: (params: LoginParams) => void
+}
+
+type Props = StateProps & DispatchProps
 
 interface OwnState {
   email: string
@@ -13,7 +36,7 @@ interface OwnState {
   }
 }
 
-export class Login extends React.Component<{}, OwnState> {
+class Login extends React.Component<Props, OwnState> {
   state = {
     email: '',
     password: '',
@@ -33,6 +56,10 @@ export class Login extends React.Component<{}, OwnState> {
   handleSubmit = () => {
     if (this.validateForm()) {
       console.log('Form valid, data: ', {
+        email: this.state.email,
+        password: this.state.password,
+      })
+      this.props.submitLogin({
         email: this.state.email,
         password: this.state.password,
       })
@@ -78,3 +105,16 @@ export class Login extends React.Component<{}, OwnState> {
     )
   }
 }
+
+const connected = connect<StateProps, DispatchProps, {}, State>(
+  state => ({
+    loginError: selectLoginError(state),
+    loginSubmitting: selectLoginSubmitting(state),
+    loginSuccess: selectLoginSuccess(state),
+  }),
+  (dispatch: Dispatch<State>) => ({
+    submitLogin: params => dispatch(submitLogin(params)),
+  })
+)(Login)
+
+export { connected as Login }

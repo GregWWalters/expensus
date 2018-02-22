@@ -1,5 +1,11 @@
 import Koa from 'koa'
-import { LoginParams, SignupParams } from '../../types/api/auth.types'
+import { pick } from 'lodash'
+import {
+  LoginParams,
+  LoginResponseBody,
+  SignupParams,
+  SignupResponseBody,
+} from '../../types/api/auth.types'
 import { Controller } from '../../types/controller'
 import { User } from '../db/entities/User'
 import { hashPassword, verifyPassword } from '../services/auth.service'
@@ -9,9 +15,9 @@ const AuthController: Controller = {}
 interface LoginRequest extends Koa.Request {
   body: LoginParams
 }
-
 interface LoginContext extends Koa.Context {
   request: LoginRequest
+  body: LoginResponseBody
 }
 
 AuthController.login = async (ctx: LoginContext, next) => {
@@ -25,7 +31,10 @@ AuthController.login = async (ctx: LoginContext, next) => {
       ctx.throw(401)
     } else {
       ctx.status = 200
-      ctx.body = 'Authorized!'
+      ctx.body = {
+        user: pick(user, 'email', 'firstName', 'lastName'),
+        apiToken: 'abc123',
+      }
     }
   }
 }
@@ -33,14 +42,15 @@ AuthController.login = async (ctx: LoginContext, next) => {
 interface SignupRequest extends Koa.Request {
   body: SignupParams
 }
-
 interface SignupContext extends Koa.Context {
   request: SignupRequest
+  body: SignupResponseBody
 }
 
 AuthController.signup = async (ctx: SignupContext, next) => {
   const { email, password, firstName, lastName } = ctx.request.body
   const user = await User.findOne({ email })
+  console.log('user: ', user)
   if (user) {
     ctx.throw(422, 'Email address taken')
   } else {
@@ -53,7 +63,8 @@ AuthController.signup = async (ctx: SignupContext, next) => {
     await newUser.save()
     ctx.status = 201
     ctx.body = {
-      user: newUser,
+      user: pick(newUser, 'email', 'firstName', 'lastName'),
+      apiToken: 'abc123',
     }
   }
 }

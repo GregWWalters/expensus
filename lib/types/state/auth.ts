@@ -1,9 +1,11 @@
+import { ClientApiError } from '../api'
+
 export default interface AuthState {
   apiToken: string
-  loginError: string | null
+  loginError: ClientApiError | null
   loginSubmitting: boolean
   loginSuccess: boolean
-  signupError: string | null
+  signupError: ClientApiError | null
   signupSubmitting: boolean
   signupSuccess: boolean
 }

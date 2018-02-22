@@ -1,6 +1,5 @@
 import AuthState from '../../types/state/auth'
 import State from '../../types/state/index'
-import UserState from '../../types/state/user'
 
 export const auth: AuthState = {
   apiToken: '',
