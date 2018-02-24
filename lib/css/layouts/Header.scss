@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+  background: linear-gradient(to right, $main-color-darkest, $main-color);
+
+  .header__title {
+    flex: 1;
+    padding: $padding;
+
+    a {
+      color: $white;
+      font-size: 2rem;
+      font-variant-caps: small-caps;
+    }
+  }
+
+  .header__nav-container {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .header__nav-item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: $white;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 $padding;
+    flex: 0 0 auto;
+
+    &:hover {
+      background-color: $main-color-darker;
+    }
+  }
+}

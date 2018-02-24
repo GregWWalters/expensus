@@ -1,0 +1,35 @@
+.dashboard-nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  background-color: $contrast-color-dark;
+
+  &__nav-item {
+    display: flex;
+    align-items: center;
+    color: $white;
+    border: 1px solid $transparent-20;
+    border-top: none;
+    height: 100%;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 $padding;
+    flex: 0 0 auto;
+
+    &--active {
+      flex: 1;
+    }
+
+    &:hover {
+      background-color: $contrast-color-darker;
+    }
+
+    &:first-child {
+      border-left: none;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
+}

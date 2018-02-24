@@ -12,7 +12,9 @@ import State from '../types/state'
 import UserState from '../types/state/user'
 import { Login } from './components/auth/Login'
 import { Signup } from './components/auth/Signup'
-import { selectMaybeUser } from './state/selectors/user'
+import { Dashboard } from './components/dashboard/Dashboard'
+import { Header } from './components/layouts/Header'
+import { selectUser } from './state/selectors/user'
 
 interface StateProps {
   user: UserState | null
@@ -23,20 +25,17 @@ type Props = StateProps & RouteComponentProps<{}>
 class App extends React.Component<Props> {
   render() {
     const { user } = this.props
-    if (user) {
+    if (!user) {
       return (
-        <Switch>
-          <Route
-            path="/home"
-            render={() => (
-              <div>
-                Welcome to Expensus!{' '}
-                {this.props.user && this.props.user.firstName}
-              </div>
-            )}
-          />
-          <Redirect to="/home" />
-        </Switch>
+        <div>
+          <Header />
+          <Switch>
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/group" render={() => <div>Groups</div>} />
+            <Route path="/user" render={() => <div>User</div>} />
+            <Redirect to="/dashboard" />
+          </Switch>
+        </div>
       )
     } else {
       return (
@@ -53,7 +52,7 @@ class App extends React.Component<Props> {
 const connected = withRouter(
   connect<StateProps, {}, {}, State>(
     state => ({
-      user: selectMaybeUser(state),
+      user: selectUser(state),
     }),
     {}
   )(App)
