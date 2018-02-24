@@ -11,7 +11,8 @@ $contrast-color-darkest: darken($contrast-color, 30%);
 
 $color3: #4c6085;
 $color4: #13c4a3;
-$color5: #32322c;
+
+$black: #32322c;
 
 $white: #fff;
 $white-hover: #eee;
@@ -40,10 +41,24 @@ $z-index-modal: $z-index-screen + 1;
 $z-index-action: $z-index-screen + 2;
 $z-index-alert: $z-index-screen + 3;
 
+// globals
+
 html,
 body {
   height: 100%;
   overflow: hidden;
   padding: 0;
   margin: 0;
+}
+
+* {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+}
+
+// resets
+a:-webkit-any-link {
+  font-family: inherit;
+  text-decoration: none;
 }

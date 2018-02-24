@@ -8,4 +8,10 @@
 @import './shared/input';
 @import './shared/spinner';
 
+// layout components
+@import './layouts/Header';
+
+// components
 @import './login';
+
+@import './dashboard/DashboardNav';
