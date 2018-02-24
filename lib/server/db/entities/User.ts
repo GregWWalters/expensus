@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
+import { Group } from './Group'
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -13,4 +20,7 @@ export class User extends BaseEntity {
 
   @Column({ type: 'json', nullable: true })
   passwordHash: string
+
+  @ManyToOne(type => Group, group => group.users)
+  group: Group
 }
