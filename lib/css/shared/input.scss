@@ -1,0 +1,26 @@
+.text-input {
+  font-size: 1.2rem;
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: $radius;
+  text-align: center;
+  border: 1px solid $main-color;
+  color: $main-color-darkest;
+
+  &--transparent {
+    background-color: $transparent-20;
+    border: 1px solid $transparent-50;
+
+    &:focus {
+      background-color: white;
+      &::-webkit-input-placeholder {
+        color: $pending-grey;
+      }
+    }
+
+    &::-webkit-input-placeholder {
+      color: white;
+    }
+  }
+}

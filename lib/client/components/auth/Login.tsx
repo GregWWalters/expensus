@@ -14,6 +14,7 @@ import {
 import { validateEmail } from '../../utils/validate'
 import { Button } from '../shared/Button'
 import { Message } from '../shared/Message'
+import { TextInput } from '../shared/TextInput'
 
 interface StateProps {
   loginSubmitting: boolean
@@ -39,21 +40,21 @@ class Login extends React.Component<Props, OwnState> {
         <div className="login__container">
           <div className="login__header">Login to your account</div>
           <form className="login__form" onSubmit={this.handleSubmit}>
-            <input
+            <TextInput
+              className="login__input text-input--transparent"
               type="text"
-              className="login__input"
-              placeholder="Email"
               name="email"
+              placeholder="Email"
               onChange={this.handleChange}
             />
-            <input
+            <TextInput
+              className="login__input text-input--transparent"
               type="password"
-              className="login__input"
-              placeholder="Password"
               name="password"
+              placeholder="Password"
               onChange={this.handleChange}
             />
-            <Button type="submit" className="login__button">
+            <Button type="submit" className="login__button btn--light">
               Login
             </Button>
           </form>
@@ -77,8 +78,8 @@ class Login extends React.Component<Props, OwnState> {
   state = { email: '', password: '' }
 
   // TODO: find a way to type this effectively
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value })
+  handleChange(e, { name, value }) {
+    this.setState({ [name]: value })
   }
 
   validateForm() {

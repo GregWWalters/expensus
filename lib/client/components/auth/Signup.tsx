@@ -13,6 +13,7 @@ import {
 import { validateEmail } from '../../utils/validate'
 import { Button } from '../shared/Button'
 import { Message } from '../shared/Message'
+import { TextInput } from '../shared/TextInput'
 
 interface StateProps {
   signupSubmitting: boolean
@@ -41,42 +42,42 @@ class Signup extends React.Component<Props, OwnState> {
         <div className="login__container">
           <div className="login__header">Signup to Expensus</div>
           <form className="login__form" onSubmit={this.handleSubmit}>
-            <input
+            <TextInput
               type="text"
-              className="login__input"
+              className="login__input text-input--transparent"
               placeholder="First Name"
               name="firstName"
               onChange={this.handleChange}
             />
-            <input
+            <TextInput
               type="text"
-              className="login__input"
+              className="login__input text-input--transparent"
               placeholder="Last Name"
               name="lastName"
               onChange={this.handleChange}
             />
-            <input
+            <TextInput
               type="text"
-              className="login__input"
+              className="login__input text-input--transparent"
               placeholder="Email"
               name="email"
               onChange={this.handleChange}
             />
-            <input
+            <TextInput
               type="password"
-              className="login__input"
+              className="login__input text-input--transparent"
               placeholder="Password"
               name="password"
               onChange={this.handleChange}
             />
-            <input
+            <TextInput
               type="password"
-              className="login__input"
+              className="login__input text-input--transparent"
               placeholder="Confirm Password"
               name="confirmPassword"
               onChange={this.handleChange}
             />
-            <Button type="submit" className="login__button">
+            <Button type="submit" className="login__button btn--light">
               Signup
             </Button>
           </form>
@@ -106,8 +107,8 @@ class Signup extends React.Component<Props, OwnState> {
   }
 
   // TODO: find a way to type this effectively
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value })
+  handleChange(e, { name, value }) {
+    this.setState({ [name]: value })
   }
 
   validateForm() {

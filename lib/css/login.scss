@@ -1,7 +1,7 @@
 @import './base';
 
 .login {
-  background: linear-gradient(to bottom right, $main-color, $contrast-color);
+  background: $main-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,33 +12,14 @@
   }
 
   &__header {
-    font-size: 1.8em;
-    color: white;
+    font-size: 2rem;
+    color: $white;
     text-align: center;
     padding: 10px;
   }
 
   &__input {
-    font-size: 1.2em;
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
     margin: 8px 0;
-    background-color: $transparent-20;
-    border: 1px solid $transparent-50;
-    border-radius: 5px;
-    text-align: center;
-
-    &:focus {
-      background-color: white;
-      &::-webkit-input-placeholder {
-        color: $pending-grey-lighter;
-      }
-    }
-
-    &::-webkit-input-placeholder {
-      color: white;
-    }
   }
 
   &__button {
@@ -47,5 +28,6 @@
 
   &__message {
     text-align: center;
+    margin: 8px 0;
   }
 }

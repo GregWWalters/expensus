@@ -1,17 +1,20 @@
 /* Colors: https://coolors.co/4c6085-39a0ed-36f1cd-13c4a3-32322c */
 $main-color: #39a0ed;
-$main-color-dark: darken($main-color, 4%);
-$main-color-darker: darken($main-color, 8%);
-$main-color-darkest: darken($main-color, 15%);
+$main-color-dark: darken($main-color, 10%);
+$main-color-darker: darken($main-color, 20%);
+$main-color-darkest: darken($main-color, 30%);
 
 $contrast-color: #36f1cd;
-$contrast-color-dark: darken($contrast-color, 4%);
-$contrast-color-darker: darken($contrast-color, 8%);
-$contrast-color-darkest: darken($contrast-color, 15%);
+$contrast-color-dark: darken($contrast-color, 10%);
+$contrast-color-darker: darken($contrast-color, 20%);
+$contrast-color-darkest: darken($contrast-color, 30%);
 
 $color3: #4c6085;
 $color4: #13c4a3;
 $color5: #32322c;
+
+$white: #fff;
+$white-hover: #eee;
 
 $error-red: rgb(217, 83, 79);
 $error-red-background: lighten($error-red, 35%);
@@ -23,6 +26,13 @@ $pending-grey-lighter: lighten($pending-grey, 20%);
 $transparent-20: rgba(255, 255, 255, 0.2);
 $transparent-50: rgba(255, 255, 255, 0.5);
 $transparent-75: rgba(255, 255, 255, 0.75);
+
+$radius: 5px;
+$radius-tight: 10px;
+
+$padding: 1rem;
+$padding-tight: 0.7rem;
+$padding-loose: 1.3rem;
 
 $z-index-base: 1000;
 $z-index-screen: 100000;

@@ -1,20 +1,45 @@
 @import '../base';
+@import './shadow';
 
 .btn {
-  padding: 8px 15px;
-  border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+  border-radius: $radius;
   background-color: $main-color;
   border-color: $main-color;
-  color: white;
+  color: $white;
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1.2rem;
+
+  &:hover {
+    background-color: $main-color-darker;
+  }
+
+  &:active {
+    @include shadow-inset;
+  }
+
+  &--secondary {
+    background-color: $contrast-color;
+    border-color: $contrast-color;
+
+    &:hover {
+      background-color: $contrast-color-darkest;
+      border-color: $contrast-color-darkest;
+    }
+  }
+
+  &--light {
+    background-color: $white;
+    border-color: $main-color;
+    color: $main-color;
+
+    &:hover {
+      background-color: $white-hover;
+    }
+  }
 
   &--disabled {
     background-color: $pending-grey;
     cursor: default;
-  }
-
-  &:hover {
-    background-color: $main-color-darker;
   }
 }

@@ -2,11 +2,10 @@
 
 .message {
   background-color: $transparent-50;
-  font-size: 1.1em;
+  font-size: 1.1rem;
   border: 1px solid $pending-grey;
-  border-radius: 5px;
-  padding: 12px 20px;
-  margin: 10px 0;
+  border-radius: $radius;
+  padding: $padding;
 
   &--error {
     background-color: $error-red-background;
