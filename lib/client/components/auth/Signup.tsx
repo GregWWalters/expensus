@@ -85,7 +85,10 @@ class Signup extends React.Component<Props, OwnState> {
               Signup
             </Button>
           </form>
-          <Message visible={!!this.props.signupError} type="error">
+          <Message
+            className="login__message"
+            visible={!!this.props.signupError}
+            type="error">
             {this.handleSignupError()}
           </Message>
           <Message className="login__message">
@@ -140,7 +143,8 @@ class Signup extends React.Component<Props, OwnState> {
     return this.state.password.length > 0 && this.state.password.length < 8
   }
 
-  handleSubmit() {
+  handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault()
     if (this.validateForm()) {
       this.props.submitSignup({
         firstName: this.state.firstName,

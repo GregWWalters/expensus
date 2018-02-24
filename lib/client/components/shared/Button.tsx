@@ -11,7 +11,7 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any
 }
 
-export const Button: React.SFC<Props> = ({
+const Button: React.SFC<Props> = ({
   children,
   className,
   disabled = false,
@@ -29,3 +29,5 @@ export const Button: React.SFC<Props> = ({
     {children}
   </button>
 )
+
+export { Button }

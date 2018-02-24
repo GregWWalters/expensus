@@ -17,7 +17,7 @@ interface Props {
   type: HTMLInputElement['type']
 }
 
-export const TextInput: React.SFC<Props> = ({
+const TextInput: React.SFC<Props> = ({
   className,
   name,
   onChange,
@@ -34,3 +34,5 @@ export const TextInput: React.SFC<Props> = ({
     }}
   />
 )
+
+export { TextInput }

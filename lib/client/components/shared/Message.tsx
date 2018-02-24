@@ -8,7 +8,7 @@ interface Props {
   visible?: boolean
 }
 
-export const Message: React.SFC<Props> = ({
+const Message: React.SFC<Props> = ({
   children,
   className,
   type = 'normal',
@@ -23,3 +23,5 @@ export const Message: React.SFC<Props> = ({
       {children}
     </div>
   ) : null
+
+export { Message }
