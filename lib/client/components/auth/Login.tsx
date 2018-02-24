@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Dispatch } from 'redux'
-import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
 import { ClientApiError } from '../../../types/api'
 import { LoginParams } from '../../../types/api/auth.types'
 import State from '../../../types/state'
@@ -13,6 +12,8 @@ import {
   selectLoginSuccess,
 } from '../../state/selectors/auth'
 import { validateEmail } from '../../utils/validate'
+import { Button } from '../shared/Button'
+import { Message } from '../shared/Message'
 
 interface StateProps {
   loginSubmitting: boolean
@@ -29,53 +30,41 @@ type Props = StateProps & DispatchProps
 interface OwnState {
   email: string
   password: string
-  error: {
-    email: boolean
-    password: boolean
-    message: string
-  }
 }
 
 class Login extends React.Component<Props, OwnState> {
   render() {
     return (
-      <Grid textAlign="center" className="h100" verticalAlign="middle">
-        <Grid.Column style={{ maxWidth: 450 }}>
-          <Header size="large" color="blue" className="login__header">
-            Login to your account
-          </Header>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Input
-              placeholder="email"
+      <div className="login h100">
+        <div className="login__container">
+          <div className="login__header">Login to your account</div>
+          <form className="login__form" onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              className="login__input"
+              placeholder="Email"
               name="email"
-              type="email"
-              value={this.state.email}
               onChange={this.handleChange}
             />
-            <Form.Input
-              placeholder="password"
-              name="password"
+            <input
               type="password"
-              value={this.state.password}
+              className="login__input"
+              placeholder="Password"
+              name="password"
               onChange={this.handleChange}
             />
-            <Message error={true} visible={!!this.props.loginError}>
-              {this.handleLoginError()}
-            </Message>
-            <Button
-              primary={true}
-              fluid={true}
-              loading={this.props.loginSubmitting}
-              type="submit"
-              disabled={!this.validateForm()}>
+            <Button type="submit" className="login__button">
               Login
             </Button>
-            <Message>
-              Don't have an account? <Link to="/signup">Sign up here</Link>
-            </Message>
-          </Form>
-        </Grid.Column>
-      </Grid>
+          </form>
+          <Message visible={!!this.props.loginError} type="error">
+            {this.handleLoginError()}
+          </Message>
+          <Message className="login__message">
+            Don't have an account? <Link to="/signup">Sign up here</Link>
+          </Message>
+        </div>
+      </div>
     )
   }
 
@@ -85,14 +74,11 @@ class Login extends React.Component<Props, OwnState> {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  state = {
-    email: '',
-    password: '',
-    error: { email: false, password: false, message: '' },
-  }
+  state = { email: '', password: '' }
 
-  handleChange(e, { name, value }) {
-    this.setState({ [name]: value })
+  // TODO: find a way to type this effectively
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   validateForm() {
@@ -101,7 +87,8 @@ class Login extends React.Component<Props, OwnState> {
     return emailValid && passwordValid
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e && e.preventDefault()
     if (this.validateForm()) {
       this.props.submitLogin({
         email: this.state.email,

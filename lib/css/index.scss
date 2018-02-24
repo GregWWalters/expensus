@@ -1,4 +1,9 @@
 @import './base';
-@import './shared';
+
+// common assets
+@import './shared/layout';
+@import './shared/shadow';
+@import './shared/button';
+@import './shared/message';
 
 @import './login';

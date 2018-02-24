@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect, Dispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
 import { ClientApiError } from '../../../types/api'
 import { SignupParams } from '../../../types/api/auth.types'
 import State from '../../../types/state'
@@ -12,6 +11,8 @@ import {
   selectSignupSuccess,
 } from '../../state/selectors/auth'
 import { validateEmail } from '../../utils/validate'
+import { Button } from '../shared/Button'
+import { Message } from '../shared/Message'
 
 interface StateProps {
   signupSubmitting: boolean
@@ -28,12 +29,6 @@ type Props = StateProps & DispatchProps
 interface OwnState {
   confirmPassword: string
   email: string
-  error: {
-    email: boolean
-    password: boolean
-    confirmPassword: boolean
-    message: string
-  }
   firstName: string
   lastName: string
   password: string
@@ -42,70 +37,57 @@ interface OwnState {
 class Signup extends React.Component<Props, OwnState> {
   render() {
     return (
-      <Grid textAlign="center" className="h100" verticalAlign="middle">
-        <Grid.Column style={{ maxWidth: 450 }}>
-          <Header size="large" color="blue" className="login__header">
-            Signup
-          </Header>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Input
-              placeholder="First name"
-              name="firstName"
+      <div className="login h100">
+        <div className="login__container">
+          <div className="login__header">Signup to Expensus</div>
+          <form className="login__form" onSubmit={this.handleSubmit}>
+            <input
               type="text"
-              value={this.state.firstName}
+              className="login__input"
+              placeholder="First Name"
+              name="firstName"
               onChange={this.handleChange}
             />
-            <Form.Input
+            <input
+              type="text"
+              className="login__input"
               placeholder="Last Name"
               name="lastName"
-              type="text"
-              value={this.state.lastName}
               onChange={this.handleChange}
             />
-            <Form.Input
+            <input
+              type="text"
+              className="login__input"
               placeholder="Email"
               name="email"
-              type="email"
-              value={this.state.email}
               onChange={this.handleChange}
             />
-            <Form.Input
+            <input
+              type="password"
+              className="login__input"
               placeholder="Password"
               name="password"
-              type="password"
-              value={this.state.password}
               onChange={this.handleChange}
             />
-            <Form.Input
-              placeholder="Confirm password"
+            <input
+              type="password"
+              className="login__input"
+              placeholder="Confirm Password"
               name="confirmPassword"
-              type="password"
-              value={this.state.confirmPassword}
               onChange={this.handleChange}
             />
-            <Button
-              primary={true}
-              fluid={true}
-              loading={this.props.signupSubmitting}
-              type="submit"
-              disabled={!this.validateForm()}>
+            <Button type="submit" className="login__button">
               Signup
             </Button>
-            <Message error={true} visible={this.passwordsDontMatch()}>
-              Passwords must match
-            </Message>
-            <Message error={true} visible={this.passwordLengthWarning()}>
-              Password must be at least 8 characters
-            </Message>
-            <Message error={true} visible={!!this.props.signupError}>
-              {this.handleSignupError()}
-            </Message>
-            <Message>
-              Already have an account? <Link to="/login">Login here</Link>
-            </Message>
-          </Form>
-        </Grid.Column>
-      </Grid>
+          </form>
+          <Message visible={!!this.props.signupError} type="error">
+            {this.handleSignupError()}
+          </Message>
+          <Message className="login__message">
+            Already have an account? <Link to="/login">Login here</Link>
+          </Message>
+        </div>
+      </div>
     )
   }
 
@@ -118,19 +100,14 @@ class Signup extends React.Component<Props, OwnState> {
   state = {
     confirmPassword: '',
     email: '',
-    error: {
-      email: false,
-      password: false,
-      confirmPassword: false,
-      message: '',
-    },
     firstName: '',
     lastName: '',
     password: '',
   }
 
-  handleChange(e, { name, value }) {
-    this.setState({ [name]: value })
+  // TODO: find a way to type this effectively
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   validateForm() {

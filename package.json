@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "ts-node-dev --no-notify lib/server",
-    "webpack:watch":
-      "webpack --config lib/client/config/webpack.config.ts --watch --colors",
+    "webpack:watch": "webpack --config lib/client/config/webpack.config.ts --watch --colors",
     "test": "jest",
     "test:watch": "jest --watch",
     "typecheck:server": "tsc --noEmit --project tsconfig.json",
@@ -17,8 +16,18 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-    "setupFiles": ["./test/test-setup.ts", "jest-localstorage-mock"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "setupFiles": [
+      "./test/test-setup.ts",
+      "jest-localstorage-mock"
+    ],
     "testURL": "https://sdk.loyaltylion.dev"
   },
   "importSort": {
@@ -43,6 +52,7 @@
   "homepage": "https://github.com/jaredmeek/expensus#readme",
   "dependencies": {
     "axios": "^0.17.1",
+    "classname": "^0.0.0",
     "classnames": "^2.2.5",
     "credential": "^2.0.0",
     "koa": "^2.5.0",
@@ -63,7 +73,6 @@
     "redux-thunk": "^2.2.0",
     "reflect-metadata": "^0.1.12",
     "reselect": "^3.0.1",
-    "semantic-ui-react": "^0.78.2",
     "tslib": "^1.9.0",
     "typeorm": "^0.1.12"
   },

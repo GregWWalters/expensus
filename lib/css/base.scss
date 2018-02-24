@@ -12,8 +12,17 @@ $contrast-color-darkest: darken($contrast-color, 15%);
 $color3: #4c6085;
 $color4: #13c4a3;
 $color5: #32322c;
-$warning-red: rgb(217, 83, 79);
+
+$error-red: rgb(217, 83, 79);
+$error-red-background: lighten($error-red, 35%);
+$warning-yellow: rgb(240, 173, 78);
+$warning-yellow-background: lighten($warning-yellow, 35%);
 $pending-grey: #ababab;
+$pending-grey-lighter: lighten($pending-grey, 20%);
+
+$transparent-20: rgba(255, 255, 255, 0.2);
+$transparent-50: rgba(255, 255, 255, 0.5);
+$transparent-75: rgba(255, 255, 255, 0.75);
 
 $z-index-base: 1000;
 $z-index-screen: 100000;
