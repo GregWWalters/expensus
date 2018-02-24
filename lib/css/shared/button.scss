@@ -39,7 +39,15 @@
   }
 
   &--disabled {
-    background-color: $pending-grey;
+    background-color: $pending-grey-lighter;
+    color: $pending-grey;
     cursor: default;
+    pointer-events: none;
+    &:hover {
+      background-color: $pending-grey-lighter;
+    }
+    &:active {
+      box-shadow: none;
+    }
   }
 }

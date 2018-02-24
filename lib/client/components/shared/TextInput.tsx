@@ -25,7 +25,7 @@ export const TextInput: React.SFC<Props> = ({
   type,
 }) => (
   <input
-    type="text"
+    type={type}
     className={c('text-input', className)}
     placeholder={placeholder}
     name={name}

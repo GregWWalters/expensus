@@ -21,7 +21,7 @@ export const Button: React.SFC<Props> = ({
 }) => (
   <button
     className={c(className, 'btn', {
-      'btn--loading': loading,
+      'btn--loading spinner': loading,
       'btn--disabled': disabled,
     })}
     onClick={disabled ? noop : onClick}

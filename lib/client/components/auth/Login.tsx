@@ -54,11 +54,18 @@ class Login extends React.Component<Props, OwnState> {
               placeholder="Password"
               onChange={this.handleChange}
             />
-            <Button type="submit" className="login__button btn--light">
+            <Button
+              type="submit"
+              className="login__button btn--light"
+              disabled={!this.validateForm()}
+              loading={this.props.loginSubmitting}>
               Login
             </Button>
           </form>
-          <Message visible={!!this.props.loginError} type="error">
+          <Message
+            className="login__message"
+            visible={!!this.props.loginError}
+            type="error">
             {this.handleLoginError()}
           </Message>
           <Message className="login__message">

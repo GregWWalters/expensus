@@ -77,7 +77,11 @@ class Signup extends React.Component<Props, OwnState> {
               name="confirmPassword"
               onChange={this.handleChange}
             />
-            <Button type="submit" className="login__button btn--light">
+            <Button
+              className="login__button btn--light"
+              disabled={!this.validateForm()}
+              loading={this.props.signupSubmitting}
+              type="submit">
               Signup
             </Button>
           </form>
