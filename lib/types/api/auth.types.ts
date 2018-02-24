@@ -21,3 +21,7 @@ export interface SignupResponseBody {
   user: Pick<User, 'email' | 'firstName' | 'lastName'>
   apiToken: string
 }
+
+export interface ApiTokenPayload {
+  email: string
+}

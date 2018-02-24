@@ -10,6 +10,7 @@ interface ServerConfiguration {
   }
   server: {
     port: number
+    secret: string
   }
 }
 
@@ -36,6 +37,7 @@ const config: ServerConfiguration = {
   },
   server: {
     port: Number(fetchVar('SERVER_PORT', '8130')),
+    secret: fetchVar('JWT_SECRET'),
   },
 }
 

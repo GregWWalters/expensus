@@ -8,6 +8,7 @@ import {
 } from '../../types/api/auth.types'
 import { Controller } from '../../types/controller'
 import { User } from '../db/entities/User'
+import { createToken } from '../middleware/auth.middleware'
 import { hashPassword, verifyPassword } from '../services/auth.service'
 
 const AuthController: Controller = {}
@@ -33,7 +34,7 @@ AuthController.login = async (ctx: LoginContext, next) => {
       ctx.status = 200
       ctx.body = {
         user: pick(user, 'email', 'firstName', 'lastName'),
-        apiToken: 'abc123',
+        apiToken: createToken(email),
       }
     }
   }
@@ -63,7 +64,7 @@ AuthController.signup = async (ctx: SignupContext, next) => {
     ctx.status = 201
     ctx.body = {
       user: pick(newUser, 'email', 'firstName', 'lastName'),
-      apiToken: 'abc123',
+      apiToken: createToken(email),
     }
   }
 }
