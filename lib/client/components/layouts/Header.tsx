@@ -1,12 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {
   withRouter,
   Link,
   NavLink,
   RouteComponentProps,
 } from 'react-router-dom'
+import { Dispatch } from 'redux'
+import State from '../../../types/state'
+import { triggerLogout } from '../../actions/AuthActions'
 
-const Header: React.SFC<RouteComponentProps<{}>> = ({ match }) => {
+interface DispatchProps {
+  logout: () => void
+}
+
+type Props = DispatchProps & RouteComponentProps<{}>
+
+const Header: React.SFC<Props> = ({ match, logout }) => {
   return (
     <div className="header">
       <div className="header__title">
@@ -22,13 +32,17 @@ const Header: React.SFC<RouteComponentProps<{}>> = ({ match }) => {
         <NavLink className="header__nav-item" to="/notifications">
           Notifications
         </NavLink>
-        <NavLink className="header__nav-item" to="/logout">
+        <a onClick={logout} className="header__nav-item">
           Logout
-        </NavLink>
+        </a>
       </div>
     </div>
   )
 }
 
-const routed = withRouter(Header)
-export { routed as Header }
+const connected = withRouter(
+  connect<{}, DispatchProps, {}, State>(null, (dispatch: Dispatch<State>) => ({
+    logout: () => dispatch(triggerLogout()),
+  }))(Header)
+)
+export { connected as Header }

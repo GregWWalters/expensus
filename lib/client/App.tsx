@@ -14,6 +14,7 @@ import { UserForClient } from '../types/state/user'
 import { Login } from './components/auth/Login'
 import { Signup } from './components/auth/Signup'
 import { Dashboard } from './components/dashboard/Dashboard'
+import { Group } from './components/group/Group'
 import { Header } from './components/layouts/Header'
 import { FlexWindow, FullWindow } from './components/shared/Layouts'
 import { selectUser, selectUserStatus } from './state/selectors/userState'
@@ -35,7 +36,7 @@ class App extends React.Component<Props> {
           <FlexWindow flex="column">
             <Switch>
               <Route path="/dashboard" component={Dashboard} />
-              <Route path="/group" render={() => <div>Groups</div>} />
+              <Route path="/group" component={Group} />
               <Route path="/user" render={() => <div>User</div>} />
               <Redirect to="/dashboard" />
             </Switch>

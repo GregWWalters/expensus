@@ -22,6 +22,7 @@ export const signupSubmit = createAction('SIGNUP_SUBMIT')
 export const signupSuccess = createAction('SIGNUP_SUCCESS')
 export const signupError = createAction<ClientApiError>('SIGNUP_ERROR')
 export const clearSignupState = createAction('CLEAR_SIGNUP_STATE')
+export const logout = createAction('LOGOUT')
 
 // THUNK ACTIONS
 export const authenticateApi = (
@@ -70,4 +71,14 @@ export const submitSignup = (
   dispatch(setApiToken(resp.apiToken))
   dispatch(setUser(resp.user))
   dispatch(signupSuccess())
+}
+
+export const triggerLogout = (): ThunkAction<
+  Promise<void>,
+  State,
+  null
+> => async (dispatch, getState) => {
+  localStorage.removeItem(STORAGE_TOKEN_KEY)
+  // TODO: is there a better way to do this? this seems simple and complete
+  window.location.reload()
 }
