@@ -18,21 +18,22 @@ export const fetchUser = (): ThunkAction<Promise<void>, State, null> => async (
   dispatch,
   getState
 ) => {
-  const state = getState()
-
   // if we're already fetching the user, dont fetch again
-  if (selectUserStatus(state) === 'loading') return
+  if (selectUserStatus(getState()) === 'loading') return
   // if there's no token, we can't use the token to 'login'
   const token = localStorage.getItem(STORAGE_TOKEN_KEY)
   if (!token) return
   dispatch(setApiToken(token))
 
   dispatch(fetchingUser())
-  const userApi = new UserResource(state, dispatch)
+  const userApi = new UserResource(getState(), dispatch)
   const resp = await userApi.fetchUser()
 
   if ('err' in resp) {
+    // token probably invalid or expired
+    // either way safest to have user login again
     dispatch(fetchUserError(resp.err))
+    localStorage.removeItem(STORAGE_TOKEN_KEY)
     return
   }
 
