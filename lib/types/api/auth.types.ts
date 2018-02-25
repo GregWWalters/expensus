@@ -1,4 +1,3 @@
-import GroupState from '../state/group'
 import UserState from '../state/user'
 
 export interface LoginParams {
@@ -8,7 +7,6 @@ export interface LoginParams {
 
 export interface LoginResponseBody {
   user: UserState
-  group: GroupState | null
   apiToken: string
 }
 
@@ -21,7 +19,6 @@ export interface SignupParams {
 
 export interface SignupResponseBody {
   user: UserState
-  group: GroupState | null
   apiToken: string
 }
 

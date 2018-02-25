@@ -23,6 +23,9 @@ export class User extends BaseEntity {
   @Column({ type: 'json', nullable: true })
   passwordHash: string
 
+  @Column({ nullable: true })
+  groupId: number
+
   @ManyToOne(type => Group, group => group.users)
   @JoinColumn()
   group: Group
