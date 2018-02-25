@@ -2,6 +2,7 @@ import Koa from 'koa'
 import {
   CreateGroupParams,
   CreateGroupResponseBody,
+  FetchGroupResponseBody,
 } from '../../types/api/group.types'
 import { Controller } from '../../types/controller'
 import { Group } from '../db/entities/Group'
@@ -36,12 +37,19 @@ GroupController.createGroup = async (ctx: CreateGroupContext, next) => {
 
 interface GetGroupContext extends Koa.Context {
   user: User
+  body: FetchGroupResponseBody
 }
 
 GroupController.getGroup = async (ctx: GetGroupContext, next) => {
   const { user } = ctx
-  const group = await Group.findOneById(user.groupId)
-  ctx.body = group
+  const group = await Group.findOneById(user.groupId, {
+    relations: ['owner', 'users'],
+  })
+  if (!group) {
+    ctx.body = { group: null }
+  } else {
+    ctx.body = { group: group.toObjectForClient() }
+  }
 }
 
 export default GroupController

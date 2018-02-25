@@ -7,3 +7,7 @@ export interface CreateGroupParams {
 export interface CreateGroupResponseBody {
   group: GroupForClient
 }
+
+export interface FetchGroupResponseBody {
+  group: GroupForClient | null
+}
