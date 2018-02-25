@@ -1,5 +1,7 @@
 import AuthState from '../../types/state/auth'
+import GroupState from '../../types/state/group'
 import State from '../../types/state/index'
+import UserState from '../../types/state/user'
 
 export const auth: AuthState = {
   apiToken: '',
@@ -11,14 +13,20 @@ export const auth: AuthState = {
   signupSuccess: false,
 }
 
-export const user = null
+export const userState: UserState = {
+  status: 'not loaded',
+  user: null,
+}
 
-export const group = null
+export const groupState: GroupState = {
+  status: 'not loaded',
+  group: null,
+}
 
 const defaultState: State = {
   auth,
-  group,
-  user,
+  groupState,
+  userState,
 }
 
 export default defaultState

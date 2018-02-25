@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import UserState from '../../../types/state/user'
+import { UserForClient } from '../../../types/state/user'
 import { Group } from './Group'
 
 @Entity('users')
@@ -30,11 +30,12 @@ export class User extends BaseEntity {
   @JoinColumn()
   group: Group
 
-  toObjectForClient(): UserState {
+  toObjectForClient(): UserForClient {
     return {
       email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,
+      groupId: this.groupId,
     }
   }
 }

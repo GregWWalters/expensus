@@ -1,9 +1,15 @@
 import { Group } from '../../server/db/entities/Group'
-import { User } from '../../server/db/entities/User'
+import { FetchStatus } from '../index'
+import { UserForClient } from './user'
 
-export default interface GroupState {
+export interface GroupForClient {
   id: Group['id']
   name: Group['name']
-  owner: Pick<User, 'firstName' | 'lastName' | 'email'>
-  users: ReadonlyArray<Pick<User, 'firstName' | 'lastName' | 'email'>>
+  owner: UserForClient
+  users: ReadonlyArray<UserForClient>
+}
+
+export default interface GroupState {
+  status: FetchStatus
+  group: GroupForClient | null
 }

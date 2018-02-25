@@ -9,15 +9,15 @@ import {
 } from 'react-router-dom'
 import '../css/index.scss'
 import State from '../types/state'
-import UserState from '../types/state/user'
+import { UserForClient } from '../types/state/user'
 import { Login } from './components/auth/Login'
 import { Signup } from './components/auth/Signup'
 import { Dashboard } from './components/dashboard/Dashboard'
 import { Header } from './components/layouts/Header'
-import { selectUser } from './state/selectors/user'
+import { selectUser } from './state/selectors/userState'
 
 interface StateProps {
-  user: UserState | null
+  user: UserForClient | null
 }
 
 type Props = StateProps & RouteComponentProps<{}>
@@ -25,7 +25,7 @@ type Props = StateProps & RouteComponentProps<{}>
 class App extends React.Component<Props> {
   render() {
     const { user } = this.props
-    if (!user) {
+    if (user) {
       return (
         <div>
           <Header />

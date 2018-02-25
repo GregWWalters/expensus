@@ -4,6 +4,6 @@ import UserState from './user'
 
 export default interface State {
   readonly auth: AuthState
-  readonly user: UserState | null
-  readonly group: GroupState | null
+  readonly userState: UserState
+  readonly groupState: GroupState
 }

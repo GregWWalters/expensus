@@ -1,4 +1,4 @@
-import UserState from '../state/user'
+import { UserForClient } from '../state/user'
 
 export interface LoginParams {
   email: string
@@ -6,7 +6,7 @@ export interface LoginParams {
 }
 
 export interface LoginResponseBody {
-  user: UserState
+  user: UserForClient
   apiToken: string
 }
 
@@ -18,7 +18,7 @@ export interface SignupParams {
 }
 
 export interface SignupResponseBody {
-  user: UserState
+  user: UserForClient
   apiToken: string
 }
 

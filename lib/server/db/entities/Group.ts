@@ -7,7 +7,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import GroupState from '../../../types/state/group'
+import { GroupForClient } from '../../../types/state/group'
 import { User } from './User'
 
 @Entity('groups')
@@ -16,6 +16,9 @@ export class Group extends BaseEntity {
 
   @Column() name: string
 
+  @Column({ nullable: true })
+  ownerId: number
+
   @OneToOne(type => User)
   @JoinColumn()
   owner: User
@@ -23,7 +26,7 @@ export class Group extends BaseEntity {
   @OneToMany(type => User, user => user.group)
   users: User[]
 
-  toObjectForClient(): GroupState {
+  toObjectForClient(): GroupForClient {
     return {
       id: this.id,
       name: this.name,

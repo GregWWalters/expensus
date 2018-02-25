@@ -23,6 +23,7 @@ interface LoginContext extends Koa.Context {
 AuthController.login = async (ctx: LoginContext, next) => {
   const { email, password } = ctx.request.body
   const user = await User.findOne({ where: { email } })
+  console.log('user: ', user)
   if (!user) {
     ctx.throw(401)
   } else {

@@ -5,6 +5,7 @@ import { LoginParams, SignupParams } from '../../types/api/auth.types'
 import State from '../../types/state'
 import req from '../api/req'
 import AuthResource from '../api/resources/auth.resource'
+import { STORAGE_TOKEN_KEY } from '../constants'
 import {
   selectLoginSubmitting,
   selectSignupSubmitting,
@@ -45,6 +46,7 @@ export const submitLogin = (
     return
   }
 
+  localStorage.setItem(STORAGE_TOKEN_KEY, resp.apiToken)
   dispatch(setApiToken(resp.apiToken))
   dispatch(setUser(resp.user))
   dispatch(loginSuccess())
@@ -64,6 +66,7 @@ export const submitSignup = (
     return
   }
 
+  localStorage.setItem(STORAGE_TOKEN_KEY, resp.apiToken)
   dispatch(setApiToken(resp.apiToken))
   dispatch(setUser(resp.user))
   dispatch(signupSuccess())

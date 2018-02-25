@@ -17,7 +17,11 @@ export const extractJwt = (header: string) => {
   return results && results[1]
 }
 
-export const jwtAuth: Koa.Middleware = async (ctx, next) => {
+interface AuthContext extends Koa.Context {
+  headers: { authorization: string }
+}
+
+export const jwtAuth: Koa.Middleware = async (ctx: AuthContext, next) => {
   const token = extractJwt(ctx.headers.authorization)
   if (!token) {
     return ctx.throw(400)
@@ -26,6 +30,7 @@ export const jwtAuth: Koa.Middleware = async (ctx, next) => {
       const decoded = verifyToken(token) as ApiTokenPayload
       if (!decoded.email) return ctx.throw(401)
       const user = await User.findOne({ where: { email: decoded.email } })
+      if (!user) return ctx.throw(401)
       ctx.user = user
     } catch (e) {
       return ctx.throw(401)
