@@ -15,6 +15,7 @@ import { Login } from './components/auth/Login'
 import { Signup } from './components/auth/Signup'
 import { Dashboard } from './components/dashboard/Dashboard'
 import { Header } from './components/layouts/Header'
+import { FlexWindow, FullWindow } from './components/shared/Layouts'
 import { selectUser, selectUserStatus } from './state/selectors/userState'
 
 interface StateProps {
@@ -29,30 +30,34 @@ class App extends React.Component<Props> {
     const { user, userStatus } = this.props
     if (user) {
       return (
-        <div className="h100">
+        <FullWindow flex="column">
           <Header />
-          <Switch>
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/group" render={() => <div>Groups</div>} />
-            <Route path="/user" render={() => <div>User</div>} />
-            <Redirect to="/dashboard" />
-          </Switch>
-        </div>
+          <FlexWindow flex="column">
+            <Switch>
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/group" render={() => <div>Groups</div>} />
+              <Route path="/user" render={() => <div>User</div>} />
+              <Redirect to="/dashboard" />
+            </Switch>
+          </FlexWindow>
+        </FullWindow>
       )
     } else if (userStatus === 'loading') {
       return (
-        <div className="h100 flex-col">
+        <FullWindow flex="column">
           <Header />
-          <div className="spinner flex-1" />
-        </div>
+          <FlexWindow className="spinner" />
+        </FullWindow>
       )
     } else {
       return (
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Redirect to="/login" />
-        </Switch>
+        <FullWindow>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Redirect to="/login" />
+          </Switch>
+        </FullWindow>
       )
     }
   }
