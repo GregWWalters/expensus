@@ -1,4 +1,5 @@
-import { User } from '../../server/db/entities/User'
+import GroupState from '../state/group'
+import UserState from '../state/user'
 
 export interface LoginParams {
   email: string
@@ -6,7 +7,8 @@ export interface LoginParams {
 }
 
 export interface LoginResponseBody {
-  user: Pick<User, 'email' | 'firstName' | 'lastName'>
+  user: UserState
+  group: GroupState | null
   apiToken: string
 }
 
@@ -18,7 +20,8 @@ export interface SignupParams {
 }
 
 export interface SignupResponseBody {
-  user: Pick<User, 'email' | 'firstName' | 'lastName'>
+  user: UserState
+  group: GroupState | null
   apiToken: string
 }
 

@@ -20,16 +20,19 @@ export const extractJwt = (header: string) => {
 export const jwtAuth: Koa.Middleware = async (ctx, next) => {
   const token = extractJwt(ctx.headers.authorization)
   if (!token) {
-    ctx.throw(400)
+    return ctx.throw(400)
   } else {
     try {
       const decoded = verifyToken(token) as ApiTokenPayload
       if (!decoded.email) return ctx.throw(401)
-      const user = await User.findOne({ email: decoded.email })
+      const user = await User.findOne({
+        relations: ['group'],
+        where: { email: decoded.email },
+      })
       ctx.user = user
-      next()
     } catch (e) {
-      ctx.throw(401)
+      return ctx.throw(401)
     }
+    return next()
   }
 }

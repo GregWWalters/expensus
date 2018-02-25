@@ -2,9 +2,11 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
+import UserState from '../../../types/state/user'
 import { Group } from './Group'
 
 @Entity('users')
@@ -22,5 +24,14 @@ export class User extends BaseEntity {
   passwordHash: string
 
   @ManyToOne(type => Group, group => group.users)
+  @JoinColumn()
   group: Group
+
+  toObjectForClient(): UserState {
+    return {
+      email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName,
+    }
+  }
 }

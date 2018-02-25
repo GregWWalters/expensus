@@ -23,7 +23,11 @@ interface LoginContext extends Koa.Context {
 
 AuthController.login = async (ctx: LoginContext, next) => {
   const { email, password } = ctx.request.body
-  const user = await User.findOne({ email })
+  // TODO: refine these queries to only what they need to be
+  const user = await User.findOne({
+    relations: ['group', 'group.users', 'group.owner'],
+    where: { email },
+  })
   if (!user) {
     ctx.throw(401)
   } else {
@@ -31,10 +35,12 @@ AuthController.login = async (ctx: LoginContext, next) => {
     if (!valid) {
       ctx.throw(401)
     } else {
+      const group = user.group.toObjectForClient() || null
       ctx.status = 200
       ctx.body = {
-        user: pick(user, 'email', 'firstName', 'lastName'),
         apiToken: createToken(email),
+        group: group ? group : null,
+        user: pick(user, 'email', 'firstName', 'lastName'),
       }
     }
   }
@@ -63,8 +69,9 @@ AuthController.signup = async (ctx: SignupContext, next) => {
     await newUser.save()
     ctx.status = 201
     ctx.body = {
-      user: pick(newUser, 'email', 'firstName', 'lastName'),
       apiToken: createToken(email),
+      group: null,
+      user: pick(newUser, 'email', 'firstName', 'lastName'),
     }
   }
 }

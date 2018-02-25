@@ -13,8 +13,11 @@ export const auth: AuthState = {
 
 export const user = null
 
+export const group = null
+
 const defaultState: State = {
   auth,
+  group,
   user,
 }
 
