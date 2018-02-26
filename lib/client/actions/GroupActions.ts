@@ -43,4 +43,22 @@ export const fetchGroup = (): ThunkAction<Promise<void>, State, null> => async (
 
 export const submitCreateGroupRequest = (
   groupName: string
-): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {}
+): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {
+  const user = selectUser(getState())
+  if (!user) throw new UserRequiredError('User required to load group')
+  // if user is a member of a group, dont let them create a new one
+  // TODO: make sure this can't happen from the UI, or provide an error to user
+  if (user.groupId !== null) return
+
+  dispatch(submitGroup())
+  const groupApi = new GroupResource(getState(), dispatch)
+  const resp = await groupApi.createGroup(groupName)
+
+  if ('err' in resp) {
+    dispatch(submitGroupError(resp.err))
+    return
+  }
+
+  dispatch(submittedGroup())
+  dispatch(setGroup(resp.group))
+}

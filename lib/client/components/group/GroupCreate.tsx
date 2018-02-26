@@ -1,5 +1,6 @@
 import React from 'react'
 import { Column, HorizontalDivider } from '../shared/Layouts'
+import { GroupCreateForm } from './GroupCreateForm'
 
 // TODO: redirect here if user already has a group
 const GroupCreate: React.SFC = () => (
@@ -10,6 +11,7 @@ const GroupCreate: React.SFC = () => (
       Create one today to start using Expensus
     </div>
     <HorizontalDivider />
+    <GroupCreateForm />
   </Column>
 )
 

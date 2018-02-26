@@ -31,7 +31,7 @@ type Props = RouteComponentProps<{}> & StateProps & DispatchProps
 class GroupCreateForm extends React.Component<Props, OwnState> {
   render() {
     return (
-      <form className="group-create-form">
+      <form className="group-create-form" onSubmit={this.handleSubmit}>
         <TextInput
           className="group-create-form__input"
           type="text"
@@ -54,6 +54,7 @@ class GroupCreateForm extends React.Component<Props, OwnState> {
     super(props)
     this.state = { groupName: '' }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e, { name, value }) {
@@ -73,7 +74,7 @@ class GroupCreateForm extends React.Component<Props, OwnState> {
 }
 
 const connected = withRouter(
-  connect<StateProps, {}, {}, State>(
+  connect<StateProps, DispatchProps, {}, State>(
     state => ({
       submitGroupError: selectSubmitGroupError(state),
       submitGroupStatus: selectSubmitGroupStatus(state),

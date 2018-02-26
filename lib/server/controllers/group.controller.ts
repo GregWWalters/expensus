@@ -30,8 +30,9 @@ GroupController.createGroup = async (ctx: CreateGroupContext, next) => {
     newGroup.name = name
     newGroup.owner = user
     newGroup.users = [user]
+    await newGroup.save()
     ctx.status = 201
-    ctx.body = { group: newGroup }
+    ctx.body = { group: newGroup.toObjectForClient() }
   }
 }
 
