@@ -9,8 +9,13 @@ import { selectUser } from '../state/selectors/userState'
 
 // === Basic Actions
 export const setGroup = createAction<GroupForClient | null>('SET_GROUP')
-export const fetchingGroup = createAction('FETCHING_GROUP')
-export const fetchGroupError = createAction<ClientApiError>('FETCH_GROUP_ERROR')
+export const loadGroup = createAction('LOAD_GROUP')
+export const loadGroupError = createAction<ClientApiError>('LOAD_GROUP_ERROR')
+export const submitGroup = createAction('SUBMIT_GROUP')
+export const submittedGroup = createAction('SUBMITTED_GROUP')
+export const submitGroupError = createAction<ClientApiError>(
+  'SUBMIT_GROUP_ERROR'
+)
 
 export const fetchGroup = (): ThunkAction<Promise<void>, State, null> => async (
   dispatch,
@@ -24,14 +29,18 @@ export const fetchGroup = (): ThunkAction<Promise<void>, State, null> => async (
     return
   }
 
-  dispatch(fetchingGroup())
+  dispatch(loadGroup())
   const groupApi = new GroupResource(getState(), dispatch)
   const resp = await groupApi.fetchGroup()
 
   if ('err' in resp) {
-    dispatch(fetchGroupError(resp.err))
+    dispatch(loadGroupError(resp.err))
     return
   }
 
   dispatch(setGroup(resp.group))
 }
+
+export const submitCreateGroupRequest = (
+  groupName: string
+): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {}

@@ -48,6 +48,7 @@
 /* Classes for Layout components */
 .full-window {
   height: 100%;
+  width: 100%;
 
   &--padded {
     padding: $padding;
@@ -68,6 +69,7 @@
   &--flex-column {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   &--flex-row {
@@ -79,6 +81,7 @@
 .flex-window {
   flex: 1 0 0;
   min-height: 0;
+  width: 100%;
 
   &--padded {
     padding: $padding;
@@ -99,10 +102,38 @@
   &--flex-column {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   &--flex-row {
     display: flex;
     flex-direction: row;
   }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+
+  &--padded {
+    padding: $padding;
+  }
+
+  &--overflow-auto {
+    overflow: auto;
+  }
+
+  &--overflow-hidden {
+    overflow: hidden;
+  }
+
+  &--overflow-scroll {
+    overflow: scroll;
+  }
+}
+
+.horizontal-divider {
+  width: 100%;
+  border-bottom: 1px solid $pending-grey;
+  margin: 15px 0;
 }

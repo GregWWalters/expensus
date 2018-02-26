@@ -1,17 +1,18 @@
 import { combineReducers } from 'redux'
 import { createReducer } from 'redux-act'
+import { RequestState } from '../../../types'
 import UserState from '../../../types/state/user'
-import {
-  fetchingUser,
-  fetchUserError,
-  setUser,
-} from '../../actions/UserActions'
+import { loadUser, loadUserError, setUser } from '../../actions/UserActions'
+import { userState } from '../defaultState'
 
 // === Combined UserState reducer
 const userReducer = createReducer<UserState['user']>({}, null)
-const userStatusReducer = createReducer<UserState['status']>({}, 'not loaded')
+const loadUserReducer = createReducer<UserState['loadUser']>(
+  {},
+  userState.loadUser
+)
 const userStateReducer = combineReducers({
-  status: userStatusReducer,
+  loadUser: loadUserReducer,
   user: userReducer,
 })
 export default userStateReducer
@@ -20,6 +21,17 @@ export default userStateReducer
 userReducer.on(setUser, (state, user) => user)
 
 // === User Status Reducer Handlers
-userStatusReducer.on(setUser, (state, user) => 'loaded')
-userStatusReducer.on(fetchingUser, state => 'loading')
-userStatusReducer.on(fetchUserError, state => 'error')
+loadUserReducer.on(setUser, (state, user) => ({
+  error: null,
+  status: RequestState.COMPLETED,
+}))
+
+loadUserReducer.on(loadUser, state => ({
+  error: null,
+  status: RequestState.REQUESTING,
+}))
+
+loadUserReducer.on(loadUserError, (state, error) => ({
+  error,
+  status: RequestState.ERROR,
+}))

@@ -8,7 +8,32 @@ export const selectGroup = createSelector(
   groupState => groupState.group
 )
 
-export const selectGroupStatus = createSelector(
+export const selectLoadGroupState = createSelector(
   selectGroupState,
-  groupState => groupState.status
+  groupState => groupState.loadGroup
+)
+
+export const selectLoadGroupStatus = createSelector(
+  selectLoadGroupState,
+  loadGroup => loadGroup.status
+)
+
+export const selectLoadGroupError = createSelector(
+  selectLoadGroupState,
+  loadGroup => loadGroup.error
+)
+
+export const selectSubmitGroupState = createSelector(
+  selectGroupState,
+  groupState => groupState.submitGroup
+)
+
+export const selectSubmitGroupStatus = createSelector(
+  selectSubmitGroupState,
+  submitGroup => submitGroup.status
+)
+
+export const selectSubmitGroupError = createSelector(
+  selectSubmitGroupState,
+  submitGroup => submitGroup.error
 )

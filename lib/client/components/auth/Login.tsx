@@ -2,23 +2,19 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Dispatch } from 'redux'
+import { RequestState } from '../../../types'
 import { ClientApiError } from '../../../types/api'
 import { LoginParams } from '../../../types/api/auth.types'
 import State from '../../../types/state'
 import { submitLogin } from '../../actions/AuthActions'
-import {
-  selectLoginError,
-  selectLoginSubmitting,
-  selectLoginSuccess,
-} from '../../state/selectors/auth'
+import { selectLoginError, selectLoginStatus } from '../../state/selectors/auth'
 import { validateEmail } from '../../utils/validate'
 import { Button } from '../shared/Button'
 import { Message } from '../shared/Message'
 import { TextInput } from '../shared/TextInput'
 
 interface StateProps {
-  loginSubmitting: boolean
-  loginSuccess: boolean
+  loginStatus: RequestState
   loginError: ClientApiError | null
 }
 
@@ -33,8 +29,9 @@ interface OwnState {
   password: string
 }
 
-class Login extends React.Component<Props, OwnState> {
+class Login extends React.PureComponent<Props, OwnState> {
   render() {
+    const { loginError, loginStatus } = this.props
     return (
       <div className="login h100">
         <div className="login__container">
@@ -58,13 +55,13 @@ class Login extends React.Component<Props, OwnState> {
               type="submit"
               className="login__button btn--light"
               disabled={!this.validateForm()}
-              loading={this.props.loginSubmitting}>
+              loading={loginStatus === RequestState.REQUESTING}>
               Login
             </Button>
           </form>
           <Message
             className="login__message"
-            visible={!!this.props.loginError}
+            visible={!!loginError}
             type="error">
             {this.handleLoginError()}
           </Message>
@@ -76,13 +73,12 @@ class Login extends React.Component<Props, OwnState> {
     )
   }
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
+    this.state = { email: '', password: '' }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
-
-  state = { email: '', password: '' }
 
   // TODO: find a way to type this effectively
   handleChange(e, { name, value }) {
@@ -95,7 +91,7 @@ class Login extends React.Component<Props, OwnState> {
     return emailValid && passwordValid
   }
 
-  handleSubmit(e) {
+  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e && e.preventDefault()
     if (this.validateForm()) {
       this.props.submitLogin({
@@ -119,8 +115,7 @@ class Login extends React.Component<Props, OwnState> {
 const connected = connect<StateProps, DispatchProps, {}, State>(
   state => ({
     loginError: selectLoginError(state),
-    loginSubmitting: selectLoginSubmitting(state),
-    loginSuccess: selectLoginSuccess(state),
+    loginStatus: selectLoginStatus(state),
   }),
   (dispatch: Dispatch<State>) => ({
     submitLogin: params => dispatch(submitLogin(params)),

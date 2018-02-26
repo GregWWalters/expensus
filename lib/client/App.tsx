@@ -8,7 +8,7 @@ import {
   Switch,
 } from 'react-router-dom'
 import '../css/index.scss'
-import { FetchStatus } from '../types'
+import { RequestState } from '../types'
 import State from '../types/state'
 import { UserForClient } from '../types/state/user'
 import { Login } from './components/auth/Login'
@@ -17,18 +17,18 @@ import { Dashboard } from './components/dashboard/Dashboard'
 import { Group } from './components/group/Group'
 import { Header } from './components/layouts/Header'
 import { FlexWindow, FullWindow } from './components/shared/Layouts'
-import { selectUser, selectUserStatus } from './state/selectors/userState'
+import { selectLoadUserStatus, selectUser } from './state/selectors/userState'
 
 interface StateProps {
   user: UserForClient | null
-  userStatus: FetchStatus
+  loadUserStatus: RequestState
 }
 
 type Props = StateProps & RouteComponentProps<{}>
 
 class App extends React.Component<Props> {
   render() {
-    const { user, userStatus } = this.props
+    const { user, loadUserStatus } = this.props
     if (user) {
       return (
         <FullWindow flex="column">
@@ -43,7 +43,7 @@ class App extends React.Component<Props> {
           </FlexWindow>
         </FullWindow>
       )
-    } else if (userStatus === 'loading') {
+    } else if (loadUserStatus === RequestState.REQUESTING) {
       return (
         <FullWindow flex="column">
           <Header />
@@ -68,7 +68,7 @@ const connected = withRouter(
   connect<StateProps, {}, {}, State>(
     state => ({
       user: selectUser(state),
-      userStatus: selectUserStatus(state),
+      loadUserStatus: selectLoadUserStatus(state),
     }),
     {}
   )(App)

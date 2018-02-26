@@ -1,5 +1,5 @@
-import { FetchStatus } from '..'
 import { User } from '../../server/db/entities/User'
+import { ApiState } from '../index'
 
 export interface UserForClient {
   email: User['email']
@@ -9,6 +9,6 @@ export interface UserForClient {
 }
 
 export default interface UserState {
-  status: FetchStatus
+  loadUser: ApiState
   user: UserForClient | null
 }

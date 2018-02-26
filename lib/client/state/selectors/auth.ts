@@ -5,32 +5,26 @@ export const selectAuth = (state: State) => state.auth
 
 export const selectApiToken = createSelector(selectAuth, auth => auth.apiToken)
 
+export const selectLoginState = createSelector(selectAuth, auth => auth.login)
+
+export const selectLoginStatus = createSelector(
+  selectLoginState,
+  loginState => loginState.status
+)
+
 export const selectLoginError = createSelector(
-  selectAuth,
-  auth => auth.loginError
+  selectLoginState,
+  loginState => loginState.error
 )
 
-export const selectLoginSubmitting = createSelector(
-  selectAuth,
-  auth => auth.loginSubmitting
-)
+export const selectSignupState = createSelector(selectAuth, auth => auth.signup)
 
-export const selectLoginSuccess = createSelector(
-  selectAuth,
-  auth => auth.loginSuccess
+export const selectSignupStatus = createSelector(
+  selectSignupState,
+  signupState => signupState.status
 )
 
 export const selectSignupError = createSelector(
-  selectAuth,
-  auth => auth.signupError
-)
-
-export const selectSignupSubmitting = createSelector(
-  selectAuth,
-  auth => auth.signupSubmitting
-)
-
-export const selectSignupSuccess = createSelector(
-  selectAuth,
-  auth => auth.signupSuccess
+  selectSignupState,
+  signupState => signupState.error
 )

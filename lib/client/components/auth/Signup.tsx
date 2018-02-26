@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect, Dispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { RequestState } from '../../../types'
 import { ClientApiError } from '../../../types/api'
 import { SignupParams } from '../../../types/api/auth.types'
 import State from '../../../types/state'
 import { submitSignup } from '../../actions/AuthActions'
 import {
   selectSignupError,
-  selectSignupSubmitting,
-  selectSignupSuccess,
+  selectSignupStatus,
 } from '../../state/selectors/auth'
 import { validateEmail } from '../../utils/validate'
 import { Button } from '../shared/Button'
@@ -16,8 +16,7 @@ import { Message } from '../shared/Message'
 import { TextInput } from '../shared/TextInput'
 
 interface StateProps {
-  signupSubmitting: boolean
-  signupSuccess: boolean
+  signupStatus: RequestState
   signupError: ClientApiError | null
 }
 
@@ -35,8 +34,9 @@ interface OwnState {
   password: string
 }
 
-class Signup extends React.Component<Props, OwnState> {
+class Signup extends React.PureComponent<Props, OwnState> {
   render() {
+    const { signupError, signupStatus } = this.props
     return (
       <div className="login h100">
         <div className="login__container">
@@ -80,14 +80,14 @@ class Signup extends React.Component<Props, OwnState> {
             <Button
               className="login__button btn--light"
               disabled={!this.validateForm()}
-              loading={this.props.signupSubmitting}
+              loading={signupStatus === RequestState.REQUESTING}
               type="submit">
               Signup
             </Button>
           </form>
           <Message
             className="login__message"
-            visible={!!this.props.signupError}
+            visible={!!signupError}
             type="error">
             {this.handleSignupError()}
           </Message>
@@ -99,18 +99,17 @@ class Signup extends React.Component<Props, OwnState> {
     )
   }
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
+    this.state = {
+      confirmPassword: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  state = {
-    confirmPassword: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    password: '',
   }
 
   // TODO: find a way to type this effectively
@@ -169,8 +168,7 @@ class Signup extends React.Component<Props, OwnState> {
 const connected = connect<StateProps, DispatchProps, {}, State>(
   state => ({
     signupError: selectSignupError(state),
-    signupSubmitting: selectSignupSubmitting(state),
-    signupSuccess: selectSignupSuccess(state),
+    signupStatus: selectSignupStatus(state),
   }),
   (dispatch: Dispatch<State>) => ({
     submitSignup: params => dispatch(submitSignup(params)),

@@ -1,5 +1,5 @@
 import { Group } from '../../server/db/entities/Group'
-import { FetchStatus } from '../index'
+import { ApiState } from '../index'
 import { UserForClient } from './user'
 
 export interface GroupForClient {
@@ -10,6 +10,7 @@ export interface GroupForClient {
 }
 
 export default interface GroupState {
-  status: FetchStatus
+  loadGroup: ApiState
+  submitGroup: ApiState
   group: GroupForClient | null
 }

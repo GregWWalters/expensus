@@ -1,26 +1,29 @@
+import { ApiState, RequestState } from '../../types'
 import AuthState from '../../types/state/auth'
 import GroupState from '../../types/state/group'
 import State from '../../types/state/index'
 import UserState from '../../types/state/user'
 
+export const defaultApiState: ApiState = {
+  error: null,
+  status: RequestState.NOT_REQUESTED,
+}
+
 export const auth: AuthState = {
   apiToken: '',
-  loginError: null,
-  loginSubmitting: false,
-  loginSuccess: false,
-  signupError: null,
-  signupSubmitting: false,
-  signupSuccess: false,
+  login: defaultApiState,
+  signup: defaultApiState,
 }
 
 export const userState: UserState = {
-  status: 'not loaded',
+  loadUser: defaultApiState,
   user: null,
 }
 
 export const groupState: GroupState = {
-  status: 'not loaded',
   group: null,
+  loadGroup: defaultApiState,
+  submitGroup: defaultApiState,
 }
 
 const defaultState: State = {

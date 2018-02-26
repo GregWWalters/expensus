@@ -1,15 +1,13 @@
 import { createAction } from 'redux-act'
 import { ThunkAction } from 'redux-thunk'
+import { RequestState } from '../../types'
 import { ClientApiError } from '../../types/api'
 import { LoginParams, SignupParams } from '../../types/api/auth.types'
 import State from '../../types/state'
 import req from '../api/req'
 import AuthResource from '../api/resources/auth.resource'
 import { STORAGE_TOKEN_KEY } from '../constants'
-import {
-  selectLoginSubmitting,
-  selectSignupSubmitting,
-} from '../state/selectors/auth'
+import { selectLoginStatus, selectSignupStatus } from '../state/selectors/auth'
 import { setUser } from './UserActions'
 
 // BASIC ACTIONS
@@ -37,7 +35,7 @@ export const submitLogin = (
   params: LoginParams
 ): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {
   const state = getState()
-  if (selectLoginSubmitting(state)) return
+  if (selectLoginStatus(state) === RequestState.REQUESTING) return
   dispatch(loginSubmit())
   const authApi = new AuthResource(state, dispatch)
   const resp = await authApi.login(params)
@@ -57,7 +55,7 @@ export const submitSignup = (
   params: SignupParams
 ): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {
   const state = getState()
-  if (selectSignupSubmitting(state)) return
+  if (selectSignupStatus(state) === RequestState.REQUESTING) return
   dispatch(signupSubmit())
   const authApi = new AuthResource(state, dispatch)
   const resp = await authApi.signup(params)

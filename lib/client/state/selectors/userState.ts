@@ -8,7 +8,17 @@ export const selectUser = createSelector(
   userState => userState.user
 )
 
-export const selectUserStatus = createSelector(
+export const selectLoadUserState = createSelector(
   selectUserState,
-  userState => userState.status
+  userState => userState.loadUser
+)
+
+export const selectLoadUserStatus = createSelector(
+  selectLoadUserState,
+  loadUser => loadUser.status
+)
+
+export const selectLoadUserError = createSelector(
+  selectLoadUserState,
+  loadUser => loadUser.error
 )
