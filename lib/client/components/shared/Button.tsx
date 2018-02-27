@@ -18,16 +18,20 @@ const Button: React.SFC<Props> = ({
   loading = false,
   onClick,
   type = 'button',
-}) => (
-  <button
-    className={c(className, 'btn', {
-      'btn--loading spinner': loading,
-      'btn--disabled': disabled,
-    })}
-    onClick={disabled ? noop : onClick}
-    type={type}>
-    {children}
-  </button>
-)
+}) => {
+  const darkSpinner = className && className.includes('btn--light')
+  return (
+    <button
+      className={c(className, 'btn', {
+        'btn--loading spinner': loading,
+        'spinner--dark': loading && darkSpinner,
+        'btn--disabled': disabled,
+      })}
+      onClick={disabled ? noop : onClick}
+      type={type}>
+      {children}
+    </button>
+  )
+}
 
 export { Button }

@@ -20,7 +20,11 @@
   margin-top: -10px;
   margin-left: -10px;
   border-radius: 50%;
-  border-top: 2px solid $main-color;
+  border-top: 2px solid $white;
   border-right: 2px solid transparent;
   animation: spinner 0.7s linear infinite;
+}
+
+.spinner--dark:before {
+  border-top-color: $main-color;
 }
