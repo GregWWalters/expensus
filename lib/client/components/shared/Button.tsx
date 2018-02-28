@@ -19,6 +19,8 @@ const Button: React.SFC<Props> = ({
   onClick,
   type = 'button',
 }) => {
+  // todo: make color-scheme a selectable property from props
+  // rather than relying on css
   const darkSpinner = className && className.includes('btn--light')
   return (
     <button
