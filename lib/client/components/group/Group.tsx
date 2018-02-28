@@ -10,6 +10,8 @@ import {
 } from '../../state/selectors/groupState'
 import { FlexWindow } from '../shared/Layouts'
 import { GroupCreate } from './GroupCreate'
+import { GroupInfo } from './groupInfo/GroupInfo'
+import { GroupNav } from './GroupNav'
 
 interface StateProps {
   loadGroupState: ApiState
@@ -22,12 +24,10 @@ const Group: React.SFC<Props> = ({ group, loadGroupState, match }) => {
   if (group) {
     return (
       <FlexWindow className="group" flex="column">
+        <GroupNav />
         <Switch>
-          <Route
-            path={`${match.url}/view`}
-            render={() => <div>Group-view</div>}
-          />
-          <Redirect to={`${match.url}/view`} />
+          <Route path={`${match.url}/info`} component={GroupInfo} />
+          <Redirect to={`${match.url}/info`} />
         </Switch>
       </FlexWindow>
     )
