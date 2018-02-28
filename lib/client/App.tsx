@@ -47,7 +47,7 @@ class App extends React.Component<Props> {
       return (
         <FullWindow flex="column">
           <Header />
-          <FlexWindow className="spinner" />
+          <FlexWindow className="spinner spinner--dark" />
         </FullWindow>
       )
     } else {
