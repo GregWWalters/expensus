@@ -4,30 +4,45 @@
   "tslint.alwaysShowRuleFailuresAsWarnings": true,
   "defaultSeverity": "warn",
   "rules": {
+    "await-promise": true,
     "curly": [true, "ignore-same-line"],
-    "semicolon": false,
-    "member-access": false,
-    "no-unused-expression": [true, "allow-fast-null-checks"],
-    "no-console": false,
     "interface-name": [true, "never-prefix"],
+    "jsx-alignment": false,
+    "jsx-boolean-value": {
+      "severity": "default"
+    },
+    "jsx-no-bind": {
+      "severity": "warn"
+    },
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false,
+    "member-access": false,
+    "member-ordering": {
+      "options": {
+        "order": "statics-first"
+      },
+      "severity": "default"
+    },
+    "no-console": false,
+    "no-empty": {
+      "severity": "default"
+    },
+    "no-empty-interface": {
+      "severity": "warn"
+    },
+    "no-return-await": true,
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "no-unused-variable": true,
+    "object-literal-sort-keys": false,
     "ordered-imports": [
       true,
       {
         "named-imports-order": "lowercase-first"
       }
     ],
-    "object-literal-sort-keys": false,
-    "jsx-no-multiline-js": false,
-    "jsx-wrap-multiline": false,
-    "jsx-no-lambda": false,
-    "jsx-alignment": false,
     "promise-function-async": false,
-    "await-promise": true,
-    "no-return-await": true,
-    "strict-type-predicates": true,
-    "no-unused-variable": true,
-    "no-empty": { "severity": "default" },
-    "jsx-boolean-value": { "severity": "default" },
-    "member-ordering": { "severity": "default" }
+    "semicolon": false,
+    "strict-type-predicates": true
   }
 }
