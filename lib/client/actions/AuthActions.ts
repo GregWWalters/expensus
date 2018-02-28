@@ -8,6 +8,7 @@ import req from '../api/req'
 import AuthResource from '../api/resources/auth.resource'
 import { STORAGE_TOKEN_KEY } from '../constants'
 import { selectLoginStatus, selectSignupStatus } from '../state/selectors/auth'
+import { fetchGroup } from './GroupActions'
 import { setUser } from './UserActions'
 
 // BASIC ACTIONS
@@ -49,6 +50,7 @@ export const submitLogin = (
   dispatch(setApiToken(resp.apiToken))
   dispatch(setUser(resp.user))
   dispatch(loginSuccess())
+  dispatch(fetchGroup())
 }
 
 export const submitSignup = (
