@@ -40,6 +40,7 @@ const config: webpack.Configuration = {
     new webpack.DefinePlugin({
       'process.env': {
         API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
+        PLAID_API_KEY: JSON.stringify(process.env.PLAID_API_KEY),
       },
     }),
   ],

@@ -9,6 +9,7 @@ import {
   selectLoadGroupState,
 } from '../../state/selectors/groupState'
 import { FlexWindow } from '../shared/Layouts'
+import { GroupAccounts } from './groupAccounts/GroupAccounts'
 import { GroupCreate } from './GroupCreate'
 import { GroupInfo } from './groupInfo/GroupInfo'
 import { GroupNav } from './GroupNav'
@@ -27,6 +28,7 @@ const Group: React.SFC<Props> = ({ group, loadGroupState, match }) => {
         <GroupNav />
         <Switch>
           <Route path={`${match.url}/info`} component={GroupInfo} />
+          <Route path={`${match.url}/accounts`} component={GroupAccounts} />
           <Redirect to={`${match.url}/info`} />
         </Switch>
       </FlexWindow>
