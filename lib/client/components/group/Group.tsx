@@ -33,7 +33,10 @@ const Group: React.SFC<Props> = ({ group, loadGroupState, match }) => {
         </Switch>
       </FlexWindow>
     )
-  } else if (loadGroupState.status === RequestState.REQUESTING) {
+  } else if (
+    loadGroupState.status === RequestState.NOT_REQUESTED ||
+    loadGroupState.status === RequestState.REQUESTING
+  ) {
     return <FlexWindow className="spinner spinner--dark" />
   } else {
     return (
