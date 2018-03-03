@@ -1,3 +1,6 @@
+import 'mdi/css/materialdesignicons.css'
+import '../css/index.scss'
+
 import React from 'react'
 import { connect } from 'react-redux'
 import {
@@ -7,7 +10,7 @@ import {
   RouteComponentProps,
   Switch,
 } from 'react-router-dom'
-import '../css/index.scss'
+
 import { RequestState } from '../types'
 import State from '../types/state'
 import { UserForClient } from '../types/state/user'
