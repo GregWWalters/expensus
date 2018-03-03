@@ -8,21 +8,20 @@ interface Props {
   size?: 'small' | 'medium' | 'large'
 }
 
-class Icon extends React.Component<Props> {
-  render() {
-    const { className, iconName, size } = this.props
-    return (
-      <i
-        className={c(
-          className,
-          'mdi-icon',
-          'mdi',
-          `mdi-${iconName}`,
-          `mdi--${size}`
-        )}
-      />
-    )
-  }
-}
+const Icon: React.SFC<Props> = ({
+  className = '',
+  iconName,
+  size = 'medium',
+}) => (
+  <i
+    className={c(
+      className,
+      'mdi-icon',
+      'mdi',
+      `mdi-${iconName}`,
+      `mdi-icon--${size}`
+    )}
+  />
+)
 
 export { Icon }

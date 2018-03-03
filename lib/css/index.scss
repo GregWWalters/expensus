@@ -1,11 +1,14 @@
 @import './base';
 
-// common assets
-@import './shared/layout';
+// files with base mixins
 @import './shared/shadow';
+
+// common assets
 @import './shared/button';
-@import './shared/message';
+@import './shared/icon';
 @import './shared/input';
+@import './shared/layout';
+@import './shared/message';
 @import './shared/spinner';
 
 // layout components
