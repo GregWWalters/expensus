@@ -114,9 +114,10 @@
 .column {
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   &--padded {
-    padding: $padding;
+    padding: 0 $padding;
   }
 
   &--overflow-auto {
