@@ -1,8 +1,19 @@
 .group-info {
+  color: $main-color-darkest;
+
   &__header {
+    margin-left: 2rem;
     font-size: 1.7rem;
-    color: $main-color-darkest;
     margin: 30px 30px 0 30px;
+  }
+
+  &__sub-header {
+    font-size: 1.3rem;
+  }
+
+  &__invite-friends {
+    padding: $padding;
+    font-size: 1.3rem;
     text-align: center;
   }
 }

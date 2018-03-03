@@ -1,0 +1,30 @@
+.user-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $padding-tight;
+
+  &__icon {
+    color: $main-color;
+  }
+
+  &__name {
+    font-size: 1.3rem;
+    color: $main-color-darkest;
+    padding: $padding;
+  }
+
+  &__email {
+    font-size: 1rem;
+    font-style: italic;
+    color: $main-color;
+    padding: $padding;
+  }
+
+  &__actions {
+    flex: 1;
+    padding: $padding;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -33,6 +33,7 @@ export class User extends BaseEntity {
   toObjectForClient(): UserForClient {
     return {
       email: this.email,
+      id: this.id,
       firstName: this.firstName,
       lastName: this.lastName,
       groupId: this.groupId,
