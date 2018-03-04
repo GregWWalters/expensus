@@ -8,3 +8,7 @@ export interface CreateItemParams {
 export interface CreateItemResponseBody {
   item: ItemForClient
 }
+
+export interface GetItemsResponseBody {
+  items: ReadonlyArray<ItemForClient>
+}
