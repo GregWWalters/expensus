@@ -16,6 +16,7 @@ interface ServerConfiguration {
     id: string
     public: string
     secret: string
+    url: string
     env: string
   }
 }
@@ -49,7 +50,8 @@ const config: ServerConfiguration = {
     id: fetchVar('PLAID_API_CLIENT_ID', ''),
     public: fetchVar('PLAID_API_KEY', ''),
     secret: fetchVar('PLAID_API_SECRET', ''),
-    env: fetchVar('PLAID_API_ENV', 'https://sandbox.plaid.com'),
+    url: fetchVar('PLAID_API_URL', 'https://sandbox.plaid.com'),
+    env: fetchVar('PLAID_API_ENV', 'sandbox'),
   },
 }
 
