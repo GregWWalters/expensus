@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "ts-node-dev --no-notify lib/server",
-    "webpack:watch":
-      "webpack --config lib/client/config/webpack.config.ts --watch --colors",
+    "webpack:watch": "webpack --config lib/client/config/webpack.config.ts --watch --colors",
     "test": "jest",
     "test:watch": "jest --watch",
     "typecheck:server": "tsc --noEmit --project tsconfig.json",
@@ -17,8 +16,18 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-    "setupFiles": ["./test/test-setup.ts", "jest-localstorage-mock"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "setupFiles": [
+      "./test/test-setup.ts",
+      "jest-localstorage-mock"
+    ],
     "testURL": "https://sdk.loyaltylion.dev"
   },
   "importSort": {
@@ -56,6 +65,7 @@
     "mdi": "^2.1.19",
     "moment": "^2.20.1",
     "pg": "^7.4.1",
+    "plaid": "^2.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",

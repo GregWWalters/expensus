@@ -5512,6 +5512,13 @@ pkg-dir@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
+plaid@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/plaid/-/plaid-2.3.0.tgz#cc73d7e4b4d35a36ef2f4e40751bab10d31c6965"
+  dependencies:
+    ramda "0.23.x"
+    request "^2.74.0"
+
 pluck-keys@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/pluck-keys/-/pluck-keys-0.0.4.tgz#0077a43cd127c826f1f54cd9c0959757adc0d519"
@@ -5957,6 +5964,10 @@ railroad-diagrams@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/railroad-diagrams/-/railroad-diagrams-1.0.0.tgz#eb7e6267548ddedfb899c1b90e57374559cddb7e"
 
+ramda@0.23.x:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.23.0.tgz#ccd13fff73497a93974e3e86327bfd87bd6e8e2b"
+
 randexp@0.4.6:
   version "0.4.6"
   resolved "https://registry.yarnpkg.com/randexp/-/randexp-0.4.6.tgz#e986ad5e5e31dae13ddd6f7b3019aa7c87f60ca3"
@@ -6295,7 +6306,7 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.0"
     tough-cookie ">=2.3.3"
 
-request@2, request@^2.83.0:
+request@2, request@^2.74.0, request@^2.83.0:
   version "2.83.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.83.0.tgz#ca0b65da02ed62935887808e6f510381034e3356"
   dependencies:
