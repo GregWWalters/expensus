@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
+import { ItemForClient } from '../../../types/state/item'
 import { Account } from './Account'
 import { Group } from './Group'
 import { Transaction } from './Transaction'
@@ -37,9 +38,20 @@ export class Item extends BaseEntity {
   // so going to eager-load them
   @OneToMany(type => Account, account => account.item, { eager: true })
   @JoinColumn()
-  accounts: Item[]
+  accounts: Account[]
 
   @OneToMany(type => Transaction, transaction => transaction.item)
   @JoinColumn()
   transactions?: Transaction[]
+
+  // === Class Methods ===
+  toObjectForClient(): ItemForClient {
+    return {
+      id: this.id,
+      itemId: this.itemId,
+      groupId: this.groupId,
+      institutionId: this.institutionId,
+      accounts: this.accounts,
+    }
+  }
 }
