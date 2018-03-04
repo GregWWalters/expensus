@@ -31,13 +31,15 @@ export class Item extends BaseEntity {
   @Column() groupId: number
   @ManyToOne(type => Group, group => group.items)
   @JoinColumn()
-  group: Group
+  group?: Group
 
-  @OneToMany(type => Account, account => account.item)
+  // Likely that we'll always want to have accounts with the Item
+  // so going to eager-load them
+  @OneToMany(type => Account, account => account.item, { eager: true })
   @JoinColumn()
   accounts: Item[]
 
   @OneToMany(type => Transaction, transaction => transaction.item)
   @JoinColumn()
-  transactions: Transaction[]
+  transactions?: Transaction[]
 }

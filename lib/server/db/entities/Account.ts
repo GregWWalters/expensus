@@ -38,9 +38,9 @@ export class Account extends BaseEntity {
   @Column() itemId: number
   @ManyToOne(type => Item, item => item.accounts)
   @JoinColumn()
-  item: Item
+  item?: Item
 
   @OneToMany(type => Transaction, transaction => transaction.account)
   @JoinColumn()
-  transactions: Transaction[]
+  transactions?: Transaction[]
 }

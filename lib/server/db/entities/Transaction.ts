@@ -47,10 +47,10 @@ export class Transaction extends BaseEntity {
   @Column() accountId: number
   @ManyToOne(type => Account, account => account.transactions)
   @JoinColumn()
-  account: Account
+  account?: Account
 
   @Column() itemId: number
   @ManyToOne(type => Item, item => item.transactions)
   @JoinColumn()
-  item: Item
+  item?: Item
 }

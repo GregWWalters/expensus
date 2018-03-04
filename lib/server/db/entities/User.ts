@@ -29,7 +29,7 @@ export class User extends BaseEntity {
   groupId: number
   @ManyToOne(type => Group, group => group.users)
   @JoinColumn()
-  group: Group
+  group?: Group
 
   toObjectForClient(): UserForClient {
     return {

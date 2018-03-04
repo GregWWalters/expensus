@@ -25,11 +25,11 @@ export class Group extends BaseEntity {
   @JoinColumn()
   owner: User
 
-  @OneToMany(type => User, user => user.group)
+  @OneToMany(type => User, user => user.group, { eager: true })
   users: User[]
 
   @OneToMany(type => Item, item => item.group)
-  items: Item[]
+  items?: Item[]
 
   // === Class Methods ===
   toObjectForClient(): GroupForClient {
