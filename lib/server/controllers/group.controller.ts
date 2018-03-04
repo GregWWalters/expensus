@@ -43,9 +43,7 @@ interface GetGroupContext extends Koa.Context {
 
 GroupController.getGroup = async (ctx: GetGroupContext, next) => {
   const { user } = ctx
-  const group = await Group.findOneById(user.groupId, {
-    relations: ['owner', 'users'],
-  })
+  const group = await Group.findOneById(user.groupId)
   if (!group) {
     ctx.body = { group: null }
   } else {

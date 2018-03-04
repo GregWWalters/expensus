@@ -21,7 +21,7 @@ export class Group extends BaseEntity {
   // === Relationships ===
   @Column({ nullable: true })
   ownerId: number
-  @OneToOne(type => User)
+  @OneToOne(type => User, { eager: true })
   @JoinColumn()
   owner: User
 
