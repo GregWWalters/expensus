@@ -11,6 +11,7 @@ import { Group } from './Group'
 
 @Entity('users')
 export class User extends BaseEntity {
+  // === Class properties ===
   @PrimaryGeneratedColumn() id: number
 
   @Column() firstName: string
@@ -23,9 +24,9 @@ export class User extends BaseEntity {
   @Column({ type: 'json', nullable: true })
   passwordHash: string
 
+  // === Relationships ===
   @Column({ nullable: true })
   groupId: number
-
   @ManyToOne(type => Group, group => group.users)
   @JoinColumn()
   group: Group

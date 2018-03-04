@@ -12,11 +12,10 @@ class GroupAccounts extends React.PureComponent implements PlaidLinkable {
   constructor(props) {
     super(props)
 
-    console.log('key: ', process.env.PLAID_API_KEY)
     // todo: type plaid better
     this.plaidHandler = (window as any).Plaid.create({
       clientName: 'Expensus Demo',
-      env: 'sandbox',
+      env: process.env.PLAID_API_ENV,
       key: process.env.PLAID_API_KEY,
       product: ['transactions'],
       onload: () => {

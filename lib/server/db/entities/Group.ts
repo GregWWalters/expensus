@@ -8,17 +8,19 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { GroupForClient } from '../../../types/state/group'
+import { Item } from './Item'
 import { User } from './User'
 
 @Entity('groups')
 export class Group extends BaseEntity {
+  // === Class properties ===
   @PrimaryGeneratedColumn() id: number
 
   @Column() name: string
 
+  // === Relationships ===
   @Column({ nullable: true })
   ownerId: number
-
   @OneToOne(type => User)
   @JoinColumn()
   owner: User
@@ -26,6 +28,10 @@ export class Group extends BaseEntity {
   @OneToMany(type => User, user => user.group)
   users: User[]
 
+  @OneToMany(type => Item, item => item.group)
+  items: Item[]
+
+  // === Class Methods ===
   toObjectForClient(): GroupForClient {
     return {
       id: this.id,
