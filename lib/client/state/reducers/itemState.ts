@@ -12,7 +12,7 @@ const loadItemsReducer = createReducer<ItemState['loadItems']>(
   itemState.loadItems
 )
 const itemStateReducer = combineReducers({
-  loadItem: loadItemsReducer,
+  loadItems: loadItemsReducer,
   items: itemsReducer,
 })
 export default itemStateReducer
