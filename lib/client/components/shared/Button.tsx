@@ -1,4 +1,4 @@
-import c from 'classname'
+import c from 'classnames'
 import React from 'react'
 import { noop } from '../../utils/noop'
 
@@ -26,7 +26,7 @@ const Button: React.SFC<Props> = ({
     <button
       className={c(className, 'btn', {
         'btn--loading spinner': loading,
-        'spinner--dark': loading && darkSpinner,
+        'spinner--dark': Boolean(loading && darkSpinner),
         'btn--disabled': disabled,
       })}
       onClick={disabled ? noop : onClick}

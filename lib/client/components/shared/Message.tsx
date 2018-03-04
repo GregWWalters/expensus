@@ -1,4 +1,4 @@
-import c from 'classname'
+import c from 'classnames'
 import React from 'react'
 
 interface Props {
