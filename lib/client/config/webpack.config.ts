@@ -45,6 +45,7 @@ const config: webpack.Configuration = {
       'process.env': {
         API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
         PLAID_API_KEY: JSON.stringify(process.env.PLAID_API_KEY),
+        PLAID_API_ENV: JSON.stringify(process.env.PLAID_API_ENV || 'sandbox'),
       },
     }),
   ],

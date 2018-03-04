@@ -6,7 +6,7 @@ declare namespace Plaid {
   interface Item {
     available_products: ReadonlyArray<Products>
     billed_products: ReadonlyArray<Products>
-    error: Error
+    error: Error | null
     institution_id: string
     item_id: string
     webhook: string
@@ -25,15 +25,14 @@ declare namespace Plaid {
 
   // === === PLAID ACCOUNT === === \\
 
-  interface AccountInterface {
+  interface Account {
     account_id: string
-    item: Item
     balances: AccountBalances
-    mask: string
-    name: string
-    official_name: string
-    type: AccountType
-    subtype: AccountSubtype
+    mask: string | null
+    name: string | null
+    official_name: string | null
+    type: AccountType | null
+    subtype: AccountSubtype | null
   }
 
   interface GetAccountResponseBody {

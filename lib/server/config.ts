@@ -12,6 +12,12 @@ interface ServerConfiguration {
     port: number
     secret: string
   }
+  plaid: {
+    id: string
+    public: string
+    secret: string
+    env: string
+  }
 }
 
 function fetchVar(key: string, defaultValue?: string): string {
@@ -38,6 +44,12 @@ const config: ServerConfiguration = {
   server: {
     port: Number(fetchVar('SERVER_PORT', '8130')),
     secret: fetchVar('JWT_SECRET'),
+  },
+  plaid: {
+    id: fetchVar('PLAID_API_CLIENT_ID', ''),
+    public: fetchVar('PLAID_API_KEY', ''),
+    secret: fetchVar('PLAID_API_SECRET', ''),
+    env: fetchVar('PLAID_API_ENV', 'https://sandbox.plaid.com'),
   },
 }
 
