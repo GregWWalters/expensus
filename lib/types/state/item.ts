@@ -11,5 +11,6 @@ export interface ItemForClient {
 
 export default interface ItemState {
   loadItems: ApiState
+  submitItem: ApiState
   items: ReadonlyArray<ItemForClient>
 }

@@ -30,6 +30,7 @@ export const groupState: GroupState = {
 export const itemState: ItemState = {
   loadItems: defaultApiState,
   items: [],
+  submitItem: defaultApiState,
 }
 
 const defaultState: State = {

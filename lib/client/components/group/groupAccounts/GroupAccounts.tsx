@@ -1,38 +1,36 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+import State from '../../../../types/state'
+import { submitItemRequest } from '../../../actions/ItemActions'
 import { Button } from '../../shared/Button'
 import { Column } from '../../shared/Layouts'
+
+interface DispatchProps {
+  submitItemRequest: (token: string) => void
+}
 
 interface PlaidLinkable {
   plaidHandler: any
 }
 
-class GroupAccounts extends React.PureComponent implements PlaidLinkable {
+type Props = DispatchProps
+
+class GroupAccounts extends React.PureComponent<Props>
+  implements PlaidLinkable {
   readonly plaidHandler
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
 
     // todo: type plaid better
     this.plaidHandler = (window as any).Plaid.create({
-      clientName: 'Expensus Demo',
+      clientName: 'Expensus',
       env: process.env.PLAID_API_ENV,
       key: process.env.PLAID_API_KEY,
       product: ['transactions'],
-      onload: () => {
-        console.log('link loaded')
-      },
       onSuccess: (token, meta) => {
-        console.log('success!')
-        console.log('token: ', token)
-        console.log('metadata: ', meta)
-      },
-      onExit: (err, meta) => {
-        console.log('err: ', err)
-        console.log('meta: ', meta)
-      },
-      onEvent: (eventName, meta) => {
-        console.log('eventName: ', eventName)
-        console.log('meta: ', meta)
+        props.submitItemRequest(token)
       },
     })
   }
@@ -47,4 +45,11 @@ class GroupAccounts extends React.PureComponent implements PlaidLinkable {
   }
 }
 
-export { GroupAccounts }
+const connected = connect<{}, DispatchProps, {}, State>(
+  null,
+  (dispatch: Dispatch<State>) => ({
+    submitItemRequest: (token: string) => dispatch(submitItemRequest(token)),
+  })
+)(GroupAccounts)
+
+export { connected as GroupAccounts }
