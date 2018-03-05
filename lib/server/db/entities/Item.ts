@@ -18,8 +18,11 @@ export class Item extends BaseEntity {
   // === Class properties ===
   @PrimaryGeneratedColumn() id: number
 
+  // TODO: add an item name
+
   @Column() accessToken: string
 
+  // TODO: add an institution name (use plaidClient.getInstitutionById)
   @Column() institutionId: string
 
   @Index({ unique: true })

@@ -9,6 +9,7 @@ import { STORAGE_TOKEN_KEY } from '../constants'
 import { selectLoadUserStatus } from '../state/selectors/userState'
 import { loginSuccess, setApiToken } from './AuthActions'
 import { fetchGroup } from './GroupActions'
+import { fetchItems } from './ItemActions'
 
 // === Basic Actions
 export const setUser = createAction<UserForClient>('SET_USER')
@@ -48,4 +49,5 @@ export const fetchUser = (): ThunkAction<Promise<void>, State, null> => async (
   // once we've fetched the user, we should go ahead and fetch their group too
   // TODO: should we just return this alongside the user always?
   dispatch(fetchGroup())
+  dispatch(fetchItems())
 }

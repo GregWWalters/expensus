@@ -2,9 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import State from '../../../../types/state'
+import { ItemForClient } from '../../../../types/state/item'
 import { submitItemRequest } from '../../../actions/ItemActions'
+import { selectItems } from '../../../state/selectors/itemState'
 import { Button } from '../../shared/Button'
 import { Column } from '../../shared/Layouts'
+
+interface StateProps {
+  items: ReadonlyArray<ItemForClient>
+}
 
 interface DispatchProps {
   submitItemRequest: (token: string) => void
@@ -14,7 +20,7 @@ interface PlaidLinkable {
   plaidHandler: any
 }
 
-type Props = DispatchProps
+type Props = StateProps & DispatchProps
 
 class GroupAccounts extends React.PureComponent<Props>
   implements PlaidLinkable {
@@ -38,15 +44,20 @@ class GroupAccounts extends React.PureComponent<Props>
   render() {
     return (
       <Column width="700px">
-        <div>Account Management</div>
-        <Button onClick={() => this.plaidHandler.open()}>Open Plaid</Button>
+        <h2>Account Management</h2>
+        {this.props.items.map(item => (
+          <div key={item.id}>{item.institutionId}</div>
+        ))}
+        <Button onClick={() => this.plaidHandler.open()}>Add Bank</Button>
       </Column>
     )
   }
 }
 
 const connected = connect<{}, DispatchProps, {}, State>(
-  null,
+  state => ({
+    items: selectItems(state),
+  }),
   (dispatch: Dispatch<State>) => ({
     submitItemRequest: (token: string) => dispatch(submitItemRequest(token)),
   })
