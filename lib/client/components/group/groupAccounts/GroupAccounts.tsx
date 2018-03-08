@@ -1,16 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
+import { ApiState, RequestState } from '../../../../types'
 import State from '../../../../types/state'
 import { ItemForClient } from '../../../../types/state/item'
 import { submitItemRequest } from '../../../actions/ItemActions'
-import { selectItems } from '../../../state/selectors/itemState'
+import {
+  selectItems,
+  selectLoadItemsState,
+  selectSubmitItemState,
+} from '../../../state/selectors/itemState'
 import { ItemListItem } from '../../item/ItemListItem'
 import { Button } from '../../shared/Button'
 import { Column, HorizontalDivider } from '../../shared/Layouts'
+import { FlexWindow } from '../../shared/Layouts'
+import { RowSpinner } from '../../shared/Spinners'
 
 interface StateProps {
   items: ReadonlyArray<ItemForClient>
+  loadItemsState: ApiState
+  submitItemState: ApiState
 }
 
 interface DispatchProps {
@@ -43,23 +52,27 @@ class GroupAccounts extends React.PureComponent<Props>
   }
 
   render() {
-    return (
-      <Column width="700px" className="group-accounts">
-        <div className="group-accounts__header-container">
-          <div className="group-accounts__header">Accounts</div>
-          <div className="group-accounts__add-account-button">
-            <Button onClick={this.handleAddAccountClick}>
-              Add New Account
-            </Button>
+    const { items, loadItemsState, submitItemState } = this.props
+    if (loadItemsState.status === RequestState.REQUESTING) {
+      return <FlexWindow className="spinner spinner--dark" />
+    } else if (items) {
+      return (
+        <Column width="700px" className="group-accounts">
+          <div className="group-accounts__header-container">
+            <div className="group-accounts__header">Accounts</div>
+            <div className="group-accounts__add-account-button">
+              <Button onClick={this.handleAddAccountClick}>
+                Add New Account
+              </Button>
+            </div>
           </div>
-        </div>
-        <HorizontalDivider />
-        {this.props.items.map(item => (
-          <ItemListItem key={item.id} item={item} />
-        ))}
-        <HorizontalDivider />
-      </Column>
-    )
+          <HorizontalDivider />
+          {items.map(item => <ItemListItem key={item.id} item={item} />)}
+          {submitItemState.status === RequestState.REQUESTING && <RowSpinner />}
+          <HorizontalDivider />
+        </Column>
+      )
+    }
   }
 
   handleAddAccountClick = () => {
@@ -67,9 +80,11 @@ class GroupAccounts extends React.PureComponent<Props>
   }
 }
 
-const connected = connect<{}, DispatchProps, {}, State>(
+const connected = connect<StateProps, DispatchProps, {}, State>(
   state => ({
     items: selectItems(state),
+    loadItemsState: selectLoadItemsState(state),
+    submitItemState: selectSubmitItemState(state),
   }),
   (dispatch: Dispatch<State>) => ({
     submitItemRequest: (token: string) => dispatch(submitItemRequest(token)),

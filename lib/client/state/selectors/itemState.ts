@@ -12,3 +12,8 @@ export const selectLoadItemsState = createSelector(
   selectItemState,
   itemState => itemState.loadItems
 )
+
+export const selectSubmitItemState = createSelector(
+  selectItemState,
+  itemState => itemState.submitItem
+)
