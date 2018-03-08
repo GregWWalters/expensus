@@ -18,11 +18,11 @@ export class Item extends BaseEntity {
   // === Class properties ===
   @PrimaryGeneratedColumn() id: number
 
-  // TODO: add an item name
+  @Column() name: string
 
   @Column() accessToken: string
 
-  // TODO: add an institution name (use plaidClient.getInstitutionById)
+  @Column() institutionName: string
   @Column() institutionId: string
 
   @Index({ unique: true })
@@ -50,11 +50,13 @@ export class Item extends BaseEntity {
   // === Class Methods ===
   toObjectForClient(): ItemForClient {
     return {
+      accounts: this.accounts,
+      groupId: this.groupId,
       id: this.id,
       itemId: this.itemId,
-      groupId: this.groupId,
       institutionId: this.institutionId,
-      accounts: this.accounts,
+      institutionName: this.institutionName,
+      name: this.name,
     }
   }
 }

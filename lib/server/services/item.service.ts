@@ -18,11 +18,16 @@ export default class ItemService extends PlaidService {
   async createNewItem(publicToken: string) {
     const token = await this.getAccessToken(publicToken)
     const item = await this.fetchItem(token)
+    const institution = (await this.plaidClient.getInstitutionById(
+      item.institution_id
+    )).institution
 
     const newItem = new Item()
     newItem.accessToken = token
     newItem.itemId = item.item_id
     newItem.groupId = this.groupId
+    newItem.name = institution.name
+    newItem.institutionName = institution.name
     newItem.institutionId = item.institution_id
     newItem.webhook = item.webhook
     await newItem.save()

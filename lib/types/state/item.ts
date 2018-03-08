@@ -2,11 +2,13 @@ import { Item } from '../../server/db/entities/Item'
 import { ApiState } from '../index'
 
 export interface ItemForClient {
+  accounts: Item['accounts']
+  groupId: Item['groupId']
   id: Item['id']
   itemId: Item['itemId']
-  groupId: Item['groupId']
   institutionId: Item['institutionId']
-  accounts: Item['accounts']
+  institutionName: Item['institutionName']
+  name: Item['name']
 }
 
 export default interface ItemState {
