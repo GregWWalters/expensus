@@ -9,6 +9,7 @@ import {
   selectLoadGroupState,
 } from '../../state/selectors/groupState'
 import { FlexWindow } from '../shared/Layouts'
+import { FlexWindowSpinner } from '../shared/Spinners'
 import { GroupAccounts } from './groupAccounts/GroupAccounts'
 import { GroupCreate } from './GroupCreate'
 import { GroupInfo } from './groupInfo/GroupInfo'
@@ -37,7 +38,7 @@ const Group: React.SFC<Props> = ({ group, loadGroupState, match }) => {
     loadGroupState.status === RequestState.NOT_REQUESTED ||
     loadGroupState.status === RequestState.REQUESTING
   ) {
-    return <FlexWindow className="spinner spinner--dark" />
+    return <FlexWindowSpinner />
   } else {
     return (
       <FlexWindow className="group" flex="column">

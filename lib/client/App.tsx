@@ -20,6 +20,7 @@ import { Dashboard } from './components/dashboard/Dashboard'
 import { Group } from './components/group/Group'
 import { Header } from './components/layouts/Header'
 import { FlexWindow, FullWindow } from './components/shared/Layouts'
+import { FlexWindowSpinner } from './components/shared/Spinners'
 import { selectLoadUserStatus, selectUser } from './state/selectors/userState'
 
 interface StateProps {
@@ -50,7 +51,7 @@ class App extends React.Component<Props> {
       return (
         <FullWindow flex="column">
           <Header />
-          <FlexWindow className="spinner spinner--dark" />
+          <FlexWindowSpinner />
         </FullWindow>
       )
     } else {

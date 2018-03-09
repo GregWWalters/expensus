@@ -53,9 +53,7 @@ class GroupAccounts extends React.PureComponent<Props>
 
   render() {
     const { items, loadItemsState, submitItemState } = this.props
-    if (loadItemsState.status === RequestState.REQUESTING) {
-      return <FlexWindow className="spinner spinner--dark" />
-    } else if (items) {
+    if (items) {
       return (
         <Column width="700px" className="group-accounts">
           <div className="group-accounts__header-container">
@@ -72,6 +70,8 @@ class GroupAccounts extends React.PureComponent<Props>
           <HorizontalDivider />
         </Column>
       )
+    } else if (loadItemsState.status === RequestState.REQUESTING) {
+      return <FlexWindow className="spinner spinner--dark" />
     }
   }
 

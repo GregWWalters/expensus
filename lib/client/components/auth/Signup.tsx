@@ -35,6 +35,19 @@ interface OwnState {
 }
 
 class Signup extends React.PureComponent<Props, OwnState> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      confirmPassword: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
   render() {
     const { signupError, signupStatus } = this.props
     return (
@@ -97,19 +110,6 @@ class Signup extends React.PureComponent<Props, OwnState> {
         </div>
       </div>
     )
-  }
-
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      confirmPassword: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      password: '',
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   // TODO: find a way to type this effectively
