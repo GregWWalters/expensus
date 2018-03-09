@@ -50,7 +50,7 @@ export class Item extends BaseEntity {
   // === Class Methods ===
   toObjectForClient(): ItemForClient {
     return {
-      accounts: this.accounts,
+      accounts: this.accounts.map(item => item.toAccountForClient()),
       groupId: this.groupId,
       id: this.id,
       itemId: this.itemId,

@@ -1,22 +1,26 @@
-.item-list-item {
+.account-list-item {
   display: flex;
+  font-size: 1rem;
   justify-content: space-between;
   align-items: center;
-  padding: $padding-tight;
+  padding-left: 50px;
+
+  &:first-child {
+    margin-top: -$padding-tight;
+  }
 
   &__icon {
-    color: $main-color;
+    color: $pending-grey;
   }
 
   &__name {
-    font-size: 1.3rem;
     color: $main-color-darkest;
     padding: $padding-tight $padding;
   }
 
-  &__actions {
+  &__mask {
     flex: 1;
-    padding: $padding;
+    padding: $padding-tight;
     display: flex;
     justify-content: flex-end;
   }

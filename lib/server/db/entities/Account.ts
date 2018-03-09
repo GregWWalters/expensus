@@ -7,6 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
+import { AccountForClient } from '../../../types/state/item'
 import { Item } from './Item'
 import { Transaction } from './Transaction'
 
@@ -43,4 +44,18 @@ export class Account extends BaseEntity {
   @OneToMany(type => Transaction, transaction => transaction.account)
   @JoinColumn()
   transactions?: Transaction[]
+
+  toAccountForClient(): AccountForClient {
+    return {
+      accountId: this.accountId,
+      balances: this.balances,
+      id: this.id,
+      mask: this.mask,
+      name: this.name,
+      officialName: this.officialName,
+      type: this.type,
+      subtype: this.subtype,
+      itemId: this.itemId,
+    }
+  }
 }
