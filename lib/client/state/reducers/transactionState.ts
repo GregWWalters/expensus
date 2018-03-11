@@ -19,7 +19,7 @@ const loadTransactionReducer = createReducer<
 >({}, transactionState.loadTransactions)
 
 const transactionStateReducer = combineReducers({
-  loadTransaction: loadTransactionReducer,
+  loadTransactions: loadTransactionReducer,
   transactions: transactionsReducer,
 })
 export default transactionStateReducer
