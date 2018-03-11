@@ -19,7 +19,7 @@ export interface TransactionForClient {
   itemId: Transaction['itemId']
 }
 
-export interface TransactionState {
-  loadTransactionsState: ApiState
-  transactions: ReadonlyArray<Transaction>
+export default interface TransactionState {
+  loadTransactions: ApiState
+  transactions: ReadonlyArray<TransactionForClient>
 }

@@ -3,6 +3,7 @@ import AuthState from '../../types/state/auth'
 import GroupState from '../../types/state/group'
 import State from '../../types/state/index'
 import ItemState from '../../types/state/item'
+import TransactionState from '../../types/state/transaction'
 import UserState from '../../types/state/user'
 
 export const defaultApiState: ApiState = {
@@ -33,10 +34,16 @@ export const itemState: ItemState = {
   submitItem: defaultApiState,
 }
 
+export const transactionState: TransactionState = {
+  loadTransactions: defaultApiState,
+  transactions: [],
+}
+
 const defaultState: State = {
   auth,
   groupState,
   itemState,
+  transactionState,
   userState,
 }
 
