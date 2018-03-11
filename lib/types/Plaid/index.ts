@@ -142,13 +142,77 @@ declare namespace Plaid {
     request_id: string
   }
 
+  // === === PLAID WEBHOOK === === \\
+  interface BaseWebhook {
+    webhook_type: 'ITEM' | 'TRANSACTIONS'
+    webhook_code: string
+    item_id: string
+    error: object | null
+  }
+
+  interface InitialTransactionWebhook extends BaseWebhook {
+    webhook_type: 'TRANSACTIONS'
+    webhook_code: 'INITIAL_UPDATE'
+    error: null
+    new_transactions: number
+  }
+
+  interface HistoricalTransactionWebhook extends BaseWebhook {
+    webhook_type: 'TRANSACTIONS'
+    webhook_code: 'HISTORICAL_UPDATE'
+    error: null
+    new_transactions: number
+  }
+
+  interface DefaultTransactionWebhook extends BaseWebhook {
+    webhook_type: 'TRANSACTIONS'
+    webhook_code: 'DEFAULT_UPDATE'
+    error: null
+    new_transactions: number
+  }
+
+  interface RemovedTransactionWebhook extends BaseWebhook {
+    webhook_type: 'TRANSACTIONS'
+    webhook_code: 'TRANSACTIONS_REMOVED'
+    error: null
+    removed_transactions: ReadonlyArray<string>
+  }
+
+  type TransactionWebhook =
+    | InitialTransactionWebhook
+    | HistoricalTransactionWebhook
+    | DefaultTransactionWebhook
+    | RemovedTransactionWebhook
+
+  interface ItemWebhookUpdateWebhook extends BaseWebhook {
+    webhook_type: 'ITEM'
+    webhook_code: 'WEBHOOK_UPDATE_ACKNOWLEDGED'
+    new_webhook: string
+  }
+
+  interface ItemErrorWebhook extends BaseWebhook {
+    webhook_type: 'ITEM'
+    webhook_code: 'ERROR'
+    error: {
+      display_message: string
+      error_code: string
+      error_message: string
+      error_type: string
+      status: number
+    }
+  }
+
+  type ItemWebhook = ItemWebhookUpdateWebhook | ItemErrorWebhook
+
+  type Webhook = TransactionWebhook | ItemWebhook
+
   // === === PLAID MISC === === \\
 
   interface Location {
-    address: string
-    city: string
-    state: string
-    zip: string
+    address: string | null
+    city: string | null
+    state: string | null
+    zip: string | null
     lat: number | null
     lon: number | null
   }

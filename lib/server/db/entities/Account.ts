@@ -2,6 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -16,7 +17,9 @@ export class Account extends BaseEntity {
   // === Class properties ===
   @PrimaryGeneratedColumn() id: number
 
-  @Column() accountId: string
+  @Index({ unique: true })
+  @Column()
+  accountId: string
 
   @Column('json') balances: Plaid.AccountBalances
 

@@ -1,6 +1,14 @@
+import { Moment } from 'moment'
+import { TransactionsResponse } from 'plaid'
 import { Account } from '../db/entities/Account'
 import { Item } from '../db/entities/Item'
+import { Transaction } from '../db/entities/Transaction'
 import TokenRequiredError from '../errors/TokenRequiredError'
+import {
+  createDateBlocksFromRange,
+  PLAID_DATE_FORMAT,
+  TEN_DAYS,
+} from '../utils/date'
 import PlaidService from './plaid.service'
 
 export default class ItemService extends PlaidService {
@@ -57,5 +65,50 @@ export default class ItemService extends PlaidService {
         return newAccount.save()
       })
     )
+  }
+
+  /** Fetches and saves transactions to database for the given date range
+   * @param startDate moment date
+   * @param endDate moment date
+   * @returns array of fetched transactions
+   *
+   * Notes:
+   *  - transactions are returned in descending time-order (recent first)
+   *  - Plaid recommends restricting time band to no more than 10 days
+   *  - With time-blocks of 10-days, pagination at count=500 should practically
+   *    never happen, so not doing a whole lot of fancy error handling
+   */
+  async fetchAndSaveTransactionsForItem(startDate: Moment, endDate: Moment) {
+    const token = this.token
+    if (!token) throw new TokenRequiredError()
+
+    const transactions: TransactionsResponse['transactions'] = []
+    const timeBlocks = createDateBlocksFromRange(startDate, endDate, TEN_DAYS)
+
+    for (const [start, end] of timeBlocks) {
+      let currentBlockCount = 0
+      let page = 0
+      while (true) {
+        const resp = await this.plaidClient.getTransactions(
+          token,
+          start.format(PLAID_DATE_FORMAT),
+          end.format(PLAID_DATE_FORMAT),
+          {
+            count: 500,
+            offset: page * 500,
+          }
+        )
+        currentBlockCount += resp.transactions.length
+        transactions.push(...resp.transactions)
+        if (currentBlockCount >= resp.total_transactions) break
+        page++
+      }
+    }
+
+    const newTxns = await Transaction.createTransactionsFromPlaidApi(
+      transactions
+    )
+
+    return newTxns
   }
 }

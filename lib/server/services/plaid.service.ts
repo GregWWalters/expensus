@@ -16,10 +16,4 @@ export default class PlaidService {
   constructor(protected readonly groupId: number, protected token?: string) {
     this.plaidClient = createPlaidClient()
   }
-
-  async getAccessToken(publicToken: string) {
-    const resp = await this.plaidClient.exchangePublicToken(publicToken)
-    this.token = resp.access_token
-    return resp.access_token
-  }
 }
