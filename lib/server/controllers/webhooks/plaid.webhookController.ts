@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import moment from 'moment'
-import { Item } from '../db/entities/Item'
-import ItemService from '../services/item.service'
+import { Item } from '../../db/entities/Item'
+import ItemService from '../../services/item.service'
 
 interface PlaidWebhookRequest extends Koa.Request {
   body: Plaid.Webhook
