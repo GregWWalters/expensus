@@ -6,11 +6,13 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { TransactionForClient } from '../../../types/state/transaction'
 import AccountRequiredError from '../../errors/AccountRequiredError'
 import { Account } from './Account'
+import { Allocation } from './Allocation'
 import { Item } from './Item'
 
 @Entity('transactions')
@@ -103,6 +105,9 @@ export class Transaction extends BaseEntity {
   @ManyToOne(type => Item, item => item.transactions)
   @JoinColumn()
   item?: Item
+
+  @OneToMany(type => Allocation, allocation => allocation.transaction)
+  allocations?: Allocation[]
 
   // === Helper Methods ===
   toObjectForClient(): TransactionForClient {

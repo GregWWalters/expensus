@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { GroupForClient } from '../../../types/state/group'
+import { Book } from './Book'
 import { Item } from './Item'
 import { User } from './User'
 
@@ -30,6 +31,9 @@ export class Group extends BaseEntity {
 
   @OneToMany(type => Item, item => item.group)
   items?: Item[]
+
+  @OneToMany(type => Book, book => book.group)
+  books?: Book
 
   // === Class Methods ===
   toObjectForClient(): GroupForClient {
