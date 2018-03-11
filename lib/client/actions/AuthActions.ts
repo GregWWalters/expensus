@@ -10,6 +10,7 @@ import { STORAGE_TOKEN_KEY } from '../constants'
 import { selectLoginStatus, selectSignupStatus } from '../state/selectors/auth'
 import { fetchGroup } from './GroupActions'
 import { fetchItems } from './ItemActions'
+import { fetchTransactions } from './TransactionActions'
 import { setUser } from './UserActions'
 
 // BASIC ACTIONS
@@ -53,6 +54,7 @@ export const submitLogin = (
   dispatch(loginSuccess())
   dispatch(fetchGroup())
   dispatch(fetchItems())
+  dispatch(fetchTransactions())
 }
 
 export const submitSignup = (
