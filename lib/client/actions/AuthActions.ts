@@ -8,6 +8,7 @@ import req from '../api/req'
 import AuthResource from '../api/resources/auth.resource'
 import { STORAGE_TOKEN_KEY } from '../constants'
 import { selectLoginStatus, selectSignupStatus } from '../state/selectors/auth'
+import { fetchBooks } from './BookActions'
 import { fetchGroup } from './GroupActions'
 import { fetchItems } from './ItemActions'
 import { fetchTransactions } from './TransactionActions'
@@ -55,6 +56,7 @@ export const submitLogin = (
   dispatch(fetchGroup())
   dispatch(fetchItems())
   dispatch(fetchTransactions())
+  dispatch(fetchBooks())
 }
 
 export const submitSignup = (

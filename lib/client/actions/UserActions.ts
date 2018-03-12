@@ -8,6 +8,7 @@ import UserResource from '../api/resources/user.resource'
 import { STORAGE_TOKEN_KEY } from '../constants'
 import { selectLoadUserStatus } from '../state/selectors/userState'
 import { loginSuccess, setApiToken } from './AuthActions'
+import { fetchBooks } from './BookActions'
 import { fetchGroup } from './GroupActions'
 import { fetchItems } from './ItemActions'
 import { fetchTransactions } from './TransactionActions'
@@ -52,4 +53,5 @@ export const fetchUser = (): ThunkAction<Promise<void>, State, null> => async (
   dispatch(fetchGroup())
   dispatch(fetchItems())
   dispatch(fetchTransactions())
+  dispatch(fetchBooks())
 }
