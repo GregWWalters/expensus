@@ -4,11 +4,8 @@ import {
   CreateGroupResponseBody,
   FetchGroupResponseBody,
 } from '../../types/api/group.types'
-import { Controller } from '../../types/controller'
 import { Group } from '../db/entities/Group'
 import { User } from '../db/entities/User'
-
-const GroupController: Controller = {}
 
 interface CreateGroupRequest extends Koa.Request {
   body: CreateGroupParams
@@ -19,13 +16,14 @@ interface CreateGroupContext extends Koa.Context {
   body: CreateGroupResponseBody
 }
 
-GroupController.createGroup = async (ctx: CreateGroupContext, next) => {
+const createGroup = async (ctx: CreateGroupContext, next) => {
   const { name } = ctx.request.body
   const user = ctx.user
   const group = await Group.findOneById(user.groupId)
   if (group) {
     ctx.throw(422, 'User already member of group')
   } else {
+    // TODO: factor this out into model or service layer
     const newGroup = new Group()
     newGroup.name = name
     newGroup.owner = user
@@ -41,7 +39,7 @@ interface GetGroupContext extends Koa.Context {
   body: FetchGroupResponseBody
 }
 
-GroupController.getGroup = async (ctx: GetGroupContext, next) => {
+const getGroup = async (ctx: GetGroupContext, next) => {
   const { user } = ctx
   const group = await Group.findOneById(user.groupId)
   if (!group) {
@@ -49,6 +47,11 @@ GroupController.getGroup = async (ctx: GetGroupContext, next) => {
   } else {
     ctx.body = { group: group.toObjectForClient() }
   }
+}
+
+const GroupController = {
+  createGroup,
+  getGroup,
 }
 
 export default GroupController

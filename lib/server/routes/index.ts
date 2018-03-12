@@ -1,6 +1,7 @@
 import Router from 'koa-router'
 import { jwtAuth } from '../middleware/auth.middleware'
 import auth from './auth.routes'
+import book from './book.routes'
 import group from './group.routes'
 import item from './item.routes'
 import transaction from './transaction.routes'
@@ -19,5 +20,6 @@ router.use('/group', group.routes(), group.allowedMethods())
 router.use('/user', user.routes(), user.allowedMethods())
 router.use('/item', item.routes(), item.allowedMethods())
 router.use('/transaction', transaction.routes(), transaction.allowedMethods())
+router.use('/book', book.routes(), book.allowedMethods())
 
 export default router

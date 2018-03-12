@@ -20,7 +20,7 @@ const loadGroupReducer = createReducer<GroupState['loadGroup']>(
 )
 const submitGroupReducer = createReducer<GroupState['submitGroup']>(
   {},
-  groupState.loadGroup
+  groupState.submitGroup
 )
 
 const groupStateReducer = combineReducers({

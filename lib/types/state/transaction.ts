@@ -17,6 +17,7 @@ export interface TransactionForClient {
   transactionType: Transaction['transactionType']
   accountId: Transaction['accountId']
   itemId: Transaction['itemId']
+  allocations: Transaction['allocations']
 }
 
 export default interface TransactionState {

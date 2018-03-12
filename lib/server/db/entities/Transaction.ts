@@ -106,7 +106,9 @@ export class Transaction extends BaseEntity {
   @JoinColumn()
   item?: Item
 
-  @OneToMany(type => Allocation, allocation => allocation.transaction)
+  @OneToMany(type => Allocation, allocation => allocation.transaction, {
+    eager: true,
+  })
   allocations?: Allocation[]
 
   // === Helper Methods ===
@@ -127,6 +129,7 @@ export class Transaction extends BaseEntity {
       transactionType: this.transactionType,
       accountId: this.accountId,
       itemId: this.itemId,
+      allocations: this.allocations,
     }
   }
 }

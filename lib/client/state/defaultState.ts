@@ -1,5 +1,6 @@
 import { ApiState, RequestState } from '../../types'
 import AuthState from '../../types/state/auth'
+import { BookState } from '../../types/state/book'
 import GroupState from '../../types/state/group'
 import State from '../../types/state/index'
 import ItemState from '../../types/state/item'
@@ -39,8 +40,15 @@ export const transactionState: TransactionState = {
   transactions: [],
 }
 
+export const bookState: BookState = {
+  loadBooks: defaultApiState,
+  submitBook: defaultApiState,
+  books: [],
+}
+
 const defaultState: State = {
   auth,
+  bookState,
   groupState,
   itemState,
   transactionState,

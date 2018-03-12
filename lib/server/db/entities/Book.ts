@@ -22,7 +22,6 @@ export class Book extends BaseEntity {
   @ManyToOne(type => Group, group => group.books)
   group: Group
 
-  @Column() allocationId: number
   @OneToMany(type => Allocation, allocation => allocation.book)
   allocations?: Allocation[]
 }
