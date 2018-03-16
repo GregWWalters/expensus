@@ -32,10 +32,7 @@ export default bookStateReducer
 
 // === Books Reducer Handlers
 booksReducer.on(setBooks, (state, books) => books)
-booksReducer.on(addBook, (state, book) => ({
-  ...state,
-  book,
-}))
+booksReducer.on(addBook, (state, book) => [...state, book])
 
 // === LoadBooks State Reducer Handlers
 loadBooksReducer.on(setBooks, (state, books) => ({

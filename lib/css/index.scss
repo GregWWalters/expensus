@@ -22,6 +22,7 @@
 @import './group/GroupNav';
 @import './group/groupInfo/GroupInfo';
 @import './group/groupAccounts/GroupAccounts';
+@import './group/groupBooks/GroupBooks';
 
 // Dashboard module
 @import './dashboard/DashboardNav';
@@ -34,3 +35,6 @@
 
 // Account module
 @import './account/AccountListItem';
+
+// Book module
+@import './book/BookListItem';

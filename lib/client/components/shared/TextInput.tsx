@@ -15,6 +15,7 @@ interface Props {
   ) => any
   placeholder?: string
   type: HTMLInputElement['type']
+  value?: string
 }
 
 const TextInput: React.SFC<Props> = ({
@@ -23,6 +24,7 @@ const TextInput: React.SFC<Props> = ({
   onChange,
   placeholder,
   type,
+  value,
 }) => (
   <input
     type={type}
@@ -32,6 +34,7 @@ const TextInput: React.SFC<Props> = ({
     onChange={e => {
       onChange(e, { name, value: e.target.value })
     }}
+    value={value === undefined ? undefined : value}
   />
 )
 

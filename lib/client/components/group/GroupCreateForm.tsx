@@ -29,6 +29,13 @@ interface OwnState {
 type Props = RouteComponentProps<{}> & StateProps & DispatchProps
 
 class GroupCreateForm extends React.Component<Props, OwnState> {
+  constructor(props: Props) {
+    super(props)
+    this.state = { groupName: '' }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
   render() {
     return (
       <form className="group-create-form" onSubmit={this.handleSubmit}>
@@ -48,13 +55,6 @@ class GroupCreateForm extends React.Component<Props, OwnState> {
         </Button>
       </form>
     )
-  }
-
-  constructor(props: Props) {
-    super(props)
-    this.state = { groupName: '' }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e, { name, value }) {

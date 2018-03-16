@@ -11,6 +11,7 @@ import {
 import { FlexWindow } from '../shared/Layouts'
 import { FlexWindowSpinner } from '../shared/Spinners'
 import { GroupAccounts } from './groupAccounts/GroupAccounts'
+import { GroupBooks } from './groupBooks/GroupBooks'
 import { GroupCreate } from './GroupCreate'
 import { GroupInfo } from './groupInfo/GroupInfo'
 import { GroupNav } from './GroupNav'
@@ -30,6 +31,7 @@ const Group: React.SFC<Props> = ({ group, loadGroupState, match }) => {
         <Switch>
           <Route path={`${match.url}/info`} component={GroupInfo} />
           <Route path={`${match.url}/accounts`} component={GroupAccounts} />
+          <Route path={`${match.url}/books`} component={GroupBooks} />
           <Redirect to={`${match.url}/info`} />
         </Switch>
       </FlexWindow>

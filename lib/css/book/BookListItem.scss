@@ -1,0 +1,17 @@
+.book-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $padding-tight;
+
+  &__icon {
+    color: $main-color;
+  }
+
+  &__name {
+    font-size: 1.3rem;
+    color: $main-color-darkest;
+    padding: $padding-tight $padding;
+    flex: 1;
+  }
+}

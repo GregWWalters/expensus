@@ -19,8 +19,8 @@ const GroupNav: React.SFC<RouteComponentProps<{}>> = ({ match }) => {
       <NavLink
         className="group-nav__nav-item"
         activeClassName="group-nav__nav-item--active"
-        to={`${match.url}/buckets`}>
-        Buckets
+        to={`${match.url}/books`}>
+        Books
       </NavLink>
     </div>
   )

@@ -1,5 +1,6 @@
 import {
   CreateBookParams,
+  CreateBookResponseBody,
   GetBooksResponseBody,
 } from '../../../types/api/book.types'
 import { ApiResource } from '../ApiResource'
@@ -18,9 +19,10 @@ export default class BookResource extends ApiResource {
 
   async createBook(bookName: string) {
     try {
-      const resp = await this.req.post<CreateBookParams>(
-        '/book',
-        { name: bookName },
+      const params: CreateBookParams = { name: bookName }
+      const resp = await this.req.post<CreateBookResponseBody>(
+        '/book/create',
+        params,
         { headers: this.defaultHeaders }
       )
       return resp.data
