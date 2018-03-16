@@ -30,6 +30,9 @@ interface PlaidLinkable {
   plaidHandler: any
 }
 
+const plaidExists = () =>
+  (window as any).Plaid && typeof (window as any).Plaid.create === 'function'
+
 type Props = StateProps & DispatchProps
 
 class GroupAccounts extends React.PureComponent<Props>
@@ -40,15 +43,19 @@ class GroupAccounts extends React.PureComponent<Props>
     super(props)
 
     // todo: type plaid better
-    this.plaidHandler = (window as any).Plaid.create({
-      clientName: 'Expensus',
-      env: process.env.PLAID_API_ENV,
-      key: process.env.PLAID_API_KEY,
-      product: ['transactions'],
-      onSuccess: (token, meta) => {
-        props.submitItemRequest(token)
-      },
-    })
+    if (plaidExists()) {
+      this.plaidHandler = (window as any).Plaid.create({
+        clientName: 'Expensus',
+        env: process.env.PLAID_API_ENV,
+        key: process.env.PLAID_API_KEY,
+        product: ['transactions'],
+        onSuccess: (token, meta) => {
+          props.submitItemRequest(token)
+        },
+      })
+    } else {
+      console.warn('Plaid not found. Account linking blocked')
+    }
   }
 
   render() {
@@ -59,7 +66,9 @@ class GroupAccounts extends React.PureComponent<Props>
           <div className="group-accounts__header-container">
             <div className="group-accounts__header">Accounts</div>
             <div className="group-accounts__add-account-button">
-              <Button onClick={this.handleAddAccountClick}>
+              <Button
+                disabled={!this.plaidHandler}
+                onClick={this.handleAddAccountClick}>
                 Add New Account
               </Button>
             </div>
