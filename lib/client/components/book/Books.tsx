@@ -1,23 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ApiState } from '../../../../types'
-import State from '../../../../types/state'
-import { BookForClient } from '../../../../types/state/book'
+import { ApiState } from '../../../types'
+import State from '../../../types/state'
+import { BookForClient } from '../../../types/state/book'
 import {
   selectBooks,
   selectLoadBooksState,
-} from '../../../state/selectors/bookState'
-import { BookListItem } from '../../book/BookListItem'
-import { Column, HorizontalDivider } from '../../shared/Layouts'
-import { FlexWindowSpinner } from '../../shared/Spinners'
-import { BookCreateForm } from './BookCreateForm'
+} from '../../state/selectors/bookState'
+import { Column, HorizontalDivider } from '../shared/Layouts'
+import { FlexWindowSpinner } from '../shared/Spinners'
+import { BookListItem } from './BookListItem'
+import { BookCreateForm } from './CreateForm'
 
 interface StateProps {
   books: ReadonlyArray<BookForClient>
   loadBooks: ApiState
 }
 
-const GroupBooks: React.SFC<StateProps> = ({ books, loadBooks }) => (
+const Books: React.SFC<StateProps> = ({ books, loadBooks }) => (
   <Column className="books" maxWidth="700px">
     <div className="books__header">Books</div>
     <div className="books__sub-header">
@@ -41,6 +41,6 @@ const GroupBooks: React.SFC<StateProps> = ({ books, loadBooks }) => (
 const connected = connect<StateProps, never, never, State>(state => ({
   books: selectBooks(state),
   loadBooks: selectLoadBooksState(state),
-}))(GroupBooks)
+}))(Books)
 
-export { connected as GroupBooks }
+export { connected as Books }

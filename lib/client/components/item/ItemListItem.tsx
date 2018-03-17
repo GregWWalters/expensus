@@ -1,6 +1,6 @@
 import React from 'react'
 import { ItemForClient } from '../../../types/state/item'
-import { AccountListItem } from '../account/AccountListItem'
+import { AccountListItem } from '../account/ListItem'
 import { Icon } from '../shared/Icon'
 
 interface OwnState {

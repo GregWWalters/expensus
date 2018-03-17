@@ -1,20 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { ApiState, RequestState } from '../../../../types'
-import State from '../../../../types/state'
-import { ItemForClient } from '../../../../types/state/item'
-import { submitItemRequest } from '../../../actions/ItemActions'
+import { ApiState, RequestState } from '../../../types'
+import State from '../../../types/state'
+import { ItemForClient } from '../../../types/state/item'
+import { submitItemRequest } from '../../actions/ItemActions'
 import {
   selectItems,
   selectLoadItemsState,
   selectSubmitItemState,
-} from '../../../state/selectors/itemState'
-import { ItemListItem } from '../../item/ItemListItem'
-import { Button } from '../../shared/Button'
-import { Column, HorizontalDivider } from '../../shared/Layouts'
-import { FlexWindow } from '../../shared/Layouts'
-import { RowSpinner } from '../../shared/Spinners'
+} from '../../state/selectors/itemState'
+import { ItemListItem } from '../item/ItemListItem'
+import { Button } from '../shared/Button'
+import { Column, HorizontalDivider } from '../shared/Layouts'
+import { FlexWindow } from '../shared/Layouts'
+import { RowSpinner } from '../shared/Spinners'
 
 interface StateProps {
   items: ReadonlyArray<ItemForClient>
@@ -35,8 +35,7 @@ const plaidExists = () =>
 
 type Props = StateProps & DispatchProps
 
-class GroupAccounts extends React.PureComponent<Props>
-  implements PlaidLinkable {
+class Accounts extends React.PureComponent<Props> implements PlaidLinkable {
   readonly plaidHandler
 
   constructor(props: Props) {
@@ -98,6 +97,6 @@ const connected = connect<StateProps, DispatchProps, {}, State>(
   (dispatch: Dispatch<State>) => ({
     submitItemRequest: (token: string) => dispatch(submitItemRequest(token)),
   })
-)(GroupAccounts)
+)(Accounts)
 
-export { connected as GroupAccounts }
+export { connected as Accounts }

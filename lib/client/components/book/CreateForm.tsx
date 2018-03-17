@@ -2,16 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Dispatch } from 'redux'
-import { RequestState } from '../../../../types'
-import { ClientApiError } from '../../../../types/api'
-import State from '../../../../types/state'
-import { submitCreateBookRequest } from '../../../actions/BookActions'
+import { RequestState } from '../../../types'
+import { ClientApiError } from '../../../types/api'
+import State from '../../../types/state'
+import { submitCreateBookRequest } from '../../actions/BookActions'
 import {
   selectSubmitBookError,
   selectSubmitBookStatus,
-} from '../../../state/selectors/bookState'
-import { Button } from '../../shared/Button'
-import { TextInput } from '../../shared/TextInput'
+} from '../../state/selectors/bookState'
+import { Button } from '../shared/Button'
+import { TextInput } from '../shared/TextInput'
 
 interface StateProps {
   submitBookStatus: RequestState
