@@ -4,6 +4,8 @@ import {
   CreateBookParams,
   CreateBookResponseBody,
   GetBooksResponseBody,
+  UpdateBookParams,
+  UpdateBookResponseBody,
 } from '../../types/api/book.types'
 import { AuthedContext } from '../../types/controller'
 import { Book } from '../db/entities/Book'
@@ -52,9 +54,44 @@ const getBooks = async (ctx: GetBookContext, next) => {
   ctx.body = { books }
 }
 
+interface UpdateBookRequest extends Koa.Request {
+  body: UpdateBookParams
+}
+
+interface UpdateBookContext extends AuthedContext {
+  request: UpdateBookRequest
+  body: UpdateBookResponseBody
+  params: { id: string }
+}
+
+const updateBook = async (ctx: UpdateBookContext, next) => {
+  const { user } = ctx
+  const group = await Group.findOneById(user.groupId)
+  if (!group) {
+    ctx.throw(422, 'Group required to update book')
+    throw new GroupRequiredError('Group required to fetch a book')
+  }
+
+  const { id } = ctx.params
+  const { name } = ctx.request.body
+
+  const book = await Book.findOneById(id)
+  if (!book) {
+    ctx.throw(404, 'Book not found')
+  } else if (!name) {
+    ctx.throw(400, 'Name required to update book name')
+  } else {
+    book.name = name
+    await book.save()
+    ctx.status = 200
+    ctx.body = { book }
+  }
+}
+
 const BookController = {
   createBook,
   getBooks,
+  updateBook,
 }
 
 export default BookController

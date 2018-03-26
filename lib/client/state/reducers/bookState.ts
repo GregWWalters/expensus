@@ -9,6 +9,9 @@ import {
   setBooks,
   submitBook,
   submitBookError,
+  updatedBook,
+  updateBook,
+  updateBookError,
 } from '../../actions/BookActions'
 import { bookState } from '../defaultState'
 
@@ -22,17 +25,25 @@ const submitBookReducer = createReducer<BookState['submitBook']>(
   {},
   bookState.submitBook
 )
+const updateBookReducer = createReducer<BookState['updateBook']>(
+  {},
+  bookState.updateBook
+)
 
 const bookStateReducer = combineReducers<BookState>({
   books: booksReducer,
   loadBooks: loadBooksReducer,
   submitBook: submitBookReducer,
+  updateBook: updateBookReducer,
 })
 export default bookStateReducer
 
 // === Books Reducer Handlers
 booksReducer.on(setBooks, (state, books) => books)
 booksReducer.on(addBook, (state, book) => [...state, book])
+booksReducer.on(updatedBook, (state, book) =>
+  state.map(b => (b.id === book.id ? book : b))
+)
 
 // === LoadBooks State Reducer Handlers
 loadBooksReducer.on(setBooks, (state, books) => ({
@@ -62,6 +73,25 @@ submitBookReducer.on(submitBook, state => ({
 }))
 
 submitBookReducer.on(submitBookError, (state, error) => ({
+  error,
+  status: RequestState.ERROR,
+}))
+
+// === UpdateBook State Reducer Handlers
+updateBookReducer.on(updateBook, (state, id) => ({
+  error: null,
+  status: RequestState.REQUESTING,
+  id,
+}))
+
+updateBookReducer.on(updatedBook, (state, book) => ({
+  ...state,
+  error: null,
+  status: RequestState.COMPLETED,
+}))
+
+updateBookReducer.on(updateBookError, (state, error) => ({
+  ...state,
   error,
   status: RequestState.ERROR,
 }))

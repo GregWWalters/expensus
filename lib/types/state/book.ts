@@ -10,5 +10,6 @@ export interface BookForClient {
 export interface BookState {
   loadBooks: ApiState
   submitBook: ApiState
+  updateBook: ApiState & { id: number | null }
   books: ReadonlyArray<BookForClient>
 }

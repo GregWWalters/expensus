@@ -1,6 +1,7 @@
 import { createAction } from 'redux-act'
 import { ThunkAction } from 'redux-thunk'
 import { ClientApiError } from '../../types/api'
+import { UpdateBookParams } from '../../types/api/book.types'
 import State from '../../types/state'
 import { BookForClient } from '../../types/state/book'
 import BookResource from '../api/resources/book.resource'
@@ -14,6 +15,9 @@ export const loadBooksError = createAction<ClientApiError>('LOAD_BOOKS_ERROR')
 export const submitBook = createAction('SUBMIT_BOOK')
 export const submitBookError = createAction<ClientApiError>('SUBMIT_BOOK_ERROR')
 export const addBook = createAction<BookForClient>('ADD_BOOK')
+export const updateBook = createAction<number>('UPDATE_BOOK')
+export const updatedBook = createAction<BookForClient>('UPDATED_BOOK')
+export const updateBookError = createAction<ClientApiError>('UPDATE_BOOK_ERROR')
 
 export const fetchBooks = (): ThunkAction<Promise<void>, State, null> => async (
   dispatch,
@@ -59,5 +63,27 @@ export const submitCreateBookRequest = (
   }
 
   dispatch(addBook(resp.book))
+  return Promise.resolve()
+}
+
+export const submitUpdateBookRequest = (
+  params: UpdateBookParams
+): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {
+  const user = selectUser(getState())
+  if (!user) throw new UserRequiredError('User required to create book')
+  if (!user.groupId) {
+    throw new GroupRequiredError('Group required to create book')
+  }
+
+  dispatch(updateBook(params.id))
+  const bookApi = new BookResource(getState(), dispatch)
+  const resp = await bookApi.updateBook(params)
+
+  if ('err' in resp) {
+    dispatch(updateBookError(resp.err))
+    return Promise.reject(resp.err)
+  }
+
+  dispatch(updatedBook(resp.book))
   return Promise.resolve()
 }

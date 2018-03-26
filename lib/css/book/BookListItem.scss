@@ -14,4 +14,17 @@
     padding: $padding-tight $padding;
     flex: 1;
   }
+
+  &__edit-book-name {
+    text-align: left;
+    margin-left: $padding-tight;
+    font-size: 1.3rem;
+  }
+
+  &__edit-button {
+    margin: 0px $padding-tight;
+    &:last-of-type {
+      margin: 0;
+    }
+  }
 }

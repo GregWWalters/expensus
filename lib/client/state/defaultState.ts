@@ -43,6 +43,10 @@ export const transactionState: TransactionState = {
 export const bookState: BookState = {
   loadBooks: defaultApiState,
   submitBook: defaultApiState,
+  updateBook: {
+    ...defaultApiState,
+    id: null,
+  },
   books: [],
 }
 

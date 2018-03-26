@@ -11,3 +11,12 @@ export interface CreateBookResponseBody {
 export interface GetBooksResponseBody {
   books: ReadonlyArray<BookForClient>
 }
+
+export interface UpdateBookParams {
+  id: number
+  name: string
+}
+
+export interface UpdateBookResponseBody {
+  book: BookForClient
+}
