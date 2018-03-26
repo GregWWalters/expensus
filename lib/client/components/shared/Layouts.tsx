@@ -1,7 +1,7 @@
 import c from 'classnames'
 import React from 'react'
 
-type Overflow = 'auto' | 'hidden' | 'scroll'
+type Overflow = 'auto' | 'hidden'
 
 interface WindowProps {
   children?: React.ReactNode
@@ -21,14 +21,13 @@ const FullWindow: React.SFC<WindowProps> = ({
   className,
   flex,
   padding = false,
-  overflow = 'auto',
+  overflow = 'hidden',
 }) => (
   <div
     className={c(className, 'full-window', {
       'full-window--padded': padding,
       'full-window--overflow-auto': overflow === 'auto',
       'full-window--overflow-hidden': overflow === 'hidden',
-      'full-window--overflow-scroll': overflow === 'scroll',
       'full-window--flex-column': flex === 'column',
       'full-window--flex-row': flex === 'row',
     })}>
@@ -46,14 +45,13 @@ const FlexWindow: React.SFC<WindowProps> = ({
   className,
   flex,
   padding = false,
-  overflow = 'auto',
+  overflow = 'hidden',
 }) => (
   <div
     className={c(className, 'flex-window', {
       'flex-window--padded': padding,
       'flex-window--overflow-auto': overflow === 'auto',
       'flex-window--overflow-hidden': overflow === 'hidden',
-      'flex-window--overflow-scroll': overflow === 'scroll',
       'flex-window--flex-column': flex === 'column',
       'flex-window--flex-row': flex === 'row',
     })}>
@@ -88,10 +86,9 @@ const Column: React.SFC<ColumnProps> = ({
         'column--padded': padding,
         'column--overflow-auto': overflow === 'auto',
         'column--overflow-hidden': overflow === 'hidden',
-        'column--overflow-scroll': overflow === 'scroll',
       })}
       style={{ width, maxWidth }}>
-      {children}
+      <div>{children}</div>
     </div>
   )
 }
