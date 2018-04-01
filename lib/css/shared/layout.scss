@@ -111,7 +111,19 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex: 1 0 0%;
+  flex: 1 0 0;
+
+  // This defaults all children of a column to be un-flexible
+  // enabling correct scroll behavior
+  > * {
+    flex: none;
+  }
+
+  // Nested columns are often used to provide internal scrolling within a
+  // column display, so we override the column immediate child style above
+  .column {
+    flex: 1 0 0;
+  }
 
   &--padded {
     padding: 0 $padding;

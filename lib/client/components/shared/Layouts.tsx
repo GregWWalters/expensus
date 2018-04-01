@@ -88,7 +88,7 @@ const Column: React.SFC<ColumnProps> = ({
         'column--overflow-hidden': overflow === 'hidden',
       })}
       style={{ width, maxWidth }}>
-      <div>{children}</div>
+      {children}
     </div>
   )
 }
