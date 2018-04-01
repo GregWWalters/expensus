@@ -6,7 +6,7 @@ import webpack from 'webpack'
 
 const config: webpack.Configuration = {
   context: path.join(__dirname, '../'),
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   entry: './index.tsx',
   output: {
     path: path.join(__dirname, '../../../', 'public'),
