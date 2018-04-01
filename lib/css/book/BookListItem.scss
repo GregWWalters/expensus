@@ -21,6 +21,10 @@
     font-size: 1.3rem;
   }
 
+  &__open-edit-button {
+    cursor: pointer;
+  }
+
   &__edit-button {
     margin: 0px $padding-tight;
     &:last-of-type {

@@ -50,7 +50,7 @@ class BookListItem extends React.PureComponent<Props, OwnState> {
             <div className="book-list-item__name">{book.name}</div>
             <div
               onClick={this.toggleEditMode}
-              className="book-list-item__edit-button">
+              className="book-list-item__open-edit-button">
               <Icon size="small" iconName="pencil" />
             </div>
           </>
