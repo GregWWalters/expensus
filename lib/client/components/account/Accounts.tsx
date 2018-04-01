@@ -61,7 +61,7 @@ class Accounts extends React.PureComponent<Props> implements PlaidLinkable {
     const { items, loadItemsState, submitItemState } = this.props
     if (items) {
       return (
-        <Column width="700px" className="group-accounts">
+        <Column width="700px" className="group-accounts" overflow="hidden">
           <div className="group-accounts__header-container">
             <div className="group-accounts__header">Accounts</div>
             <div className="group-accounts__add-account-button">
@@ -73,9 +73,12 @@ class Accounts extends React.PureComponent<Props> implements PlaidLinkable {
             </div>
           </div>
           <HorizontalDivider />
-          {items.map(item => <ItemListItem key={item.id} item={item} />)}
-          {submitItemState.status === RequestState.REQUESTING && <RowSpinner />}
-          <HorizontalDivider />
+          <Column>
+            {items.map(item => <ItemListItem key={item.id} item={item} />)}
+            {submitItemState.status === RequestState.REQUESTING && (
+              <RowSpinner />
+            )}
+          </Column>
         </Column>
       )
     } else if (loadItemsState.status === RequestState.REQUESTING) {
