@@ -10,7 +10,7 @@ import {
   selectLoadItemsState,
   selectSubmitItemState,
 } from '../../state/selectors/itemState'
-import { ItemListItem } from '../item/ItemListItem'
+import { ItemListItem } from '../item/ListItem'
 import { Button } from '../shared/Button'
 import { Column, HorizontalDivider } from '../shared/Layouts'
 import { FlexWindow } from '../shared/Layouts'

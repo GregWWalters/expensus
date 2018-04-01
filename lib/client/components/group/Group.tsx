@@ -13,7 +13,7 @@ import { Books } from '../book/Books'
 import { FlexWindow } from '../shared/Layouts'
 import { FlexWindowSpinner } from '../shared/Spinners'
 import { GroupCreate } from './GroupCreate'
-import { GroupInfo } from './groupInfo/GroupInfo'
+import { GroupInfo } from './GroupInfo'
 import { GroupNav } from './GroupNav'
 
 interface StateProps {

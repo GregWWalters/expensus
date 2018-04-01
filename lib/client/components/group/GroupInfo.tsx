@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
-import State from '../../../../types/state'
-import { GroupForClient } from '../../../../types/state/group'
-import GroupRequiredError from '../../../errors/GroupRequiredError'
-import { selectGroup } from '../../../state/selectors/groupState'
-import { Column, HorizontalDivider } from '../../shared/Layouts'
-import { UserListItem } from '../../user/UserListItem'
+import State from '../../../types/state'
+import { GroupForClient } from '../../../types/state/group'
+import GroupRequiredError from '../../errors/GroupRequiredError'
+import { selectGroup } from '../../state/selectors/groupState'
+import { Column, HorizontalDivider } from '../shared/Layouts'
+import { UserListItem } from '../user/ListItem'
 
 interface StateProps {
   group: GroupForClient | null
