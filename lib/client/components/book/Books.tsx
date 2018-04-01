@@ -9,7 +9,7 @@ import {
 } from '../../state/selectors/bookState'
 import { Column, HorizontalDivider } from '../shared/Layouts'
 import { FlexWindowSpinner } from '../shared/Spinners'
-import { BookListItem } from './BookListItem'
+import { BookListItem } from './ListItem'
 import { BookCreateForm } from './CreateForm'
 
 interface StateProps {
