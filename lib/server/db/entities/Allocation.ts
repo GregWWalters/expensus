@@ -5,6 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
+import { AllocationForClient } from '../../../types/Allocation'
 import { Book } from './Book'
 import { Transaction } from './Transaction'
 
@@ -23,4 +24,14 @@ export class Allocation extends BaseEntity {
   @Column() bookId: number
   @ManyToOne(type => Book, book => book.allocations)
   book?: Book
+
+  // === Helper Methods ===
+  toObjectForClient(): AllocationForClient {
+    return {
+      id: this.id,
+      amount: this.amount,
+      transactionId: this.transactionId,
+      bookId: this.bookId,
+    }
+  }
 }
