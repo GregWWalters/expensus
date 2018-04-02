@@ -1,4 +1,5 @@
 import { Transaction } from '../../server/db/entities/Transaction'
+import { AllocationForClient } from '../Allocation'
 import { ApiState } from '../index'
 
 export interface TransactionForClient {
@@ -17,7 +18,7 @@ export interface TransactionForClient {
   transactionType: Transaction['transactionType']
   accountId: Transaction['accountId']
   itemId: Transaction['itemId']
-  allocations: Transaction['allocations']
+  allocations: ReadonlyArray<AllocationForClient>
 }
 
 export default interface TransactionState {

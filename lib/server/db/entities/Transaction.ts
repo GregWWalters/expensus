@@ -129,7 +129,7 @@ export class Transaction extends BaseEntity {
       transactionType: this.transactionType,
       accountId: this.accountId,
       itemId: this.itemId,
-      allocations: this.allocations,
+      allocations: (this.allocations || []).map(al => al.toObjectForClient()),
     }
   }
 }
