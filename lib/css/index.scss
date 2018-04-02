@@ -22,7 +22,6 @@
 @import './group/GroupNav';
 @import './group/groupInfo/GroupInfo';
 @import './group/groupAccounts/GroupAccounts';
-@import './group/groupBooks/GroupBooks';
 
 // Dashboard module
 @import './dashboard/DashboardNav';
@@ -37,4 +36,9 @@
 @import './account/AccountListItem';
 
 // Book module
+@import './book/Books';
 @import './book/BookListItem';
+
+// Transaction module
+@import './transaction/TransactionListItem';
+@import './transaction/Transactions';

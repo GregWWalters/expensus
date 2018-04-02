@@ -1,0 +1,41 @@
+.transaction-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $black;
+
+  &__date {
+    color: $pending-grey;
+    font-style: italic;
+    padding: $padding-tight;
+    flex: 0 0 90px;
+  }
+
+  &__name {
+    padding: $padding-tight;
+    flex: 1 0 0;
+  }
+
+  &__amount {
+    flex: 0 0 110px;
+    padding: $padding-tight;
+    text-align: right;
+
+    &--positive {
+      color: $color4;
+    }
+  }
+
+  &__category {
+    flex: 0 0 100px;
+    padding: $padding-tight;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  &__book {
+    flex: 0 0 100px;
+    padding: $padding-tight;
+    text-align: center;
+  }
+}
