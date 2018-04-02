@@ -51,6 +51,7 @@
   },
   "homepage": "https://github.com/jaredmeek/expensus#readme",
   "dependencies": {
+    "accounting-js": "^1.1.1",
     "axios": "^0.17.1",
     "classnames": "^2.2.5",
     "credential": "^2.0.0",
