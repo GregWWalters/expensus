@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ApiState } from '../../../types'
+import { ApiState, RequestState } from '../../../types'
 import State from '../../../types/state'
 import { BookForClient } from '../../../types/state/book'
 import {
@@ -9,8 +9,8 @@ import {
 } from '../../state/selectors/bookState'
 import { Column, HorizontalDivider } from '../shared/Layouts'
 import { FlexWindowSpinner } from '../shared/Spinners'
-import { BookListItem } from './ListItem'
 import { BookCreateForm } from './CreateForm'
+import { BookListItem } from './ListItem'
 
 interface StateProps {
   books: ReadonlyArray<BookForClient>
@@ -27,7 +27,7 @@ const Books: React.SFC<StateProps> = ({ books, loadBooks }) => (
       the same card to rack up those miles.
     </div>
     <HorizontalDivider />
-    {books.length ? (
+    {books.length || loadBooks.status === RequestState.COMPLETED ? (
       books.map(book => <BookListItem book={book} key={book.id} />)
     ) : (
       <FlexWindowSpinner />
