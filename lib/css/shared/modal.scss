@@ -1,0 +1,114 @@
+.modal {
+  font-size: 1rem;
+  color: $main-color-darkest;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  max-width: 600px;
+  transform: translate(-50%, -50%);
+  background-color: $white;
+  border-radius: $radius;
+  z-index: $z-index-modal;
+  @include shadow;
+
+  &__header {
+    background-color: $color3;
+    color: $white;
+    display: flex;
+    align-items: center;
+    padding: $padding;
+  }
+
+  &__title {
+    font-size: 1.3rem;
+    flex: 1 0 0;
+  }
+
+  &__close-button {
+    flex: 0 0 auto;
+    cursor: pointer;
+
+    .mdi-icon {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__content {
+    padding: $padding;
+
+    &--no-padding {
+      padding: 0;
+    }
+  }
+}
+
+.screen {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: $z-index-screen;
+
+  &--dark {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  &--light {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Animations
+.modal-with-screen {
+  &--enter {
+    .screen {
+      opacity: 0.01;
+    }
+
+    .modal {
+      opacity: 0.01;
+      top: 45%;
+    }
+  }
+
+  &--enter-active {
+    .screen {
+      opacity: 1;
+      transition: opacity 0.2s ease-in;
+    }
+
+    .modal {
+      opacity: 1;
+      top: 50%;
+      transition: opacity 0.2s ease-in, top 0.2s;
+    }
+  }
+
+  &--exit {
+    .screen {
+      opacity: 1;
+    }
+
+    .modal {
+      opacity: 1;
+      top: 50%;
+    }
+  }
+
+  &--exit-active {
+    .screen {
+      opacity: 0.01;
+      transition: opacity 0.1s ease-in;
+    }
+
+    .modal {
+      opacity: 0.01;
+      top: 45%;
+      transition: opacity 0.15s ease-in, top 0.2s;
+    }
+  }
+}
