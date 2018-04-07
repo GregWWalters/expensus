@@ -1,7 +1,10 @@
 import c from 'classnames'
 import m from 'moment'
 import React from 'react'
+import { connect } from 'react-redux'
+import State from '../../../types/state'
 import { TransactionForClient } from '../../../types/state/transaction'
+import { openEditTransactionModal } from '../../actions/TransactionActions'
 import { isCurrentYear } from '../../utils/date'
 import { formatTransactionAmount } from '../../utils/money'
 import { TransactionBook } from './TransactionBook'
@@ -11,14 +14,27 @@ interface OwnProps {
   transaction: TransactionForClient
 }
 
-const TransactionListItem: React.SFC<OwnProps> = ({ transaction }) => (
+interface DispatchProps {
+  openEditModal: () => void
+}
+
+type Props = OwnProps & DispatchProps
+
+const TransactionListItem: React.SFC<Props> = ({
+  openEditModal,
+  transaction,
+}) => (
   <div className="transaction-list-item">
     <div className="transaction-list-item__date">
       {isCurrentYear(m(transaction.date))
         ? m(transaction.date).format('MMM-D')
         : m(transaction.date).format('MM/D/YY')}
     </div>
-    <div className="transaction-list-item__name">{transaction.name}</div>
+    <div
+      onClick={() => openEditModal()}
+      className="transaction-list-item__name">
+      {transaction.name}
+    </div>
     <div
       className={c('transaction-list-item__amount', {
         'transaction-list-item__amount--positive': Boolean(
@@ -35,4 +51,9 @@ const TransactionListItem: React.SFC<OwnProps> = ({ transaction }) => (
   </div>
 )
 
-export { TransactionListItem }
+const connected = connect<{}, DispatchProps, OwnProps, State>(
+  null,
+  dispatch => ({ openEditModal: () => dispatch(openEditTransactionModal()) })
+)(TransactionListItem)
+
+export { connected as TransactionListItem }

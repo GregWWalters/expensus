@@ -22,6 +22,7 @@ import { Header } from './components/layouts/Header'
 import { FlexWindow, FullWindow } from './components/shared/Layouts'
 import { FlexWindowSpinner } from './components/shared/Spinners'
 import { selectLoadUserStatus, selectUser } from './state/selectors/userState'
+import { ModalContainer } from './containers/ModalContainer'
 
 interface StateProps {
   user: UserForClient | null
@@ -45,6 +46,7 @@ class App extends React.Component<Props> {
               <Redirect to="/dashboard" />
             </Switch>
           </FlexWindow>
+          <ModalContainer />
         </FullWindow>
       )
     } else if (loadUserStatus === RequestState.REQUESTING) {

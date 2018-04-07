@@ -22,6 +22,8 @@ export interface TransactionForClient {
 }
 
 export default interface TransactionState {
+  editTransactionModalOpen: boolean
   loadTransactions: ApiState
+  submitTransactions: ApiState
   transactions: ReadonlyArray<TransactionForClient>
 }

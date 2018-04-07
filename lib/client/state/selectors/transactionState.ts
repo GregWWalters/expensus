@@ -14,6 +14,11 @@ export const selectTransactions = createSelector(
   transactionState => transactionState.transactions
 )
 
+export const selectIsEditTransactionModalOpen = createSelector(
+  selectTransactionState,
+  transactionState => transactionState.editTransactionModalOpen
+)
+
 // === Transaction Helper functions
 export function isTransactionFullyAllocated(
   txn: TransactionForClient

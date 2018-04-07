@@ -12,9 +12,19 @@ export const loadTransactions = createAction('LOAD_TRANSACTIONS')
 export const loadTransactionsError = createAction<ClientApiError>(
   'LOAD_TRANSACTIONS_ERROR'
 )
+export const submitTransactions = createAction('SUBMIT_TRANSACTIONS')
+export const submitTransactionsError = createAction<ClientApiError>(
+  'SUBMIT_TRANSACTIONS_ERROR'
+)
 export const setTransactions = createAction<
   ReadonlyArray<TransactionForClient>
 >('SET_TRANSACTIONS')
+export const openEditTransactionModal = createAction(
+  'OPEN_EDIT_TRANSACTION_MODAL'
+)
+export const closeEditTransactionModal = createAction(
+  'CLOSE_EDIT_TRANSACTION_MODAL'
+)
 
 export const fetchTransactions = (): ThunkAction<
   Promise<void>,
