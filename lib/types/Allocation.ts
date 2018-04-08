@@ -6,3 +6,8 @@ export interface AllocationForClient {
   transactionId: Allocation['transactionId']
   bookId: Allocation['bookId']
 }
+
+export interface NewAllocation {
+  amount: Allocation['amount']
+  bookId: Allocation['bookId']
+}

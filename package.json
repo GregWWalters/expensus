@@ -79,7 +79,7 @@
     "reflect-metadata": "^0.1.12",
     "reselect": "^3.0.1",
     "tslib": "^1.9.0",
-    "typeorm": "^0.1.12"
+    "typeorm": "^0.2.0-alpha.42"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",

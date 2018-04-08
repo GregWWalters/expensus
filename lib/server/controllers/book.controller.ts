@@ -22,7 +22,7 @@ interface CreateBookContext extends AuthedContext {
 const createBook = async (ctx: CreateBookContext, next) => {
   const { name } = ctx.request.body
   const { user } = ctx
-  const group = await Group.findOneById(user.groupId)
+  const group = await Group.findOne(user.groupId)
   if (!group) {
     ctx.throw(422, 'Group required to create book')
     throw new GroupRequiredError('Group required to create a book')
@@ -43,7 +43,7 @@ interface GetBookContext extends AuthedContext {
 
 const getBooks = async (ctx: GetBookContext, next) => {
   const { user } = ctx
-  const group = await Group.findOneById(user.groupId)
+  const group = await Group.findOne(user.groupId)
   if (!group) {
     ctx.throw(422, 'Group required to fetch books')
     throw new GroupRequiredError('Group required to fetch a book')
@@ -66,7 +66,7 @@ interface UpdateBookContext extends AuthedContext {
 
 const updateBook = async (ctx: UpdateBookContext, next) => {
   const { user } = ctx
-  const group = await Group.findOneById(user.groupId)
+  const group = await Group.findOne(user.groupId)
   if (!group) {
     ctx.throw(422, 'Group required to update book')
     throw new GroupRequiredError('Group required to fetch a book')
@@ -75,7 +75,7 @@ const updateBook = async (ctx: UpdateBookContext, next) => {
   const { id } = ctx.params
   const { name } = ctx.request.body
 
-  const book = await Book.findOneById(id)
+  const book = await Book.findOne(id)
   if (!book) {
     ctx.throw(404, 'Book not found')
   } else if (!name) {

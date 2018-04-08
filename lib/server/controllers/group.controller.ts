@@ -19,7 +19,7 @@ interface CreateGroupContext extends Koa.Context {
 const createGroup = async (ctx: CreateGroupContext, next) => {
   const { name } = ctx.request.body
   const user = ctx.user
-  const group = await Group.findOneById(user.groupId)
+  const group = await Group.findOne(user.groupId)
   if (group) {
     ctx.throw(422, 'User already member of group')
   } else {
@@ -41,7 +41,7 @@ interface GetGroupContext extends Koa.Context {
 
 const getGroup = async (ctx: GetGroupContext, next) => {
   const { user } = ctx
-  const group = await Group.findOneById(user.groupId)
+  const group = await Group.findOne(user.groupId)
   if (!group) {
     ctx.body = { group: null }
   } else {

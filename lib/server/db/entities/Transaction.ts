@@ -109,7 +109,7 @@ export class Transaction extends BaseEntity {
   @OneToMany(type => Allocation, allocation => allocation.transaction, {
     eager: true,
   })
-  allocations?: Allocation[]
+  allocations: Allocation[]
 
   // === Helper Methods ===
   toObjectForClient(): TransactionForClient {
