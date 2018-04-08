@@ -78,13 +78,13 @@
   &--enter-active {
     .screen {
       opacity: 1;
-      transition: opacity 0.2s ease-in;
+      transition: opacity 0.15s ease-in;
     }
 
     .modal {
       opacity: 1;
       top: 50%;
-      transition: opacity 0.2s ease-in, top 0.2s;
+      transition: opacity 0.15s ease-in, top 0.15s;
     }
   }
 
@@ -108,7 +108,7 @@
     .modal {
       opacity: 0.01;
       top: 45%;
-      transition: opacity 0.15s ease-in, top 0.2s;
+      transition: opacity 0.15s ease-in, top 0.15s;
     }
   }
 }

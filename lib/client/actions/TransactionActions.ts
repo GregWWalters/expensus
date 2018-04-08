@@ -12,14 +12,14 @@ export const loadTransactions = createAction('LOAD_TRANSACTIONS')
 export const loadTransactionsError = createAction<ClientApiError>(
   'LOAD_TRANSACTIONS_ERROR'
 )
-export const submitTransactions = createAction('SUBMIT_TRANSACTIONS')
-export const submitTransactionsError = createAction<ClientApiError>(
-  'SUBMIT_TRANSACTIONS_ERROR'
+export const submitTransaction = createAction('SUBMIT_TRANSACTION')
+export const submitTransactionError = createAction<ClientApiError>(
+  'SUBMIT_TRANSACTION_ERROR'
 )
 export const setTransactions = createAction<
   ReadonlyArray<TransactionForClient>
 >('SET_TRANSACTIONS')
-export const openEditTransactionModal = createAction(
+export const openEditTransactionModal = createAction<number>(
   'OPEN_EDIT_TRANSACTION_MODAL'
 )
 export const closeEditTransactionModal = createAction(

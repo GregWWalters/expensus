@@ -26,7 +26,7 @@ const TransactionBook: React.SFC<Props> = ({ books, transaction }) => (
           })
           .filter(name => !!name)
           .join(' ,')
-      : 'Not allocated'}
+      : 'Set Book'}
   </div>
 )
 

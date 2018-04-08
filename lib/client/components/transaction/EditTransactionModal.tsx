@@ -1,12 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import State from '../../../types/state'
+import { TransactionForClient } from '../../../types/state/transaction'
 import { closeEditTransactionModal } from '../../actions/TransactionActions'
-import { selectIsEditTransactionModalOpen } from '../../state/selectors/transactionState'
+import {
+  selectIsEditTransactionModalOpen,
+  selectTransactionById,
+} from '../../state/selectors/transactionState'
 import { Modal } from '../shared/Modal'
+import { EditTransactionForm } from './EditTransactionForm'
 
 interface StateProps {
-  isOpen: boolean
+  transaction: TransactionForClient | null
 }
 
 interface DispatchProps {
@@ -15,14 +20,25 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps
 
-const EditTransactionModal: React.SFC<Props> = ({ isOpen, close }) => (
-  <Modal isOpen={isOpen} onCloseClick={close} title="Edit Transaction">
-    <div>OMG it's the edit transaction modal!</div>
+const EditTransactionModal: React.SFC<Props> = ({ close, transaction }) => (
+  <Modal
+    className="edit-transaction-modal"
+    isOpen={!!transaction}
+    onCloseClick={close}
+    title="Edit Transaction">
+    {transaction && (
+      <EditTransactionForm cancelClick={close} transaction={transaction} />
+    )}
   </Modal>
 )
 
 const connected = connect<StateProps, DispatchProps, {}, State>(
-  state => ({ isOpen: selectIsEditTransactionModalOpen(state) }),
+  state => {
+    const openFor = selectIsEditTransactionModalOpen(state)
+    return {
+      transaction: selectTransactionById(state, openFor),
+    }
+  },
   dispatch => ({ close: () => dispatch(closeEditTransactionModal()) })
 )(EditTransactionModal)
 

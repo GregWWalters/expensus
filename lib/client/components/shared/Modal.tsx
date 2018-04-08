@@ -28,7 +28,7 @@ const Modal: React.SFC<Props> = ({
         exitActive: 'modal-with-screen--exit-active',
       }}
       in={isOpen}
-      timeout={200}
+      timeout={150}
       unmountOnExit={true}>
       <div className="modal-with-screen">
         <div className="screen screen--light" onClick={onCloseClick} />

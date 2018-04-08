@@ -16,7 +16,18 @@ export const selectTransactions = createSelector(
 
 export const selectIsEditTransactionModalOpen = createSelector(
   selectTransactionState,
-  transactionState => transactionState.editTransactionModalOpen
+  transactionState => transactionState.editTransactionModalOpenFor
+)
+
+export const selectTransactionById = createSelector(
+  selectTransactions,
+  (_, id: number | null) => id,
+  (transactions, id) => transactions.find(txn => txn.id === id) || null
+)
+
+export const selectSubmitTransactionsState = createSelector(
+  selectTransactionState,
+  transactionState => transactionState.submitTransaction
 )
 
 // === Transaction Helper functions

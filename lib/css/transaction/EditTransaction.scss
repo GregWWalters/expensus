@@ -1,0 +1,56 @@
+.edit-transaction {
+  .edit-transaction-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: $padding-tight;
+
+    &__date {
+      color: $pending-grey;
+      font-style: italic;
+      flex: 0 0 90px;
+    }
+
+    &__name {
+      flex: 1 0 0;
+    }
+
+    &__amount {
+      flex: 0 0 110px;
+      text-align: right;
+
+      &--positive {
+        color: $color4;
+      }
+    }
+  }
+
+  &__selector-container {
+    padding: $padding-tight;
+
+    .book-selector {
+      display: flex;
+      align-items: center;
+
+      &__label {
+        font-size: 1.1rem;
+        flex: 0 0 auto;
+        margin-right: $padding;
+      }
+
+      &__selector {
+        flex: 1 0 0;
+      }
+    }
+  }
+
+  &__button-container {
+    padding: $padding-tight;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    margin: 0 $padding;
+  }
+}

@@ -36,9 +36,9 @@ export const itemState: ItemState = {
 }
 
 export const transactionState: TransactionState = {
-  editTransactionModalOpen: false,
+  editTransactionModalOpenFor: null,
   loadTransactions: defaultApiState,
-  submitTransactions: defaultApiState,
+  submitTransaction: defaultApiState,
   transactions: [],
 }
 

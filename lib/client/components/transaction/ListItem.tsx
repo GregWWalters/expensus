@@ -53,7 +53,10 @@ const TransactionListItem: React.SFC<Props> = ({
 
 const connected = connect<{}, DispatchProps, OwnProps, State>(
   null,
-  dispatch => ({ openEditModal: () => dispatch(openEditTransactionModal()) })
+  (dispatch, props) => ({
+    openEditModal: () =>
+      dispatch(openEditTransactionModal(props.transaction.id)),
+  })
 )(TransactionListItem)
 
 export { connected as TransactionListItem }

@@ -8,13 +8,16 @@ import {
   loadTransactionsError,
   openEditTransactionModal,
   setTransactions,
-  submitTransactions,
-  submitTransactionsError,
+  submitTransaction,
+  submitTransactionError,
 } from '../../actions/TransactionActions'
 import { transactionState } from '../defaultState'
 
 // === Combined TransactionState reducer
-const editTransactionModalOpenReducer = createReducer<boolean>({}, false)
+const editTransactionModalOpenReducerFor = createReducer<number | null>(
+  {},
+  null
+)
 const transactionsReducer = createReducer<TransactionState['transactions']>(
   {},
   []
@@ -22,21 +25,24 @@ const transactionsReducer = createReducer<TransactionState['transactions']>(
 const loadTransactionsReducer = createReducer<
   TransactionState['loadTransactions']
 >({}, transactionState.loadTransactions)
-const submitTransactionsReducer = createReducer<
+const submitTransactionReducer = createReducer<
   TransactionState['loadTransactions']
->({}, transactionState.submitTransactions)
+>({}, transactionState.submitTransaction)
 
 const transactionStateReducer = combineReducers({
-  editTransactionModalOpen: editTransactionModalOpenReducer,
+  editTransactionModalOpenFor: editTransactionModalOpenReducerFor,
   loadTransactions: loadTransactionsReducer,
-  submitTransactions: submitTransactionsReducer,
+  submitTransaction: submitTransactionReducer,
   transactions: transactionsReducer,
 })
 export default transactionStateReducer
 
 // === Edit Transaction Modal Open
-editTransactionModalOpenReducer.on(openEditTransactionModal, state => true)
-editTransactionModalOpenReducer.on(closeEditTransactionModal, state => false)
+editTransactionModalOpenReducerFor.on(
+  openEditTransactionModal,
+  (state, id) => id
+)
+editTransactionModalOpenReducerFor.on(closeEditTransactionModal, state => null)
 
 // === Load Transaction Status Reducer Handlers
 loadTransactionsReducer.on(setTransactions, (state, transaction) => ({
@@ -55,17 +61,17 @@ loadTransactionsReducer.on(loadTransactionsError, (state, error) => ({
 }))
 
 // === Submit Transaction Status Reducer Handlers
-submitTransactionsReducer.on(setTransactions, (state, transaction) => ({
+submitTransactionReducer.on(setTransactions, (state, transaction) => ({
   error: null,
   status: RequestState.COMPLETED,
 }))
 
-submitTransactionsReducer.on(submitTransactions, state => ({
+submitTransactionReducer.on(submitTransaction, state => ({
   error: null,
   status: RequestState.REQUESTING,
 }))
 
-submitTransactionsReducer.on(submitTransactionsError, (state, error) => ({
+submitTransactionReducer.on(submitTransactionError, (state, error) => ({
   error,
   status: RequestState.ERROR,
 }))
