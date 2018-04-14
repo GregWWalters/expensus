@@ -28,6 +28,7 @@ const getTransactions = async (ctx: GetTransactionsContext, next) => {
       .where('transaction.itemId IN (:...itemIds)', {
         itemIds: items.map(r => r.id),
       })
+      .orderBy('date', 'DESC')
       .getMany()
     ctx.status = 200
     ctx.body = {
@@ -63,13 +64,14 @@ const updateTransaction = async (ctx: UpdateTransactionContext, next) => {
     return ctx.throw(401)
   }
 
+  let txn = transactionToUpdate
+
   if (newAllocations) {
-    await allocateTransaction(transactionToUpdate, newAllocations)
+    txn = await allocateTransaction(transactionToUpdate, newAllocations)
   }
 
-  await transactionToUpdate.reload()
   ctx.status = 200
-  ctx.body = { transaction: transactionToUpdate.toObjectForClient() }
+  ctx.body = { transaction: txn.toObjectForClient() }
 }
 
 const transactionController = {

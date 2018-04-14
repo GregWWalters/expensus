@@ -10,6 +10,7 @@ import {
   setTransactions,
   submitTransaction,
   submitTransactionError,
+  updateTransaction,
 } from '../../actions/TransactionActions'
 import { transactionState } from '../defaultState'
 
@@ -61,7 +62,12 @@ loadTransactionsReducer.on(loadTransactionsError, (state, error) => ({
 }))
 
 // === Submit Transaction Status Reducer Handlers
-submitTransactionReducer.on(setTransactions, (state, transaction) => ({
+submitTransactionReducer.on(setTransactions, (state, transactions) => ({
+  error: null,
+  status: RequestState.COMPLETED,
+}))
+
+submitTransactionReducer.on(updateTransaction, (state, transaction) => ({
   error: null,
   status: RequestState.COMPLETED,
 }))
@@ -78,3 +84,10 @@ submitTransactionReducer.on(submitTransactionError, (state, error) => ({
 
 // === Transactions Reducer Handlers
 transactionsReducer.on(setTransactions, (state, transactions) => transactions)
+
+transactionsReducer.on(updateTransaction, (transactions, transaction) => {
+  // TODO: do we need to handle a case where the transaction isnt in the list yet?
+  return transactions.map(
+    txn => (txn.id === transaction.id ? transaction : txn)
+  )
+})

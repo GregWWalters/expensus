@@ -1,6 +1,7 @@
 import { createAction } from 'redux-act'
 import { ThunkAction } from 'redux-thunk'
 import { ClientApiError } from '../../types/api'
+import { UpdateTransactionParams } from '../../types/api/transaction.types'
 import State from '../../types/state'
 import { TransactionForClient } from '../../types/state/transaction'
 import TransactionResource from '../api/resources/transaction.resource'
@@ -15,6 +16,9 @@ export const loadTransactionsError = createAction<ClientApiError>(
 export const submitTransaction = createAction('SUBMIT_TRANSACTION')
 export const submitTransactionError = createAction<ClientApiError>(
   'SUBMIT_TRANSACTION_ERROR'
+)
+export const updateTransaction = createAction<TransactionForClient>(
+  'UPDATE_TRANSACTION'
 )
 export const setTransactions = createAction<
   ReadonlyArray<TransactionForClient>
@@ -47,4 +51,26 @@ export const fetchTransactions = (): ThunkAction<
   }
 
   dispatch(setTransactions(resp.transactions))
+}
+
+export const submitUpdateTransactionRequest = (
+  params: UpdateTransactionParams
+): ThunkAction<Promise<void>, State, null> => async (dispatch, getState) => {
+  const user = selectUser(getState())
+  if (!user) throw new UserRequiredError('User required to update items')
+  if (!user.groupId) {
+    throw new GroupRequiredError('Group required to update items')
+  }
+
+  // TODO: make this specific to a single transaction id
+  dispatch(submitTransaction())
+  const transactionApi = new TransactionResource(getState(), dispatch)
+  const resp = await transactionApi.updateTransaction(params)
+
+  if ('err' in resp) {
+    dispatch(submitTransactionError(resp.err))
+    return
+  }
+
+  dispatch(updateTransaction(resp.transaction))
 }

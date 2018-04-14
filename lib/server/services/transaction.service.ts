@@ -17,6 +17,7 @@ export const allocateTransaction = async (
     await newAllocation.save()
   }
 
-  await transaction.reload()
-  return transaction
+  const updatedTxn = await Transaction.findOne(transaction.id)
+  if (!updatedTxn) throw new Error('Reloaded transaction not found')
+  return updatedTxn
 }

@@ -1,14 +1,15 @@
 import c from 'classnames'
 import m from 'moment'
-import React from 'react'
+import React, { FormEvent } from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
-import { ApiState } from '../../../types'
+import { ApiState, RequestState } from '../../../types'
+import { UpdateTransactionParams } from '../../../types/api/transaction.types'
 import State from '../../../types/state'
 import { BookForClient } from '../../../types/state/book'
 import { TransactionForClient } from '../../../types/state/transaction'
-import { submitTransaction } from '../../actions/TransactionActions'
+import { submitUpdateTransactionRequest } from '../../actions/TransactionActions'
 import { selectBooks } from '../../state/selectors/bookState'
 import { selectSubmitTransactionsState } from '../../state/selectors/transactionState'
 import { formatTransactionAmount } from '../../utils/money'
@@ -25,7 +26,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  submitTransaction: () => void
+  submitTransaction: (params: UpdateTransactionParams) => void
 }
 
 interface OwnState {
@@ -76,6 +77,7 @@ class EditTransactionForm extends React.PureComponent<Props, OwnState> {
         </div>
         <div className="edit-transaction__button-container">
           <Button
+            disabled={this.submitting}
             className={c(
               'edit-transaction__button',
               'edit-transaction__button--cancel'
@@ -84,6 +86,7 @@ class EditTransactionForm extends React.PureComponent<Props, OwnState> {
             Cancel
           </Button>
           <Button
+            loading={this.submitting}
             className={c(
               'edit-transaction__button',
               'edit-transaction__button--confirm'
@@ -102,8 +105,22 @@ class EditTransactionForm extends React.PureComponent<Props, OwnState> {
     })
   }
 
-  handleSubmit() {
-    return true
+  handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const { submitTransaction, transaction } = this.props
+    const { selectedBook } = this.state
+    const params: UpdateTransactionParams = {
+      transaction,
+      newAllocations:
+        selectedBook !== undefined
+          ? [{ amount: transaction.amount || 0, bookId: selectedBook }]
+          : undefined,
+    }
+    submitTransaction(params)
+  }
+
+  get submitting() {
+    return this.props.submitTransactionState.status === RequestState.REQUESTING
   }
 }
 
@@ -113,7 +130,8 @@ const connected = connect<StateProps, DispatchProps, OwnProps, State>(
     submitTransactionState: selectSubmitTransactionsState(state),
   }),
   dispatch => ({
-    submitTransaction: () => dispatch(submitTransaction()),
+    submitTransaction: params =>
+      dispatch(submitUpdateTransactionRequest(params)),
   })
 )(EditTransactionForm)
 
