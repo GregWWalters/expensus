@@ -14,6 +14,11 @@ export const selectTransactions = createSelector(
   transactionState => transactionState.transactions
 )
 
+export const selectUnallocatedTransactions = createSelector(
+  selectTransactions,
+  transactions => transactions.filter(txn => !isTransactionFullyAllocated(txn))
+)
+
 export const selectIsEditTransactionModalOpen = createSelector(
   selectTransactionState,
   transactionState => transactionState.editTransactionModalOpenFor
