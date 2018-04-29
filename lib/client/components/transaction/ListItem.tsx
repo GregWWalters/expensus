@@ -24,17 +24,13 @@ const TransactionListItem: React.SFC<Props> = ({
   openEditModal,
   transaction,
 }) => (
-  <div className="transaction-list-item">
+  <div className="transaction-list-item" onClick={() => openEditModal()}>
     <div className="transaction-list-item__date">
       {isCurrentYear(m(transaction.date))
         ? m(transaction.date).format('MMM-D')
         : m(transaction.date).format('MM/D/YY')}
     </div>
-    <div
-      onClick={() => openEditModal()}
-      className="transaction-list-item__name">
-      {transaction.name}
-    </div>
+    <div className="transaction-list-item__name">{transaction.name}</div>
     <div
       className={c('transaction-list-item__amount', {
         'transaction-list-item__amount--positive': Boolean(

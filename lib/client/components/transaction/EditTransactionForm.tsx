@@ -43,7 +43,10 @@ interface BookOption {
 class EditTransactionForm extends React.PureComponent<Props, OwnState> {
   constructor(props: Props) {
     super(props)
-    this.state = { selectedBook: undefined }
+    const { transaction } = this.props
+    const currentBook =
+      transaction.allocations.length && transaction.allocations[0].bookId
+    this.state = { selectedBook: currentBook || undefined }
   }
 
   render() {

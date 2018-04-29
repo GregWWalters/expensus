@@ -23,6 +23,8 @@ $warning-yellow: rgb(240, 173, 78);
 $warning-yellow-background: lighten($warning-yellow, 35%);
 $pending-grey: #ababab;
 $pending-grey-lighter: lighten($pending-grey, 20%);
+$list-item-grey: lighten($main-color, 38%);
+$list-item-hover: lighten($main-color, 30%);
 
 $transparent-20: rgba(255, 255, 255, 0.2);
 $transparent-50: rgba(255, 255, 255, 0.5);

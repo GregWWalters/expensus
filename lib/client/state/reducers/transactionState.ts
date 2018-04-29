@@ -62,7 +62,7 @@ loadTransactionsReducer.on(loadTransactionsError, (state, error) => ({
 }))
 
 // === Submit Transaction Status Reducer Handlers
-submitTransactionReducer.on(setTransactions, (state, transactions) => ({
+submitTransactionReducer.on(updateTransaction, (state, transactions) => ({
   error: null,
   status: RequestState.COMPLETED,
 }))
@@ -80,6 +80,11 @@ submitTransactionReducer.on(submitTransaction, state => ({
 submitTransactionReducer.on(submitTransactionError, (state, error) => ({
   error,
   status: RequestState.ERROR,
+}))
+
+submitTransactionReducer.on(closeEditTransactionModal, state => ({
+  ...state,
+  status: RequestState.NOT_REQUESTED,
 }))
 
 // === Transactions Reducer Handlers

@@ -31,6 +31,7 @@
     .book-selector {
       display: flex;
       align-items: center;
+      cursor: pointer;
 
       &__label {
         font-size: 1.1rem;
