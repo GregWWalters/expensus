@@ -26,12 +26,12 @@ const Header: React.SFC<Props> = ({ match, logout }) => {
         <NavLink className="header__nav-item" to="/group">
           Group
         </NavLink>
-        <NavLink className="header__nav-item" to="/user">
+        {/* <NavLink className="header__nav-item" to="/user">
           User
         </NavLink>
         <NavLink className="header__nav-item" to="/notifications">
           Notifications
-        </NavLink>
+        </NavLink> */}
         <a onClick={logout} className="header__nav-item">
           Logout
         </a>

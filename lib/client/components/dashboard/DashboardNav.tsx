@@ -16,12 +16,12 @@ const DashboardNav: React.SFC<RouteComponentProps<{}>> = ({ match }) => {
         to={`${match.url}/transactions`}>
         Transactions
       </NavLink>
-      <NavLink
+      {/* <NavLink
         className="dashboard-nav__nav-item"
         activeClassName="dashboard-nav__nav-item--active"
         to={`${match.url}/analysis`}>
         Analysis
-      </NavLink>
+      </NavLink> */}
     </div>
   )
 }

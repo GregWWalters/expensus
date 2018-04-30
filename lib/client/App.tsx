@@ -21,8 +21,8 @@ import { Group } from './components/group/Group'
 import { Header } from './components/layouts/Header'
 import { FlexWindow, FullWindow } from './components/shared/Layouts'
 import { FlexWindowSpinner } from './components/shared/Spinners'
-import { selectLoadUserStatus, selectUser } from './state/selectors/userState'
 import { ModalContainer } from './containers/ModalContainer'
+import { selectLoadUserStatus, selectUser } from './state/selectors/userState'
 
 interface StateProps {
   user: UserForClient | null
@@ -42,7 +42,7 @@ class App extends React.Component<Props> {
             <Switch>
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/group" component={Group} />
-              <Route path="/user" render={() => <div>User</div>} />
+              {/* <Route path="/user" render={() => <div>User</div>} /> */}
               <Redirect to="/dashboard" />
             </Switch>
           </FlexWindow>
