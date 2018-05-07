@@ -29,6 +29,7 @@ export const jwtAuth: Koa.Middleware = async (ctx: AuthContext, next) => {
   try {
     const decoded = verifyToken(token) as ApiTokenPayload
     if (!decoded.email) return ctx.throw(401)
+    ctx.tokenPayload = decoded
   } catch (error) {
     return ctx.throw(401)
   }
