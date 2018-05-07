@@ -51,7 +51,7 @@ export const loadUser: Koa.Middleware = async (
 
 export const loadGroup: Koa.Middleware = async (ctx: AuthedContext, next) => {
   const { user } = ctx
-  ctx.group = await Group.findOne(user.groupId)
+  ctx.group = await Group.findOne(user.groupId || undefined)
   if (!ctx.group) return ctx.throw(422, 'Group required for operation')
   return next()
 }

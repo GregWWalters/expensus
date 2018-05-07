@@ -8,11 +8,7 @@ import req from '../api/req'
 import AuthResource from '../api/resources/auth.resource'
 import { STORAGE_TOKEN_KEY } from '../constants'
 import { selectLoginStatus, selectSignupStatus } from '../state/selectors/auth'
-import { fetchBooks } from './BookActions'
-import { fetchGroup } from './GroupActions'
-import { fetchItems } from './ItemActions'
-import { fetchTransactions } from './TransactionActions'
-import { setUser } from './UserActions'
+import { bootstrapUser, setUser } from './UserActions'
 
 // BASIC ACTIONS
 export const setApiToken = createAction<string>('SET_API_TOKEN')
@@ -53,10 +49,7 @@ export const submitLogin = (
   dispatch(setApiToken(resp.apiToken))
   dispatch(setUser(resp.user))
   dispatch(loginSuccess())
-  dispatch(fetchGroup())
-  dispatch(fetchItems())
-  dispatch(fetchTransactions())
-  dispatch(fetchBooks())
+  dispatch(bootstrapUser())
 }
 
 export const submitSignup = (

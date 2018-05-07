@@ -6,7 +6,8 @@ import State from '../../types/state'
 import { UserForClient } from '../../types/state/user'
 import UserResource from '../api/resources/user.resource'
 import { STORAGE_TOKEN_KEY } from '../constants'
-import { selectLoadUserStatus } from '../state/selectors/userState'
+import UserRequiredError from '../errors/UserRequiredError'
+import { selectLoadUserStatus, selectUser } from '../state/selectors/userState'
 import { loginSuccess, setApiToken } from './AuthActions'
 import { fetchBooks } from './BookActions'
 import { fetchGroup } from './GroupActions'
@@ -47,11 +48,21 @@ export const fetchUser = (): ThunkAction<Promise<void>, State, null> => async (
   dispatch(setApiToken(resp.apiToken))
   dispatch(setUser(resp.user))
   dispatch(loginSuccess())
+  dispatch(bootstrapUser())
+}
 
-  // once we've fetched the user, we should go ahead and fetch their group too
-  // TODO: should we just return this alongside the user always?
-  dispatch(fetchGroup())
-  dispatch(fetchItems())
-  dispatch(fetchTransactions())
-  dispatch(fetchBooks())
+export const bootstrapUser = (): ThunkAction<
+  Promise<void>,
+  State,
+  null
+> => async (dispatch, getState) => {
+  const state = getState()
+  const user = selectUser(state)
+  if (!user) throw new UserRequiredError('User required to bootstrap')
+  if (user.groupId) {
+    dispatch(fetchGroup())
+    dispatch(fetchItems())
+    dispatch(fetchTransactions())
+    dispatch(fetchBooks())
+  }
 }

@@ -19,19 +19,16 @@ interface CreateGroupContext extends Koa.Context {
 const createGroup = async (ctx: CreateGroupContext, next) => {
   const { name } = ctx.request.body
   const user = ctx.user
-  const group = await Group.findOne(user.groupId)
-  if (group) {
-    ctx.throw(422, 'User already member of group')
-  } else {
-    // TODO: factor this out into model or service layer
-    const newGroup = new Group()
-    newGroup.name = name
-    newGroup.owner = user
-    newGroup.users = [user]
-    await newGroup.save()
-    ctx.status = 201
-    ctx.body = { group: newGroup.toObjectForClient() }
-  }
+  const group = await Group.findOne(user.groupId || undefined)
+  if (group) return ctx.throw(422, 'User already member of group')
+  // TODO: factor this out into some kind of factory
+  const newGroup = new Group()
+  newGroup.name = name
+  newGroup.owner = user
+  newGroup.users = [user]
+  await newGroup.save()
+  ctx.status = 201
+  ctx.body = { group: newGroup.toObjectForClient() }
 }
 
 interface GetGroupContext extends Koa.Context {
@@ -41,12 +38,8 @@ interface GetGroupContext extends Koa.Context {
 
 const getGroup = async (ctx: GetGroupContext, next) => {
   const { user } = ctx
-  const group = await Group.findOne(user.groupId)
-  if (!group) {
-    ctx.body = { group: null }
-  } else {
-    ctx.body = { group: group.toObjectForClient() }
-  }
+  const group = await Group.findOne(user.groupId || undefined)
+  ctx.body = { group: group ? group.toObjectForClient() : null }
 }
 
 const GroupController = {

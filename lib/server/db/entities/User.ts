@@ -26,7 +26,7 @@ export class User extends BaseEntity {
 
   // === Relationships ===
   @Column({ nullable: true })
-  groupId: number
+  groupId: number | null
   @ManyToOne(type => Group, group => group.users)
   @JoinColumn()
   group?: Group
