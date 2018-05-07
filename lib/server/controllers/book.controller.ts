@@ -37,11 +37,11 @@ const createBook = async (ctx: CreateBookContext, next) => {
   ctx.body = { book: newBook }
 }
 
-interface GetBookContext extends AuthedContext {
+interface GetBooksContext extends AuthedContext {
   body: GetBooksResponseBody
 }
 
-const getBooks = async (ctx: GetBookContext, next) => {
+const getBooks = async (ctx: GetBooksContext, next) => {
   const { user } = ctx
   const group = await Group.findOne(user.groupId)
   if (!group) {
