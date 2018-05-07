@@ -9,6 +9,7 @@ import {
 } from 'typeorm'
 import { GroupForClient } from '../../../types/state/group'
 import { Book } from './Book'
+import { Category } from './Category'
 import { Item } from './Item'
 import { User } from './User'
 
@@ -33,7 +34,10 @@ export class Group extends BaseEntity {
   items?: Item[]
 
   @OneToMany(type => Book, book => book.group)
-  books?: Book
+  books?: Book[]
+
+  @OneToMany(type => Category, category => category.group)
+  categories?: Category[]
 
   // === Class Methods ===
   toObjectForClient(): GroupForClient {

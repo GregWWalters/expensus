@@ -30,15 +30,10 @@ interface GetItemsContext extends AuthedContext {
 }
 
 const getItems = async (ctx: GetItemsContext, next) => {
-  const { user } = ctx
-  if (user.groupId) {
-    const items = await Item.find({ where: { groupId: user.groupId } })
-    ctx.status = items.length > 0 ? 200 : 204
-    ctx.body = { items: items.map(item => item.toObjectForClient()) }
-  } else {
-    ctx.status = 204
-    ctx.body = { items: [] }
-  }
+  const { group } = ctx
+  const items = await Item.find({ where: { groupId: group.id } })
+  ctx.status = items.length > 0 ? 200 : 204
+  ctx.body = { items: items.map(item => item.toObjectForClient()) }
 }
 
 const ItemController = {

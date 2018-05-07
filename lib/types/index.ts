@@ -13,3 +13,7 @@ export interface ApiState {
   status: RequestState
   error: ClientApiError | null
 }
+
+export interface ApiUpdateState extends ApiState {
+  id: number | null
+}

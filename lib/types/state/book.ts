@@ -1,5 +1,5 @@
 import { Book } from '../../server/db/entities/Book'
-import { ApiState } from '../index'
+import { ApiState, ApiUpdateState } from '../index'
 
 export interface BookForClient {
   id: Book['id']
@@ -10,6 +10,6 @@ export interface BookForClient {
 export interface BookState {
   loadBooks: ApiState
   submitBook: ApiState
-  updateBook: ApiState & { id: number | null }
+  updateBook: ApiUpdateState
   books: ReadonlyArray<BookForClient>
 }

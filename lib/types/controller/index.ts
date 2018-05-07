@@ -1,4 +1,5 @@
 import Koa, { Middleware } from 'Koa'
+import { Group } from '../../server/db/entities/Group'
 import { User } from '../../server/db/entities/User'
 
 export interface Controller {
@@ -6,5 +7,9 @@ export interface Controller {
 }
 
 export interface AuthedContext extends Koa.Context {
-  user: User
+  readonly user: User
+}
+
+export interface GroupAuthedContext extends AuthedContext {
+  readonly group: Group
 }

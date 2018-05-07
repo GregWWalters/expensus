@@ -1,5 +1,4 @@
 import Koa from 'koa'
-import GroupRequiredError from '../../client/errors/GroupRequiredError'
 import {
   CreateBookParams,
   CreateBookResponseBody,
@@ -7,26 +6,20 @@ import {
   UpdateBookParams,
   UpdateBookResponseBody,
 } from '../../types/api/book'
-import { AuthedContext } from '../../types/controller'
+import { GroupAuthedContext } from '../../types/controller'
 import { Book } from '../db/entities/Book'
-import { Group } from '../db/entities/Group'
 
 interface CreateBookRequest extends Koa.Request {
   body: CreateBookParams
 }
-interface CreateBookContext extends AuthedContext {
+interface CreateBookContext extends GroupAuthedContext {
   request: CreateBookRequest
   body: CreateBookResponseBody
 }
 
 const createBook = async (ctx: CreateBookContext, next) => {
   const { name } = ctx.request.body
-  const { user } = ctx
-  const group = await Group.findOne(user.groupId)
-  if (!group) {
-    ctx.throw(422, 'Group required to create book')
-    throw new GroupRequiredError('Group required to create a book')
-  }
+  const { group } = ctx
 
   // TODO: extract this into either the model or a service layer
   const newBook = new Book()
@@ -37,18 +30,12 @@ const createBook = async (ctx: CreateBookContext, next) => {
   ctx.body = { book: newBook }
 }
 
-interface GetBooksContext extends AuthedContext {
+interface GetBooksContext extends GroupAuthedContext {
   body: GetBooksResponseBody
 }
 
 const getBooks = async (ctx: GetBooksContext, next) => {
-  const { user } = ctx
-  const group = await Group.findOne(user.groupId)
-  if (!group) {
-    ctx.throw(422, 'Group required to fetch books')
-    throw new GroupRequiredError('Group required to fetch a book')
-  }
-
+  const { group } = ctx
   const books = await Book.find({ where: { groupId: group.id } })
   ctx.status = books.length ? 200 : 204
   ctx.body = { books }
@@ -58,34 +45,25 @@ interface UpdateBookRequest extends Koa.Request {
   body: UpdateBookParams
 }
 
-interface UpdateBookContext extends AuthedContext {
+interface UpdateBookContext extends GroupAuthedContext {
   request: UpdateBookRequest
   body: UpdateBookResponseBody
   params: { id: string }
 }
 
 const updateBook = async (ctx: UpdateBookContext, next) => {
-  const { user } = ctx
-  const group = await Group.findOne(user.groupId)
-  if (!group) {
-    ctx.throw(422, 'Group required to update book')
-    throw new GroupRequiredError('Group required to fetch a book')
-  }
-
   const { id } = ctx.params
   const { name } = ctx.request.body
 
   const book = await Book.findOne(id)
-  if (!book) {
-    ctx.throw(404, 'Book not found')
-  } else if (!name) {
-    ctx.throw(400, 'Name required to update book name')
-  } else {
-    book.name = name
-    await book.save()
-    ctx.status = 200
-    ctx.body = { book }
-  }
+
+  if (!book) return ctx.throw(404, 'Book not found')
+  if (!name) return ctx.throw(400, 'Name required to update book name')
+
+  book.name = name
+  await book.save()
+  ctx.status = 200
+  ctx.body = { book }
 }
 
 const BookController = {

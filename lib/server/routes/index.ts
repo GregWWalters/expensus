@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { jwtAuth } from '../middleware/auth.middleware'
+import { jwtAuth, loadGroup, loadUser } from '../middleware/auth.middleware'
 import auth from './auth.routes'
 import book from './book.routes'
 import group from './group.routes'
@@ -14,10 +14,14 @@ const router = new Router()
 router.use('/auth', auth.routes(), auth.allowedMethods())
 router.use('/webhook', webhook.routes(), webhook.allowedMethods())
 
-// === Protected Routes
+// === User Protected Routes
 router.use(jwtAuth)
-router.use('/group', group.routes(), group.allowedMethods())
+router.use(loadUser)
 router.use('/user', user.routes(), user.allowedMethods())
+router.use('/group', group.routes(), group.allowedMethods())
+
+// === Group Protected Routes
+router.use(loadGroup)
 router.use('/item', item.routes(), item.allowedMethods())
 router.use('/transaction', transaction.routes(), transaction.allowedMethods())
 router.use('/book', book.routes(), book.allowedMethods())

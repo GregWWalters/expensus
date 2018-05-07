@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken'
 import Koa from 'koa'
 import { ApiTokenPayload } from '../../types/api/auth'
+import { AuthedContext } from '../../types/controller'
 import config from '../config'
+import { Group } from '../db/entities/Group'
 import { User } from '../db/entities/User'
 
 // TODO: implement expiration
@@ -23,18 +25,33 @@ interface AuthContext extends Koa.Context {
 
 export const jwtAuth: Koa.Middleware = async (ctx: AuthContext, next) => {
   const token = extractJwt(ctx.headers.authorization)
-  if (!token) {
-    return ctx.throw(400)
-  } else {
-    try {
-      const decoded = verifyToken(token) as ApiTokenPayload
-      if (!decoded.email) return ctx.throw(401)
-      const user = await User.findOne({ where: { email: decoded.email } })
-      if (!user) return ctx.throw(401)
-      ctx.user = user
-    } catch (e) {
-      return ctx.throw(401)
-    }
-    return next()
+  if (!token) return ctx.throw(400)
+  try {
+    const decoded = verifyToken(token) as ApiTokenPayload
+    if (!decoded.email) return ctx.throw(401)
+  } catch (error) {
+    return ctx.throw(401)
   }
+  return next()
+}
+
+interface TokenPayloadContext extends AuthContext {
+  tokenPayload: ApiTokenPayload
+}
+
+export const loadUser: Koa.Middleware = async (
+  ctx: TokenPayloadContext,
+  next
+) => {
+  const user = await User.findOne({ where: { email: ctx.tokenPayload.email } })
+  if (!user) return ctx.throw(401)
+  ctx.user = user
+  return next()
+}
+
+export const loadGroup: Koa.Middleware = async (ctx: AuthedContext, next) => {
+  const { user } = ctx
+  ctx.group = await Group.findOne(user.groupId)
+  if (!ctx.group) return ctx.throw(422, 'Group required for operation')
+  return next()
 }
