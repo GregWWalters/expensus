@@ -3,7 +3,7 @@ import {
   GetTransactionsResponseBody,
   UpdateTransactionParams,
   UpdateTransactionResponseBody,
-} from '../../../types/api/transaction.types'
+} from '../../../types/api/transaction'
 import { ApiResource } from '../ApiResource'
 
 export default class TransactionResource extends ApiResource {

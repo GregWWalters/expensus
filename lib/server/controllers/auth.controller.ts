@@ -4,7 +4,7 @@ import {
   LoginResponseBody,
   SignupParams,
   SignupResponseBody,
-} from '../../types/api/auth.types'
+} from '../../types/api/auth'
 import { Controller } from '../../types/controller'
 import { User } from '../db/entities/User'
 import { createToken } from '../middleware/auth.middleware'

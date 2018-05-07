@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { UpdateBookParams } from '../../../types/api/book.types'
+import { UpdateBookParams } from '../../../types/api/book'
 import State from '../../../types/state'
 import { BookForClient } from '../../../types/state/book'
 import { submitUpdateBookRequest } from '../../actions/BookActions'

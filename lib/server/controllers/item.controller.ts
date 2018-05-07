@@ -3,7 +3,7 @@ import {
   CreateItemParams,
   CreateItemResponseBody,
   GetItemsResponseBody,
-} from '../../types/api/item.types'
+} from '../../types/api/item'
 import { AuthedContext } from '../../types/controller'
 import { Item } from '../db/entities/Item'
 import ItemService from '../services/item.service'

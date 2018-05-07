@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import Koa from 'koa'
-import { ApiTokenPayload } from '../../types/api/auth.types'
+import { ApiTokenPayload } from '../../types/api/auth'
 import config from '../config'
 import { User } from '../db/entities/User'
 

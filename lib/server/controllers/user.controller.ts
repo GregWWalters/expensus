@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import { FetchUserResponseBody } from '../../types/api/user.types'
+import { FetchUserResponseBody } from '../../types/api/user'
 import { Controller } from '../../types/controller'
 import { User } from '../db/entities/User'
 import { createToken } from '../middleware/auth.middleware'

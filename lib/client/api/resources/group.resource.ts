@@ -1,7 +1,7 @@
 import {
   CreateGroupResponseBody,
   FetchGroupResponseBody,
-} from '../../../types/api/group.types'
+} from '../../../types/api/group'
 import { ApiResource } from '../ApiResource'
 
 export default class GroupResource extends ApiResource {

@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { RequestState } from '../../../types'
 import { ClientApiError } from '../../../types/api'
-import { SignupParams } from '../../../types/api/auth.types'
+import { SignupParams } from '../../../types/api/auth'
 import State from '../../../types/state'
 import { submitSignup } from '../../actions/AuthActions'
 import {

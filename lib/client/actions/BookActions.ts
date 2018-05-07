@@ -1,7 +1,7 @@
 import { createAction } from 'redux-act'
 import { ThunkAction } from 'redux-thunk'
 import { ClientApiError } from '../../types/api'
-import { UpdateBookParams } from '../../types/api/book.types'
+import { UpdateBookParams } from '../../types/api/book'
 import State from '../../types/state'
 import { BookForClient } from '../../types/state/book'
 import BookResource from '../api/resources/book.resource'

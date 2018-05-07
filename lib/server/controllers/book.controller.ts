@@ -6,7 +6,7 @@ import {
   GetBooksResponseBody,
   UpdateBookParams,
   UpdateBookResponseBody,
-} from '../../types/api/book.types'
+} from '../../types/api/book'
 import { AuthedContext } from '../../types/controller'
 import { Book } from '../db/entities/Book'
 import { Group } from '../db/entities/Group'

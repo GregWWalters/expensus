@@ -3,7 +3,7 @@ import {
   CreateGroupParams,
   CreateGroupResponseBody,
   FetchGroupResponseBody,
-} from '../../types/api/group.types'
+} from '../../types/api/group'
 import { Group } from '../db/entities/Group'
 import { User } from '../db/entities/User'
 

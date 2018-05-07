@@ -2,7 +2,7 @@ import {
   CreateItemParams,
   CreateItemResponseBody,
   GetItemsResponseBody,
-} from '../../../types/api/item.types'
+} from '../../../types/api/item'
 import { ApiResource } from '../ApiResource'
 
 export default class ItemResource extends ApiResource {

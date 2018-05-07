@@ -4,7 +4,7 @@ import {
   GetBooksResponseBody,
   UpdateBookParams,
   UpdateBookResponseBody,
-} from '../../../types/api/book.types'
+} from '../../../types/api/book'
 import { ApiResource } from '../ApiResource'
 
 export default class BookResource extends ApiResource {

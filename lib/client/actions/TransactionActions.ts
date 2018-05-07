@@ -1,7 +1,7 @@
 import { createAction } from 'redux-act'
 import { ThunkAction } from 'redux-thunk'
 import { ClientApiError } from '../../types/api'
-import { UpdateTransactionParams } from '../../types/api/transaction.types'
+import { UpdateTransactionParams } from '../../types/api/transaction'
 import State from '../../types/state'
 import { TransactionForClient } from '../../types/state/transaction'
 import TransactionResource from '../api/resources/transaction.resource'

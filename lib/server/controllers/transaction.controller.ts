@@ -4,7 +4,7 @@ import {
   GetTransactionsResponseBody,
   UpdateTransactionParams,
   UpdateTransactionResponseBody,
-} from '../../types/api/transaction.types'
+} from '../../types/api/transaction'
 import { AuthedContext } from '../../types/controller'
 import { Item } from '../db/entities/Item'
 import { Transaction } from '../db/entities/Transaction'

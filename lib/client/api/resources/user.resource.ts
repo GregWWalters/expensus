@@ -1,4 +1,4 @@
-import { FetchUserResponseBody } from '../../../types/api/user.types'
+import { FetchUserResponseBody } from '../../../types/api/user'
 import { ApiResource } from '../ApiResource'
 
 export default class UserResource extends ApiResource {

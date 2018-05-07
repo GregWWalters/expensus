@@ -3,7 +3,7 @@ import {
   LoginResponseBody,
   SignupParams,
   SignupResponseBody,
-} from '../../../types/api/auth.types'
+} from '../../../types/api/auth'
 import { ApiResource } from '../ApiResource'
 
 export default class AuthResource extends ApiResource {
