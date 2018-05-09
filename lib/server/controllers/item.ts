@@ -6,7 +6,7 @@ import {
 } from '../../types/api/item'
 import { AuthedContext } from '../../types/controller'
 import { Item } from '../db/entities/Item'
-import ItemService from '../services/item.service'
+import ItemService from '../services/item'
 
 interface CreateItemRequest extends Koa.Request {
   body: CreateItemParams

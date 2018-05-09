@@ -7,8 +7,8 @@ import {
 } from '../../types/api/auth'
 import { Controller } from '../../types/controller'
 import { User } from '../db/entities/User'
-import { createToken } from '../middleware/auth.middleware'
-import { hashPassword, verifyPassword } from '../services/auth.service'
+import { createToken } from '../middleware/auth'
+import { hashPassword, verifyPassword } from '../services/auth'
 
 const AuthController: Controller = {}
 

@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import BookController from '../controllers/book.controller'
+import BookController from '../controllers/book'
 
 const book = new Router()
 book.get('/', BookController.getBooks)

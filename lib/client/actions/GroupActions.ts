@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk'
 import { ClientApiError } from '../../types/api'
 import State from '../../types/state'
 import { GroupForClient } from '../../types/state/group'
-import GroupResource from '../api/resources/group.resource'
+import GroupResource from '../api/resources/group'
 import UserRequiredError from '../errors/UserRequiredError'
 import { selectUser } from '../state/selectors/userState'
 

@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import TransactionController from '../controllers/transaction.controller'
+import TransactionController from '../controllers/transaction'
 
 const transaction = new Router()
 

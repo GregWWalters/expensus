@@ -1,13 +1,13 @@
 import Router from 'koa-router'
-import { jwtAuth, loadGroup, loadUser } from '../middleware/auth.middleware'
-import auth from './auth.routes'
-import book from './book.routes'
-import category from './category.routes'
-import group from './group.routes'
-import item from './item.routes'
-import transaction from './transaction.routes'
-import user from './user.routes'
-import webhook from './webhook.routes'
+import { jwtAuth, loadGroup, loadUser } from '../middleware/auth'
+import auth from './auth'
+import book from './book'
+import category from './category'
+import group from './group'
+import item from './item'
+import transaction from './transaction'
+import user from './user'
+import webhook from './webhook'
 
 const router = new Router()
 

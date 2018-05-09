@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import ItemController from '../controllers/item.controller'
+import ItemController from '../controllers/item'
 
 const item = new Router()
 

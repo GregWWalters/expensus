@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import GroupController from '../controllers/group.controller'
+import GroupController from '../controllers/group'
 
 const group = new Router()
 

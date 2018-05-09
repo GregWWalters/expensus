@@ -8,7 +8,7 @@ import {
 import { GroupAuthedContext } from '../../types/controller'
 import { Item } from '../db/entities/Item'
 import { Transaction } from '../db/entities/Transaction'
-import { allocateTransaction } from '../services/transaction.service'
+import { allocateTransaction } from '../services/transaction'
 
 interface GetTransactionsRequest extends Koa.Request {
   body: GetTransactionsParams

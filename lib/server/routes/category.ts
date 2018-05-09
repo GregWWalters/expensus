@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import CategoryController from '../controllers/category.controller'
+import CategoryController from '../controllers/category'
 
 const category = new Router()
 category.get('/', CategoryController.getCategories)

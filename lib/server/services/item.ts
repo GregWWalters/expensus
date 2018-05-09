@@ -9,7 +9,7 @@ import {
   PLAID_DATE_FORMAT,
   TEN_DAYS,
 } from '../utils/date'
-import PlaidService from './plaid.service'
+import PlaidService from './plaid'
 
 export default class ItemService extends PlaidService {
   async getAccessToken(publicToken: string) {

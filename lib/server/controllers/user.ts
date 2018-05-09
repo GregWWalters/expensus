@@ -1,6 +1,6 @@
 import { FetchUserResponseBody } from '../../types/api/user'
 import { AuthedContext, Controller } from '../../types/controller'
-import { createToken } from '../middleware/auth.middleware'
+import { createToken } from '../middleware/auth'
 
 const UserController: Controller = {}
 
