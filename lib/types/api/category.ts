@@ -1,8 +1,9 @@
 import { Nullable } from '..'
+import { NormalizedCollection } from '../../server/utils/normalizer'
 import { CategoryForClient } from '../state/category'
 
 export interface GetCategoriesResponseBody {
-  categories: ReadonlyArray<CategoryForClient>
+  categories: NormalizedCollection<CategoryForClient>
 }
 
 export interface CreateCategoryParams {

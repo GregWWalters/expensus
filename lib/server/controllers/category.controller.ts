@@ -8,7 +8,9 @@ import {
   UpdateCategoryResponseBody,
 } from '../../types/api/category'
 import { GroupAuthedContext } from '../../types/controller'
+import { CategoryForClient } from '../../types/state/category'
 import { Category } from '../db/entities/Category'
+import { normalizeCollection } from '../utils/normalizer'
 
 interface GetCategoriesContext extends GroupAuthedContext {
   body: GetCategoriesResponseBody
@@ -18,7 +20,9 @@ const getCategories = async (ctx: GetCategoriesContext, next) => {
   const { group } = ctx
   const categories = await Category.findWithChildrenForGroup(group)
   ctx.body = {
-    categories: categories.map(category => category.toObjectForClient()),
+    categories: normalizeCollection<CategoryForClient>(
+      categories.map(category => category.toObjectForClient())
+    ),
   }
   ctx.status = categories.length > 0 ? 200 : 204
 }

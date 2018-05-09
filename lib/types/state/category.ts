@@ -1,5 +1,6 @@
 import { ApiState, ApiUpdateState } from '..'
 import { Category } from '../../server/db/entities/Category'
+import { NormalizedCollection } from '../../server/utils/normalizer'
 
 export interface CategoryForClient {
   id: Category['id']
@@ -9,9 +10,8 @@ export interface CategoryForClient {
 }
 
 export interface CategoryState {
-  loadCategories: ApiState
-  submitCategories: ApiState
+  getCategories: ApiState
+  addCategory: ApiState
   updateCategory: ApiUpdateState
-  byId: { [id: number]: CategoryForClient }
-  allIds: ReadonlyArray<number>
+  categories: NormalizedCollection<CategoryForClient>
 }

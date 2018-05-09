@@ -1,6 +1,8 @@
-import { ApiState, RequestState } from '../../types'
+import { NormalizedCollection } from '../../server/utils/normalizer'
+import { ApiState, ApiUpdateState, RequestState } from '../../types'
 import AuthState from '../../types/state/auth'
 import { BookState } from '../../types/state/book'
+import { CategoryForClient, CategoryState } from '../../types/state/category'
 import GroupState from '../../types/state/group'
 import State from '../../types/state/index'
 import ItemState from '../../types/state/item'
@@ -11,6 +13,17 @@ export const defaultApiState: ApiState = {
   error: null,
   status: RequestState.NOT_REQUESTED,
 }
+
+export const defaultApiUpdateState: ApiUpdateState = {
+  error: null,
+  status: RequestState.NOT_REQUESTED,
+  id: null,
+}
+
+export const makeDefaultNormalizedState = <T>(): NormalizedCollection<T> => ({
+  byId: {},
+  allIds: [],
+})
 
 export const auth: AuthState = {
   apiToken: '',
@@ -52,9 +65,17 @@ export const bookState: BookState = {
   books: [],
 }
 
+export const categoryState: CategoryState = {
+  categories: makeDefaultNormalizedState<CategoryForClient>(),
+  getCategories: defaultApiState,
+  addCategory: defaultApiState,
+  updateCategory: defaultApiUpdateState,
+}
+
 const defaultState: State = {
   auth,
   bookState,
+  categoryState,
   groupState,
   itemState,
   transactionState,

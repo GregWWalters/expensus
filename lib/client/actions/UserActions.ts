@@ -10,6 +10,7 @@ import UserRequiredError from '../errors/UserRequiredError'
 import { selectLoadUserStatus, selectUser } from '../state/selectors/userState'
 import { loginSuccess, setApiToken } from './AuthActions'
 import { fetchBooks } from './BookActions'
+import { getCategories } from './CategoryActions'
 import { fetchGroup } from './GroupActions'
 import { fetchItems } from './ItemActions'
 import { fetchTransactions } from './TransactionActions'
@@ -60,9 +61,10 @@ export const bootstrapUser = (): ThunkAction<
   const user = selectUser(state)
   if (!user) throw new UserRequiredError('User required to bootstrap')
   if (user.groupId) {
-    dispatch(fetchGroup())
+    await dispatch(fetchGroup())
     dispatch(fetchItems())
     dispatch(fetchTransactions())
     dispatch(fetchBooks())
+    dispatch(getCategories())
   }
 }
