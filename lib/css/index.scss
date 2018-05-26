@@ -43,6 +43,10 @@
 @import './book/Books';
 @import './book/BookListItem';
 
+// Category module
+@import './category/Categories';
+@import './category/ListItem';
+
 // Transaction module
 @import './transaction/EditTransaction';
 @import './transaction/EditTransactionSuccess';

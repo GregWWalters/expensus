@@ -1,0 +1,14 @@
+.categories {
+  &__header {
+    font-size: 1.7rem;
+    color: $main-color-darkest;
+    margin: 30px 30px 10px 30px;
+  }
+
+  &__sub-header {
+    font-size: 1rem;
+    font-style: italic;
+    color: $color4;
+    margin: 0 30px;
+  }
+}
